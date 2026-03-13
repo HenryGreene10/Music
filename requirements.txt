@@ -1,0 +1,7 @@
+spotipy
+python-dotenv
+pandas
+requests
+lyricsgenius
+fuzzywuzzy
+python-Levenshtein

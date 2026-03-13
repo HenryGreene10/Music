@@ -1,0 +1,833 @@
+revival_song,revival_artist,revival_peak,revival_chart_year,revival_spotify_popularity,original_song,original_artist,original_release_year,original_chart_year,original_spotify_popularity,ever_charted,original_peak,years_between,chart_jump,revival_strength,relationship_type,spotify_unresolved,story_type,revival_weeks_on_chart,original_weeks_on_chart
+10 Freaky Girls,Metro Boomin Featuring 21 Savage,42,2018,71,If Only You Knew,Patti LaBelle,1976,1984.0,49.0,1,46.0,42,4.0,42,samples,0,confirmation,4,13
+2AM,BigXthaPlug,64,2024,72,Contagious,The Isley Brothers,2001,2001.0,56.0,1,19.0,23,-45.0,64,samples,0,confirmation,3,19
+30 For 30,SZA With Kendrick Lamar,10,2025,76,When I Call Your Name,Vince Gill,1989,1980.0,62.0,1,83.0,36,73.0,10,samples,0,underdog,36,1
+360,Charli xcx,41,2024,79,"1, 2 Step (feat. Missy Elliott)","Ciara, Missy Elliott",2004,2005.0,76.0,1,2.0,20,-39.0,41,samples,0,confirmation,20,1
+360,Charli xcx,41,2024,79,Get Together,Madonna,2005,1990.0,56.0,1,8.0,19,-33.0,41,samples,0,confirmation,20,1
+360,Charli xcx,41,2024,79,Music Sounds Better With You,"Stardust, Benjamin Diamond, Alan Braxe, Thomas Bangalter",1998,1998.0,74.0,1,62.0,26,21.0,41,samples,0,confirmation,20,1
+360,Charli xcx,41,2024,79,What We Do,Crystal Kay,2012,,4.0,0,,12,,41,interpolates,0,resurrection,20,1
+4 Raws,EsDeeKid,95,2025,89,Mount Sinai,$uicideboy$,2015,,66.0,0,,10,,95,interpolates,0,resurrection,11,1
+44 More,Logic,22,2018,59,Think (About It),Lyn Collins,1972,1972.0,52.0,1,66.0,46,44.0,22,samples,0,confirmation,5,7
+4th Baby Mama,Summer Walker,56,2021,51,Liar,Profyle,2000,2001.0,39.0,1,14.0,21,-42.0,56,samples,0,confirmation,1,20
+4th Dimension,KIDS SEE GHOSTS Featuring Louis Prima,42,2018,64,Make Em' Say Uhh,"Master P, Silkk The Shocker, Mia X, Fiend",1997,1998.0,50.0,1,16.0,21,-26.0,42,interpolates,0,confirmation,1,27
+5% Tint,Travis Scott,36,2018,73,Cell Therapy,Goodie Mob,1995,1996.0,49.0,1,39.0,23,3.0,36,samples,0,confirmation,2,20
+5% Tint,Travis Scott,36,2018,73,Peepin in My Window,Lil' Keke,2001,2019.0,33.0,1,39.0,17,3.0,36,samples,0,confirmation,2,1
+5% Tint,Travis Scott,36,2018,73,Still Tippin' (feat. Slim Thug and Paul Wall),"Mike Jones, Paul Wall, Slim Thug",2005,2005.0,68.0,1,60.0,13,24.0,36,interpolates,0,confirmation,2,1
+7 Minute Drill,J. Cole,6,2024,2,Takeover,JAŸ-Z,2001,,49.0,0,,23,,6,interpolates,0,resurrection,1,1
+7 Rings,Ariana Grande,1,2019,85,My Favorite Things,"Mary Martin, Patricia Neway",1959,2005.0,16.0,1,27.0,60,26.0,1,samples,0,confirmation,33,1
+7 Rings,Ariana Grande,1,2019,85,My Favorite Things (From The Sound Of Music'),Tony Bennett Smooth Jazz Tribute Players,2007,,0.0,0,,12,,1,samples,0,resurrection,33,1
+8 Out Of 10,Drake,21,2018,64,All The Way Around,Marvin Gaye,1976,2005.0,43.0,1,27.0,42,6.0,21,samples,0,confirmation,3,1
+8 Out Of 10,Drake,21,2018,64,Crush on You (feat. Lil' Cease) - Remix,"Lil' Kim, Lil' Cease",1997,2019.0,50.0,1,39.0,21,18.0,21,samples,0,confirmation,3,1
+8 Out Of 10,Drake,21,2018,64,You're Getting A Little Too Smart,Detroit Emeralds,1973,,13.0,0,,45,,21,samples,0,resurrection,3,1
+8am In Charlotte,Drake,17,2023,69,Pound Cake / Paris Morton Music 2,"Drake, JAŸ-Z",2013,2013.0,64.0,1,65.0,10,48.0,17,interpolates,0,confirmation,3,10
+92 Explorer,Post Malone,40,2018,65,Air Raid Siren: Alert,actuality recording,2007,,38.0,0,,11,,40,samples,0,resurrection,3,1
+A Bar Song (Tipsy),Shaboozey,1,2025,82,Tipsy - Club Mix,J-Kwon,2004,2004.0,66.0,1,2.0,21,1.0,1,interpolates,0,confirmation,77,1
+A Boy Is A Gun,"Tyler, The Creator",74,2019,69,Bound,The Ponderosa Twins Plus One,1971,1995.0,54.0,1,84.0,48,10.0,74,samples,0,confirmation,1,1
+A Lot,21 Savage,12,2019,80,I Love You,East of Underground,2007,1985.0,53.0,1,1.0,12,-11.0,12,samples,0,confirmation,23,1
+ATM,J. Cole,6,2018,59,I'll Never Stop Loving You,Ahmad Jamal,1960,,36.0,0,,58,,6,samples,0,resurrection,5,1
+About Damn Time,Lizzo,1,2023,74,Hey DJ Steppers Delite,World Famous Supreme Team,2010,,11.0,0,,13,,1,samples,0,resurrection,42,1
+About Damn Time,Lizzo,1,2023,74,Turn Up the Music,Chris Brown,2012,2012.0,64.0,1,10.0,11,9.0,1,samples,0,confirmation,42,20
+Abracadabra,Lady Gaga,13,2025,82,Spellbound,Siouxsie and the Banshees,1981,,63.0,0,,44,,13,interpolates,0,resurrection,20,1
+Actin Up,Tommy Richman,96,2025,70,Crank That (Soulja Boy),Soulja Boy,2007,2008.0,77.0,1,1.0,18,-95.0,96,samples,0,confirmation,1,32
+After Hours,The Weeknd,20,2020,81,"Baby, Now That I've Found You",Alison Krauss,1995,,48.0,0,,25,,20,interpolates,0,resurrection,7,1
+Agora Hills,Doja Cat,7,2024,76,All I Do Is Think of You,Troop,1989,1990.0,61.0,1,47.0,35,40.0,7,samples,0,confirmation,39,13
+Ain't Shit,Doja Cat,24,2021,79,Ain't Shit (feat. Lois Lane),"Trina, Lois Lane",2000,2003.0,24.0,1,48.0,21,24.0,24,samples,0,confirmation,14,1
+Ain't Shit,Doja Cat,24,2021,79,Where They At - Radio Version,DJ Jimi,1992,,25.0,0,,29,,24,interpolates,0,resurrection,14,1
+Alice,Lady Gaga,84,2020,59,Freed From Desire,"Gala, Molella, Phil Jay",1997,,78.0,0,,23,,84,interpolates,0,resurrection,1,1
+Alien Superstar,Beyonce,19,2022,67,I'm Too Sexy,Right Said Fred,1992,1992.0,50.0,1,1.0,30,-18.0,19,interpolates,0,confirmation,5,21
+Alien Superstar,Beyonce,19,2022,67,Moonraker - Original Mix,Foremost Poets,2008,2020.0,25.0,1,4.0,14,-15.0,19,samples,0,confirmation,5,1
+Alien Superstar,Beyonce,19,2022,67,Unique - Is What You Are,Club 69,1994,,14.0,0,,28,,19,samples,0,resurrection,5,1
+All Girls Are The Same,Juice WRLD,41,2018,82,Man in the Mirror,Michael Jackson,1995,1988.0,68.0,1,1.0,23,-40.0,41,interpolates,0,confirmation,20,17
+All My Friends,21 Savage,67,2019,55,Need All My Friends - Quinvy Demo,Lynyrd Skynyrd,2000,2024.0,24.0,1,87.0,19,20.0,67,interpolates,0,confirmation,2,1
+All Of Me,21 Savage,18,2024,67,Wishing on a Star,Rose Royce,1977,,62.0,0,,47,,18,samples,0,resurrection,4,1
+All The Parties,Drake Featuring Chief Keef,26,2023,65,Love Sosa,Chief Keef,2012,2013.0,81.0,1,56.0,11,30.0,26,interpolates,0,confirmation,2,14
+Alone,Rod Wave,21,2022,53,U.N.I.,Ed Sheeran,2011,,52.0,0,,11,,21,interpolates,0,resurrection,5,1
+Ameriican Requiem,Beyonce,30,2024,58,For What It's Worth,Buffalo Springfield,1966,1999.0,79.0,1,68.0,58,38.0,30,interpolates,0,confirmation,1,1
+Amor Genuino,Ozuna,92,2019,54,Olvídame y Pega la Vuelta,Pimpinela,1982,,68.0,0,,37,,92,samples,0,resurrection,1,1
+Amped,Lil Uzi Vert,67,2023,49,Amped - Original Mix,Protogen,2007,2023.0,0.0,1,67.0,16,0.0,67,interpolates,0,confirmation,1,1
+Antichrist,Eminem,39,2024,57,That's All She Wrote,"T.I., Eminem",2010,2011.0,69.0,1,18.0,14,-21.0,39,interpolates,0,confirmation,1,5
+Anxiety,Doechii,9,2025,78,Seville,Luiz Bonfá,1968,,42.0,0,,57,,9,samples,0,resurrection,20,1
+Anxiety,Doechii,9,2025,78,Somebody That I Used To Know,"Gotye, Kimbra",2011,2013.0,77.0,1,1.0,14,-8.0,9,samples,0,confirmation,20,59
+Anyone,Justin Bieber,6,2021,72,Anyone Can Cook,Michael Giacchino,2007,,46.0,0,,14,,6,interpolates,0,resurrection,17,1
+Area Codes,Kaliii,33,2023,70,Area Codes,"Ludacris, Nate Dogg",2001,2001.0,64.0,1,24.0,22,-9.0,33,interpolates,0,confirmation,10,17
+As It Was,Harry Styles,1,2023,90,Take on Me,a-ha,1985,1986.0,87.0,1,1.0,38,0.0,1,samples,0,confirmation,61,27
+Auntie Diaries,Kendrick Lamar,47,2022,55,m.A.A.d city,"Kendrick Lamar, MC Eiht",2012,2014.0,64.0,1,39.0,10,-8.0,47,interpolates,0,confirmation,1,3
+Avalanche,Migos,27,2021,58,Papa Was A Rollin' Stone - Single Version,The Temptations,2000,1973.0,64.0,1,1.0,21,-26.0,27,samples,0,confirmation,2,1
+Away From Home,Drake,32,2023,63,Miss Me,"Drake, Lil Wayne",2010,2010.0,63.0,1,15.0,13,-17.0,32,interpolates,0,confirmation,1,20
+Azizam,Ed Sheeran,28,2025,82,"Do You See the Light? (Looking For) (feat. Niki Haris) (7"" Edit)","SNAP!, Niki Harris",2009,,46.0,0,,16,,28,samples,0,resurrection,14,1
+B.I.T.C.H.,Megan Thee Stallion,31,2020,51,Ratha Be Ya Nigga (ft. Richie Rich),"2Pac, Richie Rich",1996,,65.0,0,,24,,31,interpolates,0,resurrection,10,1
+BBO (Bad Bitches Only),Migos Featuring 21 Savage,48,2018,56,You've Got the Makings of a Lover,The Festivals,1967,,38.0,0,,51,,48,samples,0,resurrection,2,1
+BMF,SZA,29,2025,76,Garota De Ipanema,Antônio Carlos Jobim,2007,,64.0,0,,18,,29,interpolates,0,resurrection,20,1
+BMF,SZA,29,2025,76,The Girl From Ipanema,Stan Getz,1964,1964.0,70.0,1,5.0,61,-24.0,29,samples,0,confirmation,20,1
+Baby I'm Back,The Kid LAROI,89,2024,75,Baby Come Back,Player,1977,1978.0,80.0,1,1.0,47,-88.0,89,samples,0,confirmation,2,32
+Baby Pluto,Lil Uzi Vert,6,2020,66,Fast As You Can,Fiona Apple,1999,,56.0,0,,21,,6,samples,0,resurrection,4,1
+Baby Shark,Pinkfong,32,2019,77,Main Title And First Victim,John Williams,2000,,41.0,0,,19,,32,samples,0,resurrection,20,1
+Back To Me,¥$: Kanye West & Ty Dolla $ign,26,2024,79,Rock Box,Run–D.M.C.,1984,,45.0,0,,40,,26,samples,0,resurrection,3,1
+Back To Me,¥$: Kanye West & Ty Dolla $ign,26,2024,79,Runnin',The Pharcyde,1995,1996.0,66.0,1,55.0,29,29.0,26,interpolates,0,confirmation,3,15
+Bad Idea Right?,Olivia Rodrigo,7,2024,77,"Oh, Pretty Woman",Roy Orbison,2006,1964.0,67.0,1,1.0,18,-6.0,7,interpolates,0,confirmation,19,1
+Banned From NO,Lil Wayne,61,2025,47,Banned From TV,"Noreaga, Big Pun, Cam'Ron, Jadakiss, Nature, Styles P",1998,,44.0,0,,27,,61,samples,0,resurrection,1,1
+Barbie Dreams,Nicki Minaj,18,2018,56,Air Raid Siren: Alert,actuality recording,2007,,38.0,0,,11,,18,samples,0,resurrection,7,1
+Barbie Dreams,Nicki Minaj,18,2018,56,Blues & Pants,James Brown,1971,,25.0,0,,47,,18,samples,0,resurrection,7,1
+Barbie Dreams,Nicki Minaj,18,2018,56,Dem Boyz,Boyz N Da Hood,2005,,55.0,0,,13,,18,interpolates,0,resurrection,7,12
+Be Careful,Cardi B,11,2018,72,Ex-Factor,Ms. Lauryn Hill,1998,1999.0,75.0,1,21.0,20,10.0,11,interpolates,0,confirmation,20,22
+Be Like Me,Lil Pump Featuring Lil Wayne,72,2019,58,Billie Jean,Michael Jackson,1982,2014.0,87.0,1,1.0,37,-71.0,72,interpolates,0,confirmation,1,25
+Beauty In The Benz,Tory Lanez Featuring Snoop Dogg,87,2019,49,Beautiful,"Snoop Dogg, Pharrell Williams, Charlie Wilson",2002,2003.0,72.0,1,6.0,17,-81.0,87,samples,0,confirmation,1,20
+Beauty In The Benz,Tory Lanez Featuring Snoop Dogg,87,2019,49,I Just Wanna Love U (Give It 2 Me),JAŸ-Z,2000,2001.0,60.0,1,11.0,19,-76.0,87,samples,0,confirmation,1,21
+Before I Let Go,Beyonce,65,2019,56,Before I Let Go,"Maze, Frankie Beverly",2009,,51.0,0,,10,,65,samples,0,resurrection,16,1
+Before I Let Go,Beyonce,65,2019,56,Candy,Cameo,1986,1987.0,62.0,1,21.0,33,-44.0,65,samples,0,confirmation,16,17
+Before I Let Go,Beyonce,65,2019,56,Get Ready Ready (Remix),DJ Jubilee,1998,,12.0,0,,21,,65,samples,0,resurrection,16,1
+Beg Forgiveness,¥$: Kanye West & Ty Dolla $ign,65,2024,58,Gabriel,"Joe Goddard, Valentina",2011,,43.0,0,,13,,65,samples,0,resurrection,1,1
+Believe What I Say,Kanye West,28,2021,62,Don't Believe What They Say,Vashti Bunyan,2007,2021.0,20.0,1,28.0,14,0.0,28,interpolates,0,confirmation,2,1
+Believe What I Say,Kanye West,28,2021,62,Doo Wop (That Thing),Ms. Lauryn Hill,1998,1999.0,76.0,1,1.0,23,-27.0,28,samples,0,confirmation,2,21
+Bells,Lil Wayne,65,2025,51,Rock The Bells,LL COOL J,1985,,48.0,0,,40,,65,samples,0,resurrection,1,1
+Best Friends,The Weeknd,60,2022,62,Midnight Pretenders,Tomoko Aran,1983,,63.0,0,,39,,60,samples,0,resurrection,1,1
+Better,Zayn,89,2020,53,You Light Up My Life,Debby Boone,1977,1977.0,55.0,1,80.0,43,-9.0,89,interpolates,0,confirmation,1,25
+Betty (Get Money),Yung Gravy,30,2022,63,Never Gonna Give You Up,Rick Astley,1987,1988.0,79.0,1,1.0,35,-29.0,30,samples,0,confirmation,17,24
+Bickenhead,Cardi B,43,2018,51,Bitches - Reply,DJ Jimi,1992,,15.0,0,,26,,43,samples,0,resurrection,2,1
+Bickenhead,Cardi B,43,2018,51,Chickenhead (feat. Three 6 Mafia & La Chat),"Project Pat, Three 6 Mafia, La Chat",2001,2001.0,60.0,1,87.0,17,44.0,43,samples,0,confirmation,2,1
+Bickenhead,Cardi B,43,2018,51,This Old Man,Raffi,1980,,45.0,0,,38,,43,interpolates,0,resurrection,2,1
+Big Energy,Latto,3,2022,64,Fantasy,Mariah Carey,1995,1996.0,78.0,1,1.0,27,-2.0,3,samples,0,confirmation,51,25
+Big Energy,Latto,3,2022,64,Genius of Love,Tom Tom Club,1981,1982.0,59.0,1,31.0,41,28.0,3,samples,0,confirmation,51,17
+Big Mama,Latto,92,2024,54,Shadow Love,Jaya,1998,,4.0,0,,26,,92,samples,0,resurrection,1,1
+Big Ole Freak,Megan Thee Stallion,65,2019,72,My Love Is the Shhh!,Somethin' For The People,1997,,48.0,0,,22,,65,samples,0,resurrection,12,26
+Big Ole Freak,Megan Thee Stallion,65,2019,72,Nite and Day,Al B. Sure!,1988,1988.0,62.0,1,7.0,31,-58.0,65,samples,0,confirmation,12,21
+Big Poe,"Tyler, the Creator Featuring Sk8brd",33,2025,70,Hey Hey,Gershon Kingsley,1969,,8.0,0,,56,,33,samples,0,resurrection,2,1
+Big Poe,"Tyler, the Creator Featuring Sk8brd",33,2025,70,Pass The Courvoisier Part II (feat. P. Diddy & Pharrell) - Remix,"Busta Rhymes, Diddy, Pharrell Williams",2001,2002.0,55.0,1,11.0,24,-22.0,33,samples,0,confirmation,2,1
+Big Poe,"Tyler, the Creator Featuring Sk8brd",33,2025,70,Roked,"Shye Ben Tzur, Jonny Greenwood, The Rajasthan Express",2015,2005.0,27.0,1,2.0,10,-31.0,33,samples,0,confirmation,2,1
+Bigger Than Life,Lil Uzi Vert,33,2020,62,Take You Down,Chris Brown,2007,2008.0,69.0,1,43.0,13,10.0,33,interpolates,0,confirmation,1,20
+Billie Eilish.,Armani White,58,2023,65,Nothin',N.O.R.E.,2002,2002.0,53.0,1,10.0,21,-48.0,58,samples,0,confirmation,14,24
+Birds Of A Feather,Billie Eilish,2,2025,94,Time to Pretend,MGMT,2007,,78.0,0,,18,,2,samples,0,resurrection,67,1
+Blinding Lights,The Weeknd,1,2021,89,Take on Me,a-ha,1985,1986.0,87.0,1,1.0,36,0.0,1,interpolates,0,confirmation,90,27
+Blinding Lights,The Weeknd,1,2021,89,Young Turks,Rod Stewart,1981,1982.0,54.0,1,5.0,40,4.0,1,interpolates,0,confirmation,90,19
+Blue Green Red,Drake,63,2024,27,Blue (Da Ba Dee) - Gabry Ponte Video Edit,"Eiffel 65, Gabry Ponte",1998,2000.0,69.0,1,6.0,26,-57.0,63,samples,0,confirmation,1,1
+Blue Green Red,Drake,63,2024,27,When I Was Your Man,Bruno Mars,2012,2018.0,89.0,1,78.0,12,15.0,63,interpolates,0,confirmation,1,35
+Blue World,Mac Miller,38,2020,73,It's A Blue World,The Four Freshmen,1955,,33.0,0,,65,,38,samples,0,resurrection,2,1
+Blueberry Faygo,Lil Mosey,8,2020,70,"My, My, My",Johnny Gill,1990,1990.0,53.0,1,10.0,30,2.0,8,samples,0,confirmation,33,16
+Boa,Megan Thee Stallion,39,2024,59,What You Waiting For?,Gwen Stefani,2004,2005.0,65.0,1,47.0,20,8.0,39,samples,0,confirmation,2,20
+Bodak Yellow (Money Moves),Cardi B,1,2018,0,Da' Dip,Freak Nasty,1996,1997.0,56.0,1,15.0,22,14.0,1,interpolates,0,confirmation,34,33
+Bodega Baddie,Cardi B,53,2025,63,Ta' Buena - Remix,"Magic Juan, El Prodigio, Flia Boys",2015,,22.0,0,,10,,53,samples,0,resurrection,2,1
+Body,Summer Walker,73,2019,72,Get It Together,702,1996,1997.0,65.0,1,10.0,23,-63.0,73,samples,0,confirmation,1,20
+Bottle Rockets,Scotty McCreery & Hootie & The Blowfish,32,2025,68,Hold My Hand,Hootie & The Blowfish,1994,1995.0,67.0,1,10.0,31,-22.0,32,interpolates,0,confirmation,20,44
+Brackets,J. Cole,30,2018,55,Maybe Tomorrow,Grant Green,1971,,45.0,0,,47,,30,samples,0,resurrection,1,1
+Brackets,J. Cole,30,2018,55,Me And Those Dreamin' Eyes Of Mine,D'Angelo,1995,1996.0,53.0,1,74.0,23,44.0,30,interpolates,0,confirmation,1,6
+Brand New Dance,Eminem,25,2024,60,Brass Monkey,Beastie Boys,1986,1987.0,66.0,1,48.0,38,23.0,25,interpolates,0,confirmation,2,10
+Brand New Dance,Eminem,25,2024,60,Gotta Go Home,Boney M.,1979,,62.0,0,,45,,25,interpolates,0,resurrection,2,1
+Break My Heart,Dua Lipa,13,2020,79,Need You Tonight,INXS,1987,1988.0,68.0,1,1.0,33,-12.0,13,interpolates,0,confirmation,32,25
+Break My Soul,Beyonce,1,2022,67,Show Me Love,Robin S,1993,1993.0,75.0,1,5.0,29,4.0,1,samples,0,confirmation,18,28
+"Break Up With Your Girlfriend, I'm Bored",Ariana Grande,2,2019,76,It Makes Me Ill,*NSYNC,2000,,49.0,0,,19,,2,interpolates,0,resurrection,20,1
+Brokey,Latto,84,2025,65,Bound 2,Kanye West,2013,2014.0,83.0,1,12.0,12,-72.0,84,interpolates,0,confirmation,4,6
+Burgundy,$uicideboy$,86,2024,66,"Lullaby From Rosemary's Baby, Part 1","Krzysztof Komeda, Mia Farrow",1968,,28.0,0,,56,,86,samples,0,resurrection,1,1
+Burn,¥$: Kanye West & Ty Dolla $ign,33,2024,79,Love Me or Leave Me,Band Of Thieves,1976,,35.0,0,,48,,33,samples,0,resurrection,4,1
+Burn,Juice WRLD,34,2022,69,The magic of the Orchid,Joël Fajerman,1991,,25.0,0,,31,,34,samples,0,resurrection,4,1
+Burning Blue,Mariah the Scientist,25,2025,69,Until The End Of Time (with Beyoncé),"Justin Timberlake, Beyoncé",2006,2008.0,63.0,1,17.0,19,-8.0,25,interpolates,0,confirmation,26,1
+Buss It,Erica Banks,47,2021,59,Hot In Herre,Nelly,2002,2002.0,78.0,1,1.0,19,-46.0,47,samples,0,confirmation,13,26
+Butterfly Effect,Travis Scott,50,2018,79,Black Milk,"Massive Attack, Elizabeth Fraser",1998,,64.0,0,,20,,50,interpolates,0,resurrection,23,1
+By Your Side,Rod Wave,58,2022,65,Hey There Delilah,Plain White T's,2005,2007.0,80.0,1,1.0,17,-57.0,58,interpolates,0,confirmation,19,35
+Call The Coroner,Future,100,2019,50,Who U Wit,Lil Jon & The East Side Boyz,2001,,33.0,0,,18,,100,samples,0,resurrection,1,1
+Calling For You,Drake Featuring 21 Savage,5,2023,61,For You (In The Style Of The Calling) [Performance Track with Demonstration Vocals],Done Again,2011,2005.0,0.0,1,27.0,12,22.0,5,interpolates,0,confirmation,4,1
+Calling For You,Drake Featuring 21 Savage,5,2023,61,Hollaback Girl,Gwen Stefani,2004,2005.0,73.0,1,1.0,19,-4.0,5,samples,0,confirmation,4,31
+Calling For You,Drake Featuring 21 Savage,5,2023,61,Livin' Without You,"Nohelani Cypriano, Peter Moon, Jerry Byrd, Kapono Beamer, Roscoe Wright, Master Henry Gibson, John Raposa, Kata Maduli, Wayne Hobbs, Henry Kapono",1978,,15.0,0,,45,,5,samples,0,resurrection,4,1
+Calling For You,Drake Featuring 21 Savage,5,2023,61,Shake It To The Ground,"Blaqstarr, Rye Rye",2007,,38.0,0,,16,,5,samples,0,resurrection,4,1
+Calling My Name,Drake,20,2022,60,Oye Ohene - Remix,"Obrafour, Hammer of The Last Two, Tinny",2003,,31.0,0,,19,,20,samples,0,resurrection,1,1
+Can't Die,Juice WRLD,50,2020,63,You're Not Fooling Me,Angel,1977,,8.0,0,,43,,50,interpolates,0,resurrection,2,1
+Can't Say,Travis Scott,38,2018,75,25 Lighters,"Lil' Keke, DJ DMD, Fat Pat",2001,,45.0,0,,17,,38,samples,0,resurrection,2,1
+Can't Say,Travis Scott,38,2018,75,Swang Remix,Trae Tha Truth,2007,,26.0,0,,11,,38,samples,0,resurrection,2,1
+Candy Paint,Post Malone,34,2018,73,Bricks,Gucci Mane,2008,,40.0,0,,10,,34,interpolates,0,resurrection,20,1
+Carnival,¥$: Ye & Ty Dolla $ign Featuring Rich The Kid & Playboi Carti,1,2024,80,Everybody Talks,Neon Trees,2012,,80.0,0,,12,,1,interpolates,0,resurrection,15,39
+Carnival,¥$: Ye & Ty Dolla $ign Featuring Rich The Kid & Playboi Carti,1,2024,80,"Grammy Family (feat. DJ Khaled, Kanye West & John Legend) - Explicit Album Version","Consequence, DJ Khaled, Kanye West, John Legend",2007,,42.0,0,,17,,1,interpolates,0,resurrection,15,1
+Carnival,¥$: Ye & Ty Dolla $ign Featuring Rich The Kid & Playboi Carti,1,2024,80,Hell Of A Life,Kanye West,2010,,68.0,0,,14,,1,samples,0,resurrection,15,1
+Carnival,¥$: Ye & Ty Dolla $ign Featuring Rich The Kid & Playboi Carti,1,2024,80,Racks,"YC Worldwide, Future",2011,2021.0,50.0,1,81.0,13,80.0,1,interpolates,0,underdog,15,17
+Carousel,Travis Scott,24,2018,64,I'm so Hi,Three 6 Mafia,2000,,44.0,0,,18,,24,interpolates,0,resurrection,2,1
+Carousel,Travis Scott,24,2018,64,Not a Stain on Me,Big Tuck,2004,,44.0,0,,14,,24,samples,0,resurrection,2,1
+Carousel,Travis Scott,24,2018,64,The New Style,Beastie Boys,1986,2000.0,51.0,1,30.0,32,6.0,24,samples,0,confirmation,2,1
+Carter Son,YoungBoy Never Broke Again,62,2019,58,Picture Me Rollin',"2Pac, Danny Boy, Syke, C-PO",1998,,56.0,0,,21,,62,interpolates,0,resurrection,2,1
+Champagne Poetry,Drake,4,2021,72,Until I Found The Lord (My Soul Couldn't Rest),Gabriel Hardeman Delegation,1975,2022.0,19.0,1,83.0,46,79.0,4,samples,0,underdog,7,1
+Champagne Problems,Taylor Swift,21,2021,74,Blue Suede Shoes,Carl Perkins,1957,,53.0,0,,64,,21,interpolates,0,resurrection,2,1
+Church Girl,Beyonce,22,2022,60,Center Thy Will,The Clark Sisters,2002,,25.0,0,,20,,22,samples,0,resurrection,3,1
+Church Girl,Beyonce,22,2022,60,Mister Magic,"Grover Washington, Jr.",1974,1975.0,51.0,1,54.0,48,32.0,22,samples,0,confirmation,3,10
+Church Girl,Beyonce,22,2022,60,Nelly Speaks- 'Tip Drill' Video,"Nelly, DJ Drama",2004,,1.0,0,,18,,22,interpolates,0,resurrection,3,1
+Church Girl,Beyonce,22,2022,60,Think (About It),Lyn Collins,1972,1972.0,52.0,1,66.0,50,44.0,22,samples,0,confirmation,3,7
+Church Girl,Beyonce,22,2022,60,Where They At - Radio Version,DJ Jimi,1992,,25.0,0,,30,,22,interpolates,0,resurrection,3,1
+Cinderella Story,A Boogie Wit da Hoodie,95,2020,48,When I See U,Fantasia,2006,2007.0,72.0,1,32.0,14,-63.0,95,samples,0,confirmation,1,23
+Circles,Megan Thee Stallion,94,2020,46,Holding You Down (Goin' in Circles),Jazmine Sullivan,2010,2010.0,50.0,1,60.0,10,-34.0,94,samples,0,confirmation,1,12
+Cobra,Megan Thee Stallion,32,2023,55,After The Cosmic Rain,"Return To Forever, Chick Corea",1991,2010.0,17.0,1,91.0,32,59.0,32,samples,0,underdog,2,1
+Cocaine Nose,Playboi Carti,80,2025,66,Only U - No Intro,Ashanti,2004,2005.0,62.0,1,13.0,21,-67.0,80,samples,0,confirmation,1,1
+Cold December,Rod Wave,38,2022,56,O.D.'d In Denver,"Hank Williams, Jr.",1979,,56.0,0,,43,,38,samples,0,resurrection,6,1
+Come To Life,Kanye West,77,2021,58,Find a Way,A Tribe Called Quest,1998,1988.0,61.0,1,30.0,23,-47.0,77,interpolates,0,confirmation,1,7
+Come To Life,Kanye West,77,2021,58,Find out Who Your Friends Are,Tracy Lawrence,2007,,53.0,0,,14,,77,interpolates,0,resurrection,1,20
+Common Ground,Jack Harlow,96,2023,53,When Will I See You Again (Intro),Jade,1994,,10.0,0,,29,,96,samples,0,resurrection,1,1
+Cop Shot The Kid,Nas Featuring Kanye West,96,2018,40,Children's Story,Slick Rick,1988,,61.0,0,,30,,96,samples,0,resurrection,1,1
+Corso,"Tyler, The Creator",55,2021,59,Oriental Workload,James Asher,2008,,10.0,0,,13,,55,samples,0,resurrection,1,1
+Corso,"Tyler, The Creator",55,2021,59,Otis,"JAŸ-Z, Kanye West, Otis Redding",2011,2011.0,70.0,1,12.0,10,-43.0,55,interpolates,0,confirmation,1,20
+Cotton Candy,Lil Wayne & 2 Chainz,93,2025,48,Tootsee Roll,69 Boyz,1994,1995.0,51.0,1,8.0,31,-85.0,93,interpolates,0,confirmation,1,38
+Count Me Out,Kendrick Lamar,20,2022,76,Racks,"YC Worldwide, Future",2011,2021.0,50.0,1,81.0,11,61.0,20,interpolates,0,underdog,2,17
+Cozy,Beyonce,30,2022,64,Get With U,"Lidell Townsell, M T F",1992,1992.0,30.0,1,78.0,30,48.0,30,samples,0,confirmation,2,8
+Crazy,Rod Wave,48,2023,53,Ain't It Fun,Paramore,2013,2014.0,78.0,1,10.0,10,-38.0,48,samples,0,confirmation,2,24
+Crush A Lot,Lil Baby,82,2018,61,Still Not a Player (feat. Joe) - Radio Version,"Big Pun, Joe",1998,1998.0,71.0,1,24.0,20,-58.0,82,interpolates,0,confirmation,1,1
+Cry For Me,The Weeknd,12,2025,81,Within,Daft Punk,2013,,58.0,0,,12,,12,interpolates,0,resurrection,21,1
+Cudi Montage,KIDS SEE GHOSTS,69,2018,59,One Love (feat. Q-Tip),"Nas, Q-Tip",1994,1998.0,55.0,1,53.0,24,-16.0,69,interpolates,0,confirmation,1,1
+Cuff It,Beyonce,6,2023,74,Ooo La La La,Teena Marie,1988,1988.0,52.0,1,85.0,35,79.0,6,interpolates,0,underdog,35,5
+Cuff It,Beyonce,6,2023,74,Square Biz,Teena Marie,2001,1981.0,53.0,1,50.0,22,44.0,6,samples,0,confirmation,35,13
+Currents,Drake,23,2022,61,Shake It To The Ground,"Blaqstarr, Rye Rye",2007,,38.0,0,,15,,23,samples,0,resurrection,1,1
+Currents,Drake,23,2022,61,Some Cut,Trillville,2004,2005.0,51.0,1,14.0,18,-9.0,23,samples,0,confirmation,1,1
+DHL,Frank Ocean,98,2019,60,Breakdown,Jack Johnson,2005,,57.0,0,,14,,98,interpolates,0,resurrection,1,1
+Dah Dah DahDah,Nardo Wick,48,2022,62,Tom's Diner,"Suzanne Vega, DNA",1991,1991.0,60.0,1,5.0,31,-43.0,48,samples,0,confirmation,11,1
+Damage,H.E.R.,44,2021,57,Making Love In The Rain,Herb Alpert,1987,1987.0,47.0,1,35.0,34,-9.0,44,samples,0,confirmation,20,14
+Dark Thoughts,Lil Tecca,28,2025,75,Fly over States,Jason Aldean,2010,1979.0,70.0,1,34.0,15,6.0,28,samples,0,confirmation,17,20
+"Darling, I","Tyler, The Creator Featuring Teezo Touchdown",15,2024,73,Drop It Like It's Hot,"Snoop Dogg, Pharrell Williams",2004,2005.0,77.0,1,1.0,20,-14.0,15,interpolates,0,confirmation,5,30
+"Darling, I","Tyler, The Creator Featuring Teezo Touchdown",15,2024,73,Vivrant Thing (Remix Instrumental),Q-Tip,1999,1999.0,,1,26.0,25,11.0,15,samples,1,confirmation,5,1
+Daughter,Beyonce,37,2024,57,Caro mio ben,"Tommaso Giordani, Cecilia Bartoli, György Fischer",1995,2015.0,26.0,1,43.0,29,6.0,37,interpolates,0,confirmation,1,1
+Daydreaming,Harry Styles,24,2022,72,Ain't We Funkin' Now,The Brothers Johnson,1978,,41.0,0,,44,,24,samples,0,resurrection,2,1
+De Museo,Bad Bunny,94,2021,64,Viva La Vida,Coldplay,2008,,87.0,0,,13,,94,interpolates,0,resurrection,1,51
+Dear God,Tate McRae,44,2025,67,Promiscuous,"Nelly Furtado, Timbaland",2010,2006.0,55.0,1,1.0,15,-43.0,44,interpolates,0,confirmation,2,26
+Deep Pockets,Drake,32,2020,57,Go Stetsa I,Stetsasonic,1986,,29.0,0,,34,,32,samples,0,resurrection,1,1
+Deja Vu,Olivia Rodrigo,3,2021,86,Uptown Girl,Billy Joel,1983,1984.0,82.0,1,3.0,38,0.0,3,interpolates,0,confirmation,29,22
+Demons And Angels,A Boogie Wit da Hoodie Featuring Juice WRLD,90,2019,67,Follow Me,Uncle Kracker,2000,,73.0,0,,19,,90,interpolates,0,resurrection,3,33
+Demons And Angels,A Boogie Wit da Hoodie Featuring Juice WRLD,90,2019,67,There'll Never Be,Switch,1978,,50.0,0,,41,,90,interpolates,0,resurrection,3,13
+Denial Is A River,Doechii,21,2025,78,Hail Mary,2Pac,1998,,69.0,0,,27,,21,interpolates,0,resurrection,19,1
+Diamond Teeth Samurai,YoungBoy Never Broke Again,59,2018,53,Tha Block Is Hot,Lil Wayne,1999,2000.0,47.0,1,72.0,19,13.0,59,samples,0,confirmation,5,1
+Die For You,The Weeknd,6,2023,79,Feelin' On Yo Booty,R. Kelly,2000,2001.0,50.0,1,36.0,23,30.0,6,interpolates,0,confirmation,29,19
+Die Young,Roddy Ricch,99,2019,64,Steady Mobbin',Ice Cube,1991,,46.0,0,,28,,99,interpolates,0,resurrection,2,1
+Died And Came Back,Lil Uzi Vert,78,2023,50,Gangsta Life - Dripped & Sauced Up Version,"Big Pup, CJ Da DJ",2004,,16.0,0,,19,,78,interpolates,0,resurrection,1,1
+Dior,Pop Smoke,22,2020,73,When It Rains It Pours,50 Cent,2005,,72.0,0,,15,,22,interpolates,0,resurrection,21,1
+Diplomatic Immunity,Drake,7,2018,52,"Triumph (feat. Ol' Dirty Bastard, Inspectah Deck, Method Man, Cappadonna, U-God, RZA, GZA, Masta Killa, Ghostface Killah & Raekwon)","Wu-Tang Clan, Ol' Dirty Bastard, Inspectah Deck, Method Man, Cappadonna, U-God, RZA, GZA, Masta Killa, Ghostface Killah",1997,,62.0,0,,21,,7,samples,0,resurrection,3,1
+Dirty Iyanna,YoungBoy Never Broke Again,67,2019,51,Dirty Diana,Michael Jackson,2003,1988.0,75.0,1,1.0,16,-66.0,67,samples,0,confirmation,1,14
+Do It,¥$: Kanye West & Ty Dolla $ign,52,2024,81,Back That Azz Up,"JUVENILE, Lil Wayne, Mannie Fresh",1998,1999.0,70.0,1,68.0,26,16.0,52,samples,0,confirmation,2,30
+Doin' Time,Lana Del Rey,59,2019,78,Buffalo Gals - DJ Cut Special Stereo Mix,"Malcolm McLaren, The World's Famous Supreme Team",1984,,20.0,0,,35,,59,samples,0,resurrection,2,1
+Doin' Time,Lana Del Rey,59,2019,78,Summertime,Billie Holiday,2001,,38.0,0,,18,,59,interpolates,0,resurrection,2,1
+Don't Start Now,Dua Lipa,2,2020,82,I Will Survive,Gloria Gaynor,1978,1979.0,77.0,1,1.0,42,-1.0,2,samples,0,confirmation,52,27
+Don't Stop,Megan Thee Stallion Featuring Young Thug,30,2020,76,I Wanna Rock,Luke,1992,1992.0,41.0,1,73.0,28,43.0,30,interpolates,0,confirmation,10,14
+Don't Tap That Glass / Tweakin',"Tyler, the Creator",56,2025,65,Dope Fiend Beat,Too $hort,1989,,31.0,0,,36,,56,samples,0,resurrection,2,1
+Don't Tap That Glass / Tweakin',"Tyler, the Creator",56,2025,65,King Of The Beats Lesson #1,Mantronix,1990,2005.0,20.0,1,27.0,35,-29.0,56,samples,0,confirmation,2,1
+Don't You Worry Baby,"Tyler, the Creator Featuring Madison McFerrin",59,2025,69,King Of The Beats Lesson #1,Mantronix,1990,2005.0,20.0,1,27.0,35,-32.0,59,samples,0,confirmation,2,1
+Don't You Worry Baby,"Tyler, the Creator Featuring Madison McFerrin",59,2025,69,Let Me Ride,12 Gauge,1995,,4.0,0,,30,,59,samples,0,resurrection,2,1
+Donda,Kanye West,58,2021,46,In The Morning,"J. Cole, Drake",2011,,70.0,0,,10,,58,interpolates,0,resurrection,1,1
+Done For Me,Charlie Puth Featuring Kehlani,53,2018,70,Everything She Wants,Wham!,1984,1985.0,71.0,1,1.0,34,-52.0,53,samples,0,confirmation,9,20
+Dont Let Me Go,mgk,76,2024,64,Make You Smile,+44,2006,,45.0,0,,18,,76,samples,0,resurrection,1,1
+Dope New Gospel,Lil Wayne Featuring Nivea,90,2018,42,Never Would Have Made It,Marvin Sapp,2007,2008.0,58.0,1,82.0,11,-8.0,90,samples,0,confirmation,1,13
+Drew A Picasso,Drake,27,2023,67,My Mind Went Blank (Screwed),"DJ Screw, Point Blank",1995,,49.0,0,,28,,27,samples,0,resurrection,2,1
+Drunk Dialing...LODT,Summer Walker,79,2019,56,'Cause I Love You,Lenny Williams,1978,,57.0,0,,41,,79,interpolates,0,resurrection,1,1
+Dumbo,Travis Scott,54,2025,71,Swang Remix,Trae Tha Truth,2007,,26.0,0,,18,,54,interpolates,0,resurrection,2,1
+EOO,Bad Bunny,24,2025,95,Perreo Baby,"Hector, Tito",2002,,41.0,0,,23,,24,samples,0,resurrection,33,1
+Earth,Lil Dicky,17,2019,58,We Are The World,U.S.A. For Africa,1985,1985.0,69.0,1,1.0,34,-16.0,17,interpolates,0,confirmation,6,18
+Easier,5 Seconds Of Summer,48,2019,66,Closer,Nine Inch Nails,1994,1994.0,75.0,1,41.0,25,-7.0,48,interpolates,0,confirmation,16,22
+El Apagon,Bad Bunny,54,2022,83,Controversia,Ismael Rivera Y Sus Cachimbos,1969,,24.0,0,,53,,54,samples,0,resurrection,2,1
+El Apagon,Bad Bunny,54,2022,83,Vamos a Joder,"Dj Joe, Great Kilo",2000,,19.0,0,,22,,54,interpolates,0,resurrection,2,1
+Emotionless,Drake,8,2018,67,"Emotions - 12"" Club Mix","Mariah Carey, David Cole, Robert Clivillés",2003,1992.0,23.0,1,1.0,15,-7.0,8,samples,0,confirmation,4,1
+Endless Fashion,Lil Uzi Vert Featuring Nicki Minaj,20,2023,61,Blue (Da Ba Dee) - Gabry Ponte Video Edit,"Eiffel 65, Gabry Ponte",1998,2000.0,69.0,1,6.0,25,-14.0,20,interpolates,0,confirmation,3,1
+Equal Dirt,Rylo Rodriguez,100,2023,51,(If Loving You Is Wrong) I Don't Want to Be Right,Luther Ingram,1967,1972.0,46.0,1,3.0,56,-97.0,100,samples,0,confirmation,1,16
+Eternal Sunshine,Ariana Grande,23,2024,73,Just for Now,Imogen Heap,2005,,69.0,0,,19,,23,samples,0,resurrection,3,1
+Euphoria,Kendrick Lamar,3,2025,75,Don't Tell A Lie About Me And I Won't Tell The Truth On You,James Brown,1974,2018.0,15.0,1,48.0,51,45.0,3,interpolates,0,confirmation,17,1
+Euphoria,Kendrick Lamar,3,2025,75,Get Em High,"Kanye West, Talib Kweli, Common",2004,,60.0,0,,21,,3,interpolates,0,resurrection,17,1
+Euphoria,Kendrick Lamar,3,2025,75,Wish A Mutha Would,Frayser Boy,2003,,15.0,0,,22,,3,samples,0,resurrection,17,1
+Euphoria,Kendrick Lamar,3,2025,75,Worst Behavior,Drake,2013,2014.0,60.0,1,89.0,12,86.0,3,interpolates,0,underdog,17,11
+Euphoria,Kendrick Lamar,3,2025,75,"You're My Latest, My Greatest Inspiration",Teddy Pendergrass,1981,1982.0,48.0,1,43.0,44,40.0,3,samples,0,confirmation,17,11
+Euthanasia,Post Malone,100,2022,47,Pink & Blue,Outkast,2003,,41.0,0,,19,,100,samples,0,resurrection,1,1
+Evil J0rdan,Playboi Carti,2,2025,78,Scientist,Dopplereffekt,1999,,17.0,0,,26,,2,samples,0,resurrection,5,1
+F U 2x,Lil Baby,57,2025,65,Hit 'Em Up - Single Version,"2Pac, Outlawz",1998,,83.0,0,,27,,57,interpolates,0,resurrection,2,1
+"F*ck You, Goodbye",The Kid LAROI Featuring Machine Gun Kelly,99,2020,67,All The Small Things,blink-182,1999,2000.0,83.0,1,6.0,21,-93.0,99,samples,0,confirmation,1,23
+"F*ck You, Goodbye",The Kid LAROI Featuring Machine Gun Kelly,99,2020,67,Highway to Hell,AC/DC,1979,1979.0,87.0,1,47.0,41,-52.0,99,interpolates,0,confirmation,1,10
+FTCU,Nicki Minaj,15,2024,67,Fuck the Club Up (feat. Pastor Troy & Slim Dunkin),"Waka Flocka Flame, Pastor Troy, Slim Dunkin",2010,,39.0,0,,14,,15,samples,0,resurrection,20,1
+Fake Smile,Ariana Grande,26,2019,64,After Laughter (Comes Tears),Wendy Rene,2005,,58.0,0,,14,,26,samples,0,resurrection,2,1
+Fake Smile,Ariana Grande,26,2019,64,"Entry of the Gladiators, Op. 68","Julius Fučík, Gothenburg Symphony Orchestra, Neeme Järvi",1997,,43.0,0,,22,,26,samples,0,resurrection,2,1
+Fallin 4 U,Nicki Minaj,74,2023,49,Crazy,K-Ci & JoJo,2000,2001.0,60.0,1,11.0,23,-63.0,74,interpolates,0,confirmation,1,25
+Fallin 4 U,Nicki Minaj,74,2023,49,Places To Go,50 Cent,2002,,52.0,0,,21,,74,interpolates,0,resurrection,1,1
+Family Matters,Drake,7,2024,70,Conclusions,The Grodeck Whipperjenny,2004,,25.0,0,,20,,7,samples,0,resurrection,6,1
+Family Matters,Drake,7,2024,70,Farfegnugen,The Purist,2014,,11.0,0,,10,,7,samples,0,resurrection,6,1
+Family Matters,Drake,7,2024,70,Money Trees,"Kendrick Lamar, Jay Rock",2012,,80.0,0,,12,,7,interpolates,0,resurrection,6,1
+Fear Of Heights,Drake,10,2023,61,Can Your Pussy Do the Dog?,The Cramps,1986,1978.0,34.0,1,45.0,37,35.0,10,interpolates,0,confirmation,3,1
+Feelin Like Tunechi,Lil Wayne Featuring Rich The Kid,91,2021,44,Many Men (Wish Death),50 Cent,2003,,74.0,0,,18,,91,interpolates,0,resurrection,1,1
+Feels Like Summer,Childish Gambino,54,2018,73,They Say,"Common, John Legend, Kanye West",2005,,54.0,0,,13,,54,interpolates,0,resurrection,2,1
+Field Trip,"¥$: Kanye West & Ty Dolla $ign Featuring Playboi Carti, Kodak Black & Don Toliver",48,2024,65,Field Trip,Thomas Newman,2003,2024.0,44.0,1,48.0,21,0.0,48,interpolates,0,confirmation,2,1
+Field Trip,"¥$: Kanye West & Ty Dolla $ign Featuring Playboi Carti, Kodak Black & Don Toliver",48,2024,65,Machine Gun,Portishead,2008,,43.0,0,,16,,48,samples,0,resurrection,2,1
+Filthy,Justin Timberlake,9,2018,48,All I Need,JAŸ-Z,2001,,47.0,0,,17,,9,interpolates,0,resurrection,6,1
+Filthy,Justin Timberlake,9,2018,48,Gin and Juice,Snoop Dogg,1993,1994.0,74.0,1,8.0,25,-1.0,9,interpolates,0,confirmation,6,20
+Final Fantasy,Drake,56,2018,56,The Windmills Of Your Mind,Dorothy Ashby,1969,,47.0,0,,49,,56,samples,0,resurrection,1,1
+Fire,KIDS SEE GHOSTS,67,2018,57,"They're Coming to Take Me Away, Ha-Haaa!",Napoleon XIV,1966,1973.0,39.0,1,3.0,52,-64.0,67,samples,0,confirmation,1,10
+First Class,Jack Harlow,1,2022,74,Glamorous,"Fergie, Ludacris",2006,2007.0,72.0,1,1.0,16,0.0,1,samples,0,confirmation,28,29
+Flaws And Sins,Juice WRLD,91,2019,73,Poker Face,Lady Gaga,2008,2009.0,80.0,1,1.0,11,-90.0,91,interpolates,0,confirmation,1,40
+Flight's Booked,Drake,28,2022,71,Getting Late,Floetry,2002,,48.0,0,,20,,28,samples,0,resurrection,1,1
+Flight's Booked,Drake,28,2022,71,Thursday,The Weeknd,2011,,56.0,0,,11,,28,interpolates,0,resurrection,1,1
+Flip The Switch,Quavo Featuring Drake,48,2018,35,Ha,JUVENILE,1998,2000.0,49.0,1,19.0,20,-29.0,48,interpolates,0,confirmation,1,10
+Flowers,Miley Cyrus,1,2024,86,I Will Survive,Gloria Gaynor,1978,1979.0,77.0,1,1.0,46,0.0,1,interpolates,0,confirmation,55,27
+Flowers,Miley Cyrus,1,2024,86,"Relax, Take It Easy",MIKA,2007,,56.0,0,,17,,1,interpolates,0,resurrection,55,1
+Flowers,Miley Cyrus,1,2024,86,When I Was Your Man,Bruno Mars,2012,2013.0,89.0,1,1.0,12,0.0,1,interpolates,0,confirmation,55,35
+Fly As Me,Silk Sonic (Bruno Mars & Anderson .Paak),81,2021,60,Fire And Desire,"Rick James, Teena Marie",1981,2014.0,53.0,1,39.0,40,-42.0,81,interpolates,0,confirmation,1,1
+Follow God,Kanye West,7,2019,73,Can You Lose By Following God,Whole Truth,1974,,41.0,0,,45,,7,samples,0,resurrection,6,1
+Foot Fungus,Ski Mask The Slump God,81,2018,58,Drop It Like It's Hot,"Snoop Dogg, Pharrell Williams",2004,2005.0,77.0,1,1.0,14,-80.0,81,interpolates,0,confirmation,1,30
+Foot Fungus,Ski Mask The Slump God,81,2018,58,"Scenario (feat. Busta Rhymes, Dinco D & Charlie Brown) - LP Mix","A Tribe Called Quest, Busta Rhymes, Dinco D, Charlie Brown",1991,1992.0,58.0,1,57.0,27,-24.0,81,interpolates,0,confirmation,1,1
+Foot Fungus,Ski Mask The Slump God,81,2018,58,Surfin' Bird,The Trashmen,1987,1964.0,55.0,1,4.0,31,-77.0,81,interpolates,0,confirmation,1,13
+Fractions,Nicki Minaj,52,2021,46,Where I'm From,JAŸ-Z,1997,,48.0,0,,24,,52,samples,0,resurrection,1,1
+"Freeee (Ghost Town, Pt. 2)",KIDS SEE GHOSTS,62,2018,55,Stark,Mr. Chop,2008,,5.0,0,,10,,62,samples,0,resurrection,1,1
+Freestyle,Lil Baby,59,2023,78,Hail Mary,2Pac,1998,,69.0,0,,25,,59,interpolates,0,resurrection,25,1
+Fried,¥$: Kanye West & Ty Dolla $ign,87,2024,75,Friday Evening,Chaka Demus & Pliers,1993,2024.0,30.0,1,87.0,31,0.0,87,interpolates,0,confirmation,1,1
+Fried,¥$: Kanye West & Ty Dolla $ign,87,2024,75,Southern Fried - Alternate Version,Bob Florence and His Orchestra,1993,2024.0,0.0,1,87.0,31,0.0,87,interpolates,0,confirmation,1,1
+Friends,The Carters,99,2018,41,Never Let Me Down,"Kanye West, JAŸ-Z, J. Ivy",2004,,63.0,0,,14,,99,interpolates,0,resurrection,1,1
+From Florida With Love,Drake,45,2020,61,Lollipop,"Lil Wayne, Static Major",2008,2008.0,70.0,1,1.0,12,-44.0,45,interpolates,0,confirmation,1,28
+From Florida With Love,Drake,45,2020,61,Wishing on a Star,Rose Royce,1977,,62.0,0,,43,,45,samples,0,resurrection,1,1
+From The Garden,Isaiah Rashad Featuring Lil Uzi Vert,99,2021,46,Nobody Knows,Kevin Sharp,1996,1964.0,56.0,1,12.0,25,-87.0,99,samples,0,confirmation,1,1
+From The Garden,Isaiah Rashad Featuring Lil Uzi Vert,99,2021,46,U.F.O,ESG,1981,,32.0,0,,40,,99,samples,0,resurrection,1,1
+Fuk Sumn,¥$: Kanye West & Ty Dolla $ign,23,2024,69,Baptizing Scene,Reverend W. A. Donaldson,2011,,8.0,0,,13,,23,samples,0,resurrection,4,1
+Fuk Sumn,¥$: Kanye West & Ty Dolla $ign,23,2024,69,Funky President (People It's Bad),James Brown,1991,1975.0,30.0,1,44.0,33,21.0,23,samples,0,confirmation,4,10
+Fuk Sumn,¥$: Kanye West & Ty Dolla $ign,23,2024,69,Smoke a Sack,Lil Sko,1998,,34.0,0,,26,,23,samples,0,resurrection,4,1
+Fuk Sumn,¥$: Kanye West & Ty Dolla $ign,23,2024,69,Stud Spider,Tony Joe White,1970,,18.0,0,,54,,23,samples,0,resurrection,4,1
+GIRL,Maren Morris,44,2019,53,Halo,Beyoncé,2008,2009.0,75.0,1,5.0,11,-39.0,44,samples,0,confirmation,21,31
+Gangstas,Pop Smoke,37,2020,63,One Shot 2 Shot,"Eminem, D12",2004,,58.0,0,,16,,37,interpolates,0,resurrection,2,1
+Gangstas,Pop Smoke,37,2020,63,Poppin' Them Thangs,G-Unit,2003,,71.0,0,,17,,37,interpolates,0,resurrection,2,1
+Garden Of Eden,Lady Gaga,52,2025,73,Private Audition,Heart,1982,,10.0,0,,43,,52,interpolates,0,resurrection,1,1
+Get Into It (Yuh),Doja Cat,20,2022,71,Massive Attack,"Nicki Minaj, Sean Garrett",2010,2014.0,41.0,1,39.0,12,19.0,20,interpolates,0,confirmation,37,1
+Get It Sexyy,Sexyy Red,20,2024,68,Halle Berry (She's Fine) (feat. Superstarr),"Hurricane Chris, Superstarr",2009,2009.0,53.0,1,52.0,15,32.0,20,samples,0,confirmation,20,1
+Getting Older,Billie Eilish,69,2021,72,Everything Will Be Alright,The Killers,2004,,48.0,0,,17,,69,interpolates,0,resurrection,1,1
+Ghostbusters,Ray Parker Jr.,1,2025,65,I Want A New Drug,Huey Lewis & The News,2006,1984.0,59.0,1,6.0,19,5.0,1,interpolates,0,confirmation,26,19
+Gimme A Hug,Drake,6,2025,70,I Miss You,Aaron Hall,1993,1994.0,54.0,1,14.0,32,8.0,6,samples,0,confirmation,11,23
+Girls,The Kid LAROI,51,2024,64,Girls Just Want to Have Fun,Cyndi Lauper,1983,1984.0,82.0,1,2.0,41,-49.0,51,interpolates,0,confirmation,7,25
+Girls In The Hood,Megan Thee Stallion,28,2020,60,Boyz-N-The-Hood - Remix,"Eazy-E, Ice Cube, DJ Yella",1988,2015.0,63.0,1,50.0,32,22.0,28,samples,0,confirmation,18,1
+Given Up On Me,The Weeknd,71,2025,66,Wild Is The Wind,Nina Simone,1966,,49.0,0,,59,,71,samples,0,resurrection,1,1
+Glimpse Of Us,Joji,8,2022,69,"I Don't Want to Miss a Thing - From ""Armageddon"" Soundtrack",Aerosmith,1998,1999.0,75.0,1,1.0,24,-7.0,8,interpolates,0,confirmation,20,1
+God Breathed,Kanye West,30,2021,49,Bellhead,Liquid Liquid,2008,,15.0,0,,13,,30,samples,0,resurrection,1,1
+God Is,Kanye West,36,2019,77,God Is,James Cleveland & The Southern California Community Choir,1979,,41.0,0,,40,,36,samples,0,resurrection,1,1
+God's Country,Travis Scott,28,2023,62,God's Country Music,Marco Beltrami,2011,,5.0,0,,12,,28,interpolates,0,resurrection,2,1
+Gone Girl,SZA,43,2023,63,She's Gone,Daryl Hall & John Oates,1973,1976.0,68.0,1,7.0,50,-36.0,43,interpolates,0,confirmation,5,28
+Gone Till November,Rod Wave,61,2021,61,Dear Mama,2Pac,1995,1995.0,71.0,1,9.0,26,-52.0,61,samples,0,confirmation,1,1
+Good (Don't Die),¥$: Kanye West & Ty Dolla $ign,93,2024,9,I Feel Love,Donna Summer,1977,1978.0,62.0,1,6.0,47,-87.0,93,interpolates,0,confirmation,1,23
+Good (Don't Die),¥$: Kanye West & Ty Dolla $ign,93,2024,9,Street Lights,Kanye West,2008,,62.0,0,,16,,93,interpolates,0,resurrection,1,1
+Good 4 U,Olivia Rodrigo,1,2022,83,Misery Business,Paramore,2007,2008.0,77.0,1,26.0,15,25.0,1,interpolates,0,confirmation,51,30
+Good Love,City Girls & Usher,70,2022,44,Freak It,Lathun,1997,2011.0,48.0,1,50.0,25,-20.0,70,samples,0,confirmation,5,1
+Good Love,City Girls & Usher,70,2022,44,I Wanna Rock,Luke,1992,1992.0,41.0,1,73.0,30,3.0,70,interpolates,0,confirmation,5,14
+Got It On Me,Pop Smoke,31,2020,66,Many Men (Wish Death),50 Cent,2003,,74.0,0,,17,,31,samples,0,resurrection,10,1
+Greedy,Tate McRae,3,2024,87,Promiscuous,"Nelly Furtado, Timbaland",2010,2006.0,55.0,1,1.0,14,-2.0,3,samples,0,confirmation,42,26
+Guess,Charli xcx Featuring Billie Eilish,12,2025,79,Technologic,Daft Punk,2005,,54.0,0,,20,,12,samples,0,resurrection,13,1
+Guess,Charli xcx Featuring Billie Eilish,12,2025,79,When I Rule the World,LIZ,2015,2019.0,54.0,1,39.0,10,27.0,12,samples,0,confirmation,13,1
+Guilty Conscience 2,Eminem,45,2024,56,Guilty Conscience,"Eminem, Dr. Dre",1999,2024.0,62.0,1,45.0,25,0.0,45,interpolates,0,confirmation,1,1
+Gyalis,Capella Grey,38,2021,56,Back That Azz Up,"JUVENILE, Lil Wayne, Mannie Fresh",1998,1999.0,70.0,1,68.0,23,30.0,38,samples,0,confirmation,19,30
+Gyalis,Capella Grey,38,2021,56,Favorite Girl,Justin Bieber,2009,,73.0,0,,12,,38,interpolates,0,resurrection,19,2
+HA,21 Savage,77,2025,67,Hit Another Lick,Gucci Mane,2015,,53.0,0,,10,,77,samples,0,resurrection,1,1
+HA,21 Savage,77,2025,67,Laughin' To The Bank,Chief Keef,2012,,58.0,0,,13,,77,interpolates,0,resurrection,1,1
+HBA,Playboi Carti,48,2025,70,Everything Is AWESOME!!! (feat. The Lonely Island),"Tegan and Sara, The Lonely Island",2013,2014.0,60.0,1,57.0,12,9.0,48,interpolates,0,confirmation,1,1
+HIGHEST IN THE ROOM,Travis Scott,1,2020,83,Welcome to the Machine,Pink Floyd,1975,,68.0,0,,45,,1,interpolates,0,resurrection,22,1
+Hakuna Matata,Gunna,67,2024,75,Madonnans vaggvisa,"Ingvar Lidholm, Rilke Ensemble, Gunnar Eriksson",2012,,0.0,0,,12,,67,interpolates,0,resurrection,1,1
+Hard To Forget,Sam Hunt,26,2020,60,There Stands The Glass,Webb Pierce,2001,,48.0,0,,19,,26,samples,0,resurrection,20,1
+Hardaway,Derez De'Shon,61,2018,52,Air Raid Siren: Alert,actuality recording,2007,,38.0,0,,11,,61,samples,0,resurrection,11,1
+Hardest To Love,The Weeknd,25,2020,65,As I Lay Me Down,Sophie B. Hawkins,1994,1996.0,58.0,1,6.0,26,-19.0,25,interpolates,0,confirmation,1,44
+Hardest To Love,The Weeknd,25,2020,65,Maniac,Michael Sembello,1983,1983.0,73.0,1,1.0,37,-24.0,25,samples,0,confirmation,1,22
+Hardest To Love,The Weeknd,25,2020,65,Take on Me,a-ha,1985,1986.0,87.0,1,1.0,35,-24.0,25,interpolates,0,confirmation,1,27
+Headphones On,Addison Rae,87,2025,63,What I Am,Edie Brickell & New Bohemians,1988,1989.0,61.0,1,7.0,37,-80.0,87,interpolates,0,confirmation,1,19
+Heart On Ice,Rod Wave,25,2020,69,Runnin',Grits,2002,2002.0,32.0,1,34.0,18,9.0,25,interpolates,0,confirmation,27,1
+Heart Pt. 6,Kendrick Lamar,14,2024,71,Life's a Bitch (feat. AZ & Olu Dara),"Nas, AZ, Olu Dara",1994,1961.0,62.0,1,82.0,30,68.0,14,interpolates,0,underdog,4,1
+Heart Pt. 6,Kendrick Lamar,14,2024,71,Use Your Heart - Interlude,SWV,1996,1996.0,72.0,1,22.0,28,8.0,14,samples,0,confirmation,4,1
+Heaven And Hell,Kanye West,42,2021,57,Heaven and Hell Is on Earth,20th Century Steel Band,2009,,25.0,0,,12,,42,samples,0,resurrection,1,1
+Heaven And Hell,Kanye West,42,2021,57,Two Words,"Kanye West, Mos Def, Freeway, The Boys Choir Of Harlem",2004,,63.0,0,,17,,42,interpolates,0,resurrection,1,1
+Here We Go... Again,"The Weeknd Featuring Tyler, The Creator",52,2022,55,Daybreak Over The Ocean,The Beach Boys,2012,,17.0,0,,10,,52,interpolates,0,resurrection,1,1
+Hold On,Justin Bieber,20,2021,71,Somebody That I Used To Know,"Gotye, Kimbra",2011,2013.0,77.0,1,1.0,10,-19.0,20,interpolates,0,confirmation,13,59
+Holiday,Lil Nas X,37,2021,67,Bonehead's Bank Holiday - Demo,Oasis,1995,2021.0,44.0,1,37.0,26,0.0,37,interpolates,0,confirmation,12,1
+Holiday,Lil Nas X,37,2021,67,"She's A Bad Mama Jama (She's Built, She's Stacked) - Single Version",Carl Carlton,1981,1982.0,69.0,1,22.0,40,-15.0,37,interpolates,0,confirmation,12,21
+Hollon,GloRilla,48,2024,49,Hold On Ho,Unk,2006,1967.0,22.0,1,91.0,18,43.0,48,samples,0,confirmation,7,1
+Hollywood's Bleeding,Post Malone,15,2019,73,They Don't Care About Us,Michael Jackson,1995,1996.0,82.0,1,30.0,24,15.0,15,interpolates,0,confirmation,6,13
+Homecoming,Lil Uzi Vert,22,2020,78,Baby Got Back,Sir Mix-A-Lot,1992,1992.0,73.0,1,1.0,28,-21.0,22,samples,0,confirmation,2,28
+Houdini,Eminem,2,2024,75,Abracadabra,Steve Miller Band,1982,1982.0,69.0,1,1.0,42,-1.0,2,samples,0,confirmation,20,25
+House Tour,Sabrina Carpenter,27,2025,81,In My House,Mary Jane Girls,1985,1985.0,53.0,1,7.0,40,-20.0,27,samples,0,confirmation,5,22
+Houstonfornication,Travis Scott,53,2018,67,Californication,Red Hot Chili Peppers,1999,2000.0,86.0,1,69.0,19,16.0,53,interpolates,0,confirmation,1,19
+How Bad Do U Want Me,Lady Gaga,69,2025,73,Only You,Yazoo,1982,1983.0,61.0,1,67.0,43,-2.0,69,interpolates,0,confirmation,1,8
+Humble,Lil Baby,86,2020,61,Up Against The Wind,Christopher Young,1996,,32.0,0,,24,,86,samples,0,resurrection,1,1
+Hurt Feelings,Mac Miller,70,2018,68,We've Only Just Begun,Carpenters,1970,1971.0,56.0,1,2.0,48,-68.0,70,interpolates,0,confirmation,1,17
+Hyaena,Travis Scott,14,2023,67,Funky President (People It's Bad),James Brown,1991,1975.0,30.0,1,44.0,32,30.0,14,samples,0,confirmation,2,10
+Hyaena,Travis Scott,14,2023,67,Maggot Brain,Funkadelic,1971,,58.0,0,,52,,14,samples,0,resurrection,2,1
+Hyaena,Travis Scott,14,2023,67,Synthetic Substitution,Melvin Bliss,1973,,20.0,0,,50,,14,samples,0,resurrection,2,1
+I Ain't Worried,OneRepublic,6,2023,81,Young Folks,Peter Bjorn and John,2006,,79.0,0,,17,,6,samples,0,resurrection,30,1
+I Am Who They Say I Am,YoungBoy Never Broke Again Featuring Kevin Gates & Quando Rondo,69,2018,62,Rain On Me,Ashanti,2003,2004.0,61.0,1,7.0,15,-62.0,69,samples,0,confirmation,2,20
+I Can Show You,Lil Uzi Vert,66,2020,56,I Can Make You a Man,Tim Curry,1975,2020.0,45.0,1,66.0,45,0.0,66,interpolates,0,confirmation,1,1
+I Heard You're Married,The Weeknd Featuring Lil Wayne,62,2022,59,Married Girl,The Slackers,1997,2024.0,35.0,1,51.0,25,-11.0,62,interpolates,0,confirmation,1,1
+I Killed You,"Tyler, The Creator",46,2024,63,Beautiful,"Snoop Dogg, Pharrell Williams, Charlie Wilson",2002,2003.0,72.0,1,6.0,22,-40.0,46,interpolates,0,confirmation,2,20
+I Know ?,Travis Scott,11,2024,79,I Kno,"Chief Keef, DJ Scream",2013,1986.0,36.0,1,20.0,11,9.0,11,interpolates,0,confirmation,22,1
+I Love Me,Demi Lovato,18,2020,52,Enough (I Wonder When I Love You),Anne-Marie,2005,2005.0,,1,27.0,15,9.0,18,interpolates,1,confirmation,10,1
+I Love Me,Demi Lovato,18,2020,52,I Wonder When I Love You Is Enough,Anne-Marie,2005,2005.0,,1,27.0,15,9.0,18,interpolates,1,confirmation,10,1
+I Love You,Billie Eilish,53,2019,82,Hallelujah,Leonard Cohen,1984,2016.0,64.0,1,59.0,35,6.0,53,interpolates,0,confirmation,1,1
+I Love You,Billie Eilish,53,2019,82,Something Stupid,"Pessoa, Carson and Gaile",1966,2003.0,19.0,1,35.0,53,-18.0,53,interpolates,0,confirmation,1,1
+I Never Lie,Zach Top,24,2025,79,You Don't Seem to Miss Me (with Patty Loveless),"George Jones, Patty Loveless",2007,,33.0,0,,18,,24,interpolates,0,resurrection,34,1
+I Think,"Tyler, The Creator",51,2019,72,Get Down On It,Kool & The Gang,1981,,70.0,0,,38,,51,samples,0,resurrection,1,17
+I Think,"Tyler, The Creator",51,2019,72,SexyBack (feat. Timbaland),"Justin Timberlake, Timbaland",2006,2007.0,85.0,1,1.0,13,-50.0,51,interpolates,0,confirmation,1,1
+I Was Jack (You Were Diane),Jake Owen,43,2018,56,Jack & Diane,John Mellencamp,1982,,72.0,0,,36,,43,samples,0,resurrection,11,1
+I Wish,Kodak Black,90,2022,53,One Wish,Ray J,2005,2006.0,67.0,1,11.0,17,-79.0,90,samples,0,confirmation,1,25
+I'll Take Care Of You,"Tyler, the Creator",55,2025,74,I'll Take Care Of You,"Bobby ""Blue"" Bland",1992,1960.0,42.0,1,89.0,33,34.0,55,interpolates,0,confirmation,2,3
+I'll Take Care Of You,"Tyler, the Creator",55,2025,74,Knuck If You Buck (feat. Lil' Scrappy),"Crime Mob, Lil Scrappy",2004,2005.0,64.0,1,76.0,21,21.0,55,samples,0,confirmation,2,1
+I'm A Mess,Bebe Rexha,35,2018,71,Bitch,Meredith Brooks,1997,1997.0,72.0,1,2.0,21,-33.0,35,interpolates,0,confirmation,20,30
+I'm Not Here To Make Friends,Sam Smith,71,2023,62,All Around the World,Lisa Stansfield,1989,1990.0,54.0,1,3.0,34,-68.0,71,interpolates,0,confirmation,2,22
+I'm That Girl,Beyonce,26,2022,65,Still Po' Pimpin',"Do Or Die, Johnny P, Twista",1998,,49.0,0,,24,,26,samples,0,resurrection,2,14
+I'm Upset,Drake,7,2018,64,Irreplaceable,Beyoncé,2007,2007.0,71.0,1,1.0,11,-6.0,7,samples,0,confirmation,16,30
+INTRO,DaBaby,13,2019,52,O Holy Night - A Cappella,*NSYNC,1998,,31.0,0,,21,,13,samples,0,resurrection,6,1
+"If I'm Lyin, I'm Flyin",Kodak Black,56,2018,60,Easy Days,The Pointer Sisters,1975,,15.0,0,,43,,56,samples,0,resurrection,3,1
+If Pain Was A Person,Moneybagg Yo,54,2021,57,(If Loving You Is Wrong) I Don't Want to Be Right,Luther Ingram,1967,1972.0,46.0,1,3.0,54,-51.0,54,samples,0,confirmation,2,16
+Iffy,Chris Brown,71,2022,46,In Da Club,50 Cent,2003,2003.0,76.0,1,1.0,19,-70.0,71,interpolates,0,confirmation,8,30
+Iffy,Chris Brown,71,2022,46,"Never Leave You (Uh Oooh, Uh Oooh)",Lumidee,2003,2003.0,62.0,1,3.0,19,-68.0,71,interpolates,0,confirmation,8,20
+Igor's Theme,"Tyler, The Creator",67,2019,67,Mafia Niggaz,Juicy J,2002,,29.0,0,,17,,67,interpolates,0,resurrection,1,1
+Illegal,PinkPantheress,96,2025,81,Bury Me in Black - Demo,My Chemical Romance,2006,,54.0,0,,19,,96,interpolates,0,resurrection,1,1
+Illegal,PinkPantheress,96,2025,81,Dark And Long - Dark Train,Underworld,2014,,58.0,0,,11,,96,samples,0,resurrection,1,1
+Illegal,PinkPantheress,96,2025,81,Illegal (Demonstration Version - Includes Lead Singer)ile (Karaoke Version),Stingray Music (Karaoke),2008,2025.0,0.0,1,96.0,17,0.0,96,interpolates,0,confirmation,1,1
+Imaginary Playerz,Cardi B,66,2025,54,Imaginary Players,JAŸ-Z,1997,,51.0,0,,28,,66,samples,0,resurrection,2,1
+In My Feelings,Drake,1,2018,74,Lollipop,"Lil Wayne, Static Major",2008,2008.0,70.0,1,1.0,10,0.0,1,samples,0,confirmation,22,28
+In My Head,Lil Tjay,33,2022,64,Replay,Iyaz,2009,2010.0,84.0,1,2.0,13,-31.0,33,samples,0,confirmation,4,34
+In Too Deep,Eminem,71,2020,53,Shawty Is Da Shit,"The-Dream, Fabolous",2007,2008.0,63.0,1,17.0,13,-54.0,71,interpolates,0,confirmation,1,1
+Indica Badu,Logic Featuring Wiz Khalifa,56,2018,60,Didn't Cha Know,Erykah Badu,2000,,72.0,0,,18,,56,samples,0,resurrection,1,1
+Indica Badu,Logic Featuring Wiz Khalifa,56,2018,60,Dreamflower,Tarika Blue,1977,,50.0,0,,41,,56,samples,0,resurrection,1,1
+Indica Badu,Logic Featuring Wiz Khalifa,56,2018,60,Govinda,J.O.B. Orquestra,1978,,20.0,0,,40,,56,samples,0,resurrection,1,1
+Indica Badu,Logic Featuring Wiz Khalifa,56,2018,60,Use Me,Bill Withers,1972,1972.0,72.0,1,2.0,46,-54.0,56,samples,0,confirmation,1,12
+Infinite Baths,Sleep Token,100,2025,68,Shine On You Crazy Diamond (Pts. 1-5),Pink Floyd,1975,,72.0,0,,50,,100,interpolates,0,resurrection,1,1
+Infrared,Pusha T,65,2018,46,The Prelude,JAŸ-Z,2006,,31.0,0,,12,,65,interpolates,0,resurrection,1,1
+Infrared,Pusha T,65,2018,46,What More Can I Say,JAŸ-Z,2003,,50.0,0,,15,,65,interpolates,0,resurrection,1,1
+Into The Unknown,Panic! At The Disco,98,2019,60,Dies Irae,"Gregorian Chant, Martin Pazdioch",2004,,2.0,0,,15,,98,interpolates,0,resurrection,2,1
+Intro,J. Cole,53,2018,77,Didn't Cha Know,Erykah Badu,2000,,72.0,0,,18,,53,samples,0,resurrection,1,1
+Intro (End Of The World),Ariana Grande,38,2025,76,If 6 Was 9,Jimi Hendrix,1967,1987.0,50.0,1,67.0,58,29.0,38,interpolates,0,confirmation,4,1
+Intro (Hate On Me),Meek Mill,36,2021,44,Hate Me Now (feat. Diddy),"Nas, Diddy",1999,1999.0,57.0,1,62.0,22,26.0,36,samples,0,confirmation,1,1
+Is There More,Drake,36,2018,57,More Than A Woman,Aaliyah,2001,2002.0,60.0,1,25.0,17,-11.0,36,samples,0,confirmation,2,24
+It Depends,Chris Brown Featuring Bryson Tiller,16,2025,75,Nice & Slow - Radio Version,USHER,1997,1998.0,66.0,1,1.0,28,-15.0,16,samples,0,confirmation,30,1
+Itty Bitty Piggy,Nicki Minaj,82,2021,54,Donk,Soulja Boy,2007,,57.0,0,,14,,82,samples,0,resurrection,1,1
+Jail,Kanye West,10,2021,60,Sleep (Fingers Lullaby),The Boomtown Rats,1979,,17.0,0,,42,,10,samples,0,resurrection,3,1
+Jesus Lord,Kanye West,26,2021,53,Angeles Y Demonios,"Don Omar, Kendo Kapponi, Syko",2010,,40.0,0,,11,,26,interpolates,0,resurrection,2,1
+Jolene,Beyonce,7,2024,60,Jolene,Dolly Parton,1974,1974.0,72.0,1,60.0,50,53.0,7,interpolates,0,underdog,3,8
+Jonah,Kanye West,27,2021,54,"Jonah Was A Prophet - From ""Jonah: A VeggieTales Movie"" Soundtrack",VeggieTales,2002,,30.0,0,,19,,27,interpolates,0,resurrection,2,1
+Juice,Lizzo,82,2019,68,Finally,CeCe Peniston,1992,1992.0,63.0,1,5.0,27,-77.0,82,samples,0,confirmation,4,33
+Juice WRLD Did,DJ Khaled Featuring Juice WRLD,55,2022,55,Mafia Music,Rick Ross,2009,2001.0,52.0,1,22.0,13,-33.0,55,interpolates,0,confirmation,1,1
+Jumpin On A Jet,Future,57,2019,51,Mafia Niggaz,Juicy J,2002,,29.0,0,,17,,57,interpolates,0,resurrection,2,1
+Jumpsuit,twenty one pilots,50,2018,68,Money,Pink Floyd,1973,1973.0,76.0,1,13.0,45,-37.0,50,samples,0,confirmation,4,15
+Kamikaze,Eminem,16,2018,58,I'm Bad,LL COOL J,1987,1987.0,52.0,1,84.0,31,68.0,16,samples,0,underdog,3,4
+Kamikaze,Lil Mosey,97,2018,61,Never Lie,Immature,1994,1995.0,42.0,1,5.0,24,-92.0,97,samples,0,confirmation,1,26
+Keep My Spirit Alive,Kanye West,59,2021,53,I'm Still #1,Boogie Down Productions,1988,,32.0,0,,33,,59,interpolates,0,resurrection,1,1
+Keep Up,Odetari,96,2024,75,STH1 Green Hill Zone 〜 Mega Drive version 〜,Masato Nakamura,2011,2025.0,50.0,1,51.0,13,-45.0,96,interpolates,0,confirmation,1,1
+Kevin's Heart,J. Cole,8,2018,69,"Any Time, Any Place",Janet Jackson,1993,1994.0,62.0,1,2.0,25,-6.0,8,samples,0,confirmation,5,1
+Keys To My Life,¥$: Kanye West & Ty Dolla $ign,55,2024,56,Can It Be All So Simple / Intermission,Wu-Tang Clan,1993,,52.0,0,,31,,55,samples,0,resurrection,1,1
+Keys To My Life,¥$: Kanye West & Ty Dolla $ign,55,2024,56,Can't Take My Eyes off You,Frankie Valli,2003,,74.0,0,,21,,55,interpolates,0,resurrection,1,16
+Keys To My Life,¥$: Kanye West & Ty Dolla $ign,55,2024,56,Slow Down,Brand Nubian,1990,,46.0,0,,34,,55,samples,0,resurrection,1,1
+Kick Out,Travis Scott,50,2025,71,Irn Bru,Scocha,2011,,17.0,0,,14,,50,interpolates,0,resurrection,2,1
+Killshot,Eminem,3,2018,70,Go To Sleep,"Eminem, DMX, Obie Trice",2003,,67.0,0,,15,,3,interpolates,0,resurrection,8,1
+Killshot,Eminem,3,2018,70,Stan,"Eminem, Dido",2000,2001.0,81.0,1,51.0,18,48.0,3,interpolates,0,confirmation,8,15
+King,¥$: Kanye West & Ty Dolla $ign,94,2024,82,Barry Bonds,"Kanye West, Lil Wayne",2007,,63.0,0,,17,,94,interpolates,0,resurrection,1,1
+King,¥$: Kanye West & Ty Dolla $ign,94,2024,82,Bob Wills Is Still The King (Karaoke Lead Vocal Demo)[In the Style of Waylon Jennings],Backtrack Professional Karaoke Band,2009,2024.0,0.0,1,94.0,15,0.0,94,interpolates,0,confirmation,1,1
+King,¥$: Kanye West & Ty Dolla $ign,94,2024,82,Hit It Run,Run–D.M.C.,1986,,28.0,0,,38,,94,samples,0,resurrection,1,1
+King,¥$: Kanye West & Ty Dolla $ign,94,2024,82,Stems,S.Maharba,2008,,15.0,0,,16,,94,samples,0,resurrection,1,1
+Kings & Queens,Ava Max,13,2021,82,If You Were a Woman (And I Was a Man),Bonnie Tyler,1986,1986.0,51.0,1,77.0,35,64.0,13,interpolates,0,underdog,27,6
+Kitchen,SZA,71,2025,63,Voyage to Atlantis,The Isley Brothers,1977,,51.0,0,,48,,71,samples,0,resurrection,2,1
+Last Last,Burna Boy,44,2022,67,He Wasn't Man Enough,Toni Braxton,2000,2000.0,70.0,1,2.0,22,-42.0,44,samples,0,confirmation,19,37
+Last Last,Burna Boy,44,2022,67,Heaven,Bryan Adams,1984,,85.0,0,,38,,44,samples,0,resurrection,19,19
+Latina Foreva,Karol G,66,2025,79,Dile,Don Omar,2003,,84.0,0,,22,,66,samples,0,resurrection,5,1
+Latina Foreva,Karol G,66,2025,79,Oye Mi Canto,"N.O.R.E., Daddy Yankee, Nina Sky, Gemstar, Big Mato",2006,2005.0,71.0,1,12.0,19,-54.0,66,interpolates,0,confirmation,5,22
+Leave Me Alone,Flipp Dinero,20,2019,69,Leave Me Alone,Michael Jackson,2005,2019.0,54.0,1,85.0,14,65.0,20,interpolates,0,underdog,25,1
+Lemon Tree,Post Malone,53,2022,58,Lemon Tree,Fools Garden,1995,,75.0,0,,27,,53,interpolates,0,resurrection,1,1
+Less Than Zero,The Weeknd,53,2022,73,Words - Original Version 1983,F.R. David,1983,1983.0,76.0,1,62.0,39,9.0,53,interpolates,0,confirmation,2,1
+Let Down,Radiohead,91,2025,88,I'm Gonna Sit Right Down and Write Myself a Letter,Fats Waller,1973,2025.0,2.0,1,91.0,52,0.0,91,interpolates,0,confirmation,13,1
+Letter From Houston,Rod Wave,62,2020,69,Delirious,"Vistoso Bosses, Soulja Boy",2009,,59.0,0,,11,,62,samples,0,resurrection,1,1
+Letter To My Brudda,21 Savage,59,2024,54,So Appalled,"Kanye West, JAŸ-Z, Pusha T, CyHi, Swizz Beatz, RZA",2010,,62.0,0,,14,,59,interpolates,0,resurrection,1,1
+Liar,Camila Cabello,52,2019,63,All Night Long (All Night),Lionel Richie,1983,1984.0,62.0,1,1.0,36,-51.0,52,samples,0,confirmation,11,24
+Liar,Camila Cabello,52,2019,63,All That She Wants,Ace of Base,1993,1994.0,81.0,1,2.0,26,-50.0,52,interpolates,0,confirmation,11,36
+Like Him,"Tyler, The Creator Featuring Lola Young",29,2025,84,Answer,"Tyler, The Creator",2013,1966.0,71.0,1,92.0,12,63.0,29,interpolates,0,underdog,28,1
+Like I Love Country Music,Kane Brown,26,2022,57,Brand New Man,Brooks & Dunn,2009,,68.0,0,,13,,26,interpolates,0,resurrection,20,1
+Like Weezy,Playboi Carti,56,2025,66,Bend Over,The Rich Kidz and Money Savage Hosted By DJ Kutt Throat,2010,,31.0,0,,15,,56,samples,0,resurrection,2,1
+Like Weezy,Playboi Carti,56,2025,66,The Truth Is... (I Lied About Everything),Theory of a Deadman,2011,,37.0,0,,14,,56,interpolates,0,resurrection,2,1
+Like What (Freestyle),Cardi B,38,2024,55,She's a Bitch,Missy Elliott,1999,1999.0,51.0,1,90.0,25,52.0,38,samples,0,underdog,3,6
+Lil Boo Thang,Paul Russell,14,2024,77,Best of My Love,The Emotions,1977,1977.0,69.0,1,1.0,47,-13.0,14,samples,0,confirmation,21,23
+Livin Wild,Gunna,61,2022,60,Why Me Baby?,Keith Sweat,1991,1992.0,40.0,1,44.0,31,-17.0,61,samples,0,confirmation,2,17
+Long Journey,Rod Wave,39,2023,60,Long Journey (feat. Webbie),"Boosie Badazz, Webbie",2010,,31.0,0,,13,,39,interpolates,0,resurrection,3,1
+Long Live,YoungBoy Never Broke Again,87,2022,46,Soothsayer (Dedicated to Aunt Suzie),Buckethead,2009,,52.0,0,,13,,87,samples,0,resurrection,1,1
+Look Back At It,A Boogie Wit da Hoodie,27,2019,77,Remember the Time,Michael Jackson,1991,1992.0,80.0,1,3.0,28,-24.0,27,samples,0,confirmation,31,20
+Look Back At It,A Boogie Wit da Hoodie,27,2019,77,You Rock My World,Michael Jackson,2001,2002.0,78.0,1,10.0,18,-17.0,27,interpolates,0,confirmation,31,20
+Look What You Made Me Do,Taylor Swift,1,2018,78,I'm Too Sexy,Right Said Fred,1992,1992.0,50.0,1,1.0,26,0.0,1,interpolates,0,confirmation,19,21
+Lose My Breath,Stray Kids Featuring Charlie Puth,90,2024,66,Lose My Breath,Destiny's Child,2004,,64.0,0,,20,,90,interpolates,0,resurrection,1,23
+Lose Yourself,Eminem,1,2022,79,One Shot At Love,LL COOL J,1989,,15.0,0,,33,,1,interpolates,0,resurrection,24,1
+Lose Yourself,Eminem,1,2022,79,Till I Collapse,"Eminem, Nate Dogg",2002,,85.0,0,,20,,1,interpolates,0,resurrection,24,1
+Lost,Linkin Park,38,2023,69,Lost In Space - Main Mix,Lighthouse Family,2002,2023.0,29.0,1,38.0,21,0.0,38,interpolates,0,confirmation,2,1
+Love Again,Dua Lipa,41,2021,78,My Woman,"Lew Stone & the Monseigneur Band, Al Bowlly, Nat Gonella, Tiny Winters",1998,1980.0,35.0,1,41.0,23,0.0,41,samples,0,confirmation,16,1
+Love Again,Dua Lipa,41,2021,78,Your Woman,White Town,1997,1997.0,74.0,1,23.0,24,-18.0,41,samples,0,confirmation,16,20
+Love Language,SZA,21,2023,67,I Don't Wanna,Aaliyah,2005,2000.0,56.0,1,35.0,18,14.0,21,interpolates,0,confirmation,10,20
+Love Nwantiti (Ah Ah Ah),CKay,26,2022,75,Just the Two of Us (feat. Bill Withers),"Grover Washington, Jr., Bill Withers",1985,1981.0,74.0,1,2.0,37,-24.0,26,samples,0,confirmation,29,1
+Love Somebody,Morgan Wallen,1,2025,79,(I Just) Died In Your Arms,Cutting Crew,1986,1987.0,83.0,1,1.0,39,0.0,1,interpolates,0,confirmation,45,19
+Love Story/Interlude,Rod Wave,79,2023,57,Song to a Seagull,Joni Mitchell,1968,,28.0,0,,55,,79,samples,0,resurrection,1,1
+Lover Girl,Megan Thee Stallion,38,2025,70,Kissin' You,Total,1996,1996.0,59.0,1,12.0,29,-26.0,38,samples,0,confirmation,2,22
+Lovin On Me,Jack Harlow,1,2024,79,The Motto,"Drake, Lil Wayne",2011,2012.0,75.0,1,14.0,13,13.0,1,interpolates,0,confirmation,38,35
+Lucid Dreams,Juice WRLD,2,2019,83,Emotional,Carl Thomas,2000,2001.0,50.0,1,47.0,19,45.0,2,interpolates,0,confirmation,48,20
+Lucid Dreams,Juice WRLD,2,2019,83,Shape Of My Heart,Sting,1993,1968.0,79.0,1,12.0,26,10.0,2,samples,0,confirmation,48,1
+Lucky,Halsey,88,2024,53,Angel of Mine,Monica,1998,1999.0,61.0,1,1.0,26,-87.0,88,samples,0,confirmation,1,30
+Lucky,Halsey,88,2024,53,Lucky,Britney Spears,2000,2000.0,73.0,1,23.0,24,-65.0,88,samples,0,confirmation,1,11
+Lucky,Halsey,88,2024,53,You Gotta Be,Des'ree,1994,1995.0,66.0,1,5.0,30,-83.0,88,samples,0,confirmation,1,44
+Lumberjack,"Tyler, The Creator",45,2021,58,2 Cups of Blood,Gravediggaz,1997,,33.0,0,,24,,45,samples,0,resurrection,2,1
+MEGATRON,Nicki Minaj,20,2019,55,Breeze Off,Lady G,1998,,48.0,0,,21,,20,samples,0,resurrection,5,1
+MEGATRON,Nicki Minaj,20,2019,55,Ting-A-Ling,Shabba Ranks,1992,,53.0,0,,27,,20,samples,0,resurrection,5,1
+Made My Hoe Faint,Future,85,2024,46,Swagga Like Us,"T.I., Kanye West, Lil Wayne",2008,2009.0,57.0,1,5.0,16,-80.0,85,interpolates,0,confirmation,1,20
+Mama Mia,Lil Wayne,87,2020,43,Hail Mary,2Pac,1998,,69.0,0,,22,,87,interpolates,0,resurrection,1,1
+"Mama, I'm Sorry",Lil Uzi Vert,65,2023,53,Hate Bein' Sober,"Chief Keef, 50 Cent, Wiz Khalifa",2012,,77.0,0,,11,,65,interpolates,0,resurrection,1,1
+"Mama, I'm Sorry",Lil Uzi Vert,65,2023,53,Love Sosa,Chief Keef,2012,2013.0,81.0,1,56.0,11,-9.0,65,interpolates,0,confirmation,1,14
+"Mama, I'm Sorry",Lil Uzi Vert,65,2023,53,Somebody That I Used To Know,"Gotye, Kimbra",2011,2013.0,77.0,1,1.0,12,-64.0,65,interpolates,0,confirmation,1,59
+Mamacita,"Black Eyed Peas, Ozuna + J.Rey Soul",62,2020,61,La Isla Bonita,Madonna,1986,1987.0,75.0,1,4.0,34,-58.0,62,interpolates,0,confirmation,11,17
+Man At The Garden,Kendrick Lamar,9,2024,67,One Mic,Nas,2001,2002.0,49.0,1,43.0,23,34.0,9,interpolates,0,confirmation,4,13
+March 14,Drake,57,2018,53,Khalil - Interlude,Boyz II Men,1994,,21.0,0,,24,,57,interpolates,0,resurrection,1,1
+March 14,Drake,57,2018,53,Lady,D'Angelo,1995,1996.0,67.0,1,10.0,23,-47.0,57,samples,0,confirmation,1,20
+Marni On Me,Future & Lil Uzi Vert,64,2020,45,Boys on da Cut,South Park Mexican,2000,,33.0,0,,20,,64,interpolates,0,resurrection,1,1
+Maui Wowie,Kid Cudi,71,2025,78,Let's Get Lifted,John Legend,2005,,44.0,0,,20,,71,interpolates,0,resurrection,3,1
+Meet The Grahams,Kendrick Lamar,12,2024,69,Can You Say Yeah?,The Gospel Storytellers,2006,1965.0,4.0,1,63.0,18,51.0,12,samples,0,underdog,4,1
+Meet The Grahams,Kendrick Lamar,12,2024,69,I Just Want To Make Love To You - Single Version,Etta James,1960,,64.0,0,,64,,12,samples,0,resurrection,4,1
+Meet The Grahams,Kendrick Lamar,12,2024,69,Keep It Thoro,Prodigy,2013,,39.0,0,,11,,12,interpolates,0,resurrection,4,1
+Meet The Grahams,Kendrick Lamar,12,2024,69,Stan,"Eminem, Dido",2000,2001.0,81.0,1,51.0,24,39.0,12,interpolates,0,confirmation,4,15
+Memories,Maroon 5,2,2020,82,Canon in D,"Johann Pachelbel, Kanon Orchestre de Chambre, Jean-François Paillard",2009,,57.0,0,,11,,2,interpolates,0,resurrection,41,1
+Memories,Maroon 5,2,2020,82,No Woman No Cry,Bob Marley & The Wailers,1974,,62.0,0,,46,,2,interpolates,0,resurrection,41,1
+Miami,Morgan Wallen,65,2025,70,"Miami, My Amy",Keith Whitley,1985,,63.0,0,,40,,65,samples,0,resurrection,3,1
+Middle Child,J. Cole,4,2019,79,Wake Up To Me,First Choice,1973,,12.0,0,,46,,4,samples,0,resurrection,27,1
+Middle Of The Ocean,Drake,15,2022,65,Cry Together,The O'Jays,1978,1987.0,44.0,1,75.0,44,60.0,15,samples,0,underdog,3,1
+Middle Of The Ocean,Drake,15,2022,65,Mo Money Mo Murder (Homicide),"AZ, Nas",1995,2021.0,42.0,1,90.0,27,75.0,15,samples,0,underdog,3,1
+Midnight,Logic,74,2018,51,Who U Wit,Lil Jon & The East Side Boyz,2001,,33.0,0,,17,,74,samples,0,resurrection,1,1
+Midnight Sky,Miley Cyrus,14,2021,70,Edge of Seventeen,Stevie Nicks,2007,1982.0,68.0,1,11.0,14,-3.0,14,samples,0,confirmation,20,1
+Mientras Me Curo del Cora,Karol G,68,2023,75,Don't Worry Be Happy,Bobby McFerrin,1988,1989.0,69.0,1,1.0,35,-67.0,68,samples,0,confirmation,1,1
+Mmhmm,BigXthaPlug,63,2024,63,And the Beat Goes On,The Whispers,1995,1980.0,50.0,1,19.0,29,-44.0,63,samples,0,confirmation,20,15
+Mmhmm,BigXthaPlug,63,2024,63,Miami,Will Smith,1997,1999.0,73.0,1,17.0,27,-46.0,63,interpolates,0,confirmation,20,21
+Mob Ties,Drake,13,2018,66,"Affirmative Action (feat. AZ, Cormega & Foxy Brown)","Nas, AZ, Cormega, Foxy Brown",1996,1994.0,58.0,1,43.0,22,30.0,13,samples,0,confirmation,8,1
+Modern Slavery,Huncho Jack,68,2018,55,Cigarettes and Coffee,Otis Redding,1966,1963.0,61.0,1,21.0,52,-47.0,68,samples,0,confirmation,1,1
+Momma I Hit A Lick,2 Chainz Featuring Kendrick Lamar,100,2019,46,Chilly Down,David Bowie,1986,2014.0,45.0,1,39.0,33,-61.0,100,interpolates,0,confirmation,1,1
+Mommanem,"Tyler, the Creator",54,2025,65,Montagehalle,"Gorilla Aktiv, Nick Deinhardt, Tommi Eckart",1982,,3.0,0,,43,,54,samples,0,resurrection,2,1
+Monaco,Bad Bunny,5,2024,88,Hier encore,Charles Aznavour,1964,,68.0,0,,60,,5,samples,0,resurrection,21,1
+Money On The Dresser,Young Thug,78,2023,44,Int'l Players Anthem (I Choose You) (feat. Outkast),"UGK, Outkast",2007,2007.0,69.0,1,70.0,16,-8.0,78,interpolates,0,confirmation,1,9
+Money Spread,Lil Uzi Vert Featuring Young Nudy,89,2020,59,Bad Boys,Inner Circle,2010,1993.0,68.0,1,8.0,10,-81.0,89,interpolates,0,confirmation,1,1
+Monster Mash,"Bobby ""Boris"" Pickett And The Crypt-Kickers",1,2025,4,Mashed Potato Time,Dee Dee Sharp,1962,1962.0,47.0,1,2.0,63,1.0,1,interpolates,0,confirmation,42,18
+Mother I Sober,Kendrick Lamar Featuring Beth Gibbons,59,2022,57,Abortion,Lil Wayne,2011,2014.0,45.0,1,39.0,11,-20.0,59,interpolates,0,confirmation,1,1
+Mother I Sober,Kendrick Lamar Featuring Beth Gibbons,59,2022,57,Somebody That I Used To Know,"Gotye, Kimbra",2011,2009.0,77.0,1,10.0,11,-49.0,59,interpolates,0,confirmation,1,59
+Motiv8,J. Cole,15,2018,57,Get Money,Junior M.A.F.I.A.,1995,1996.0,59.0,1,17.0,23,2.0,15,samples,0,confirmation,2,1
+Motiv8,J. Cole,15,2018,57,Knuck If You Buck (feat. Lil' Scrappy),"Crime Mob, Lil Scrappy",2004,2005.0,64.0,1,76.0,14,61.0,15,samples,0,underdog,2,1
+Mr Pot Scraper,BossMan Dlow,93,2024,63,Made Niggaz,2Pac,1997,,45.0,0,,27,,93,interpolates,0,resurrection,1,1
+Mutt,Leon Thomas,6,2025,72,Silly Love Song,Enchantment,1977,,39.0,0,,48,,6,samples,0,resurrection,52,1
+My Head And My Heart,Ava Max,45,2021,59,Around the World (La La La La La),"A Touch Of Class, Pete Konemann",2000,2001.0,76.0,1,28.0,21,-17.0,45,interpolates,0,confirmation,12,1
+My Type,Saweetie,21,2019,70,Freek-A-Leek,Petey Pablo,2004,2004.0,74.0,1,7.0,15,-14.0,21,samples,0,confirmation,20,39
+Myron,Lil Uzi Vert,13,2020,69,"So Fresh, So Clean",Outkast,2000,2001.0,75.0,1,30.0,20,17.0,13,interpolates,0,confirmation,7,20
+Mystical Magical,Benson Boone,17,2025,80,Physical,Olivia Newton-John,2002,1982.0,40.0,1,1.0,23,-16.0,17,interpolates,0,confirmation,27,26
+N95,Kendrick Lamar,3,2022,72,Shaolin Temple,Barrington Levy,2012,2014.0,29.0,1,39.0,10,36.0,3,interpolates,0,confirmation,6,1
+NDA,Billie Eilish,39,2021,74,Show Me Love - Extended Version,"t.A.T.u., DJ Monk",2002,,36.0,0,,19,,39,samples,0,resurrection,5,1
+Nakamura,Lil Uzi Vert,71,2023,50,Hell Of A Life,Kanye West,2010,,68.0,0,,13,,71,interpolates,0,resurrection,1,1
+Napoleon,$uicideboy$,54,2025,74,Feel Good Party Time,J.R. Funk & The Love Machine,2012,,3.0,0,,13,,54,samples,0,resurrection,3,1
+Napoleon,$uicideboy$,54,2025,74,From What I Was Told,Soulja Slim,2007,,31.0,0,,18,,54,samples,0,resurrection,3,1
+Napoleon,$uicideboy$,54,2025,74,Make It Bounce,Soulja Slim,2001,,17.0,0,,24,,54,samples,0,resurrection,3,1
+Need Me,J.I The Prince Of N.Y,95,2020,65,"Best Of Me, Part 2","Mýa, JAŸ-Z",2000,2005.0,53.0,1,27.0,20,-68.0,95,samples,0,confirmation,2,1
+Need Me,J.I The Prince Of N.Y,95,2020,65,Turn Me On,Kevin Lyttle,2004,2004.0,72.0,1,4.0,16,-91.0,95,interpolates,0,confirmation,2,1
+Never Gonna Not Dance Again,P!nk,99,2023,62,I Wanna Dance with Somebody (Who Loves Me),Whitney Houston,1987,2012.0,84.0,1,1.0,36,-98.0,99,interpolates,0,confirmation,2,20
+New Again,Kanye West,68,2021,55,I'll Say It Again,Sweet Linda Divine,1969,,14.0,0,,52,,68,samples,0,resurrection,1,1
+New Magic Wand,"Tyler, The Creator",70,2019,77,Green Eyes,Erykah Badu,2000,,56.0,0,,19,,70,interpolates,0,resurrection,1,1
+Niagara Falls,The Weeknd,65,2025,70,Someone to Love (feat. Babyface),"Jon B., Babyface",1995,1995.0,45.0,1,10.0,30,-55.0,65,samples,0,confirmation,1,1
+Nice For What,Drake,1,2018,79,Air Raid Siren: Alert,actuality recording,2007,,38.0,0,,11,,1,samples,0,resurrection,25,1
+Nice For What,Drake,1,2018,79,Ex-Factor,Ms. Lauryn Hill,1998,1999.0,75.0,1,21.0,20,20.0,1,samples,0,confirmation,25,22
+Nice For What,Drake,1,2018,79,Get Your Roll On,Big Tymers,2000,,54.0,0,,18,,1,interpolates,0,resurrection,25,1
+Nice To Meet Ya,Meghan Trainor Featuring Nicki Minaj,89,2020,47,Monster,"Kanye West, JAŸ-Z, Rick Ross, Nicki Minaj, Bon Iver",2010,2011.0,75.0,1,18.0,10,-71.0,89,samples,0,confirmation,1,10
+Nightmare,Halsey,15,2019,66,All The Things She Said,t.A.T.u.,2002,2003.0,86.0,1,20.0,17,5.0,15,interpolates,0,confirmation,11,20
+No,Summer Walker,69,2025,71,Yes,Beyoncé,2003,,45.0,0,,22,,69,samples,0,resurrection,1,1
+No Auto,Lil Uzi Vert Featuring Lil Durk,76,2020,64,BM J.R.,Lil Wayne,2004,,47.0,0,,16,,76,samples,0,resurrection,1,1
+No Bystanders,Travis Scott,31,2018,70,Joga,Björk,1997,,50.0,0,,21,,31,samples,0,resurrection,2,1
+No Bystanders,Travis Scott,31,2018,70,Tear Da Club Up '97,Three 6 Mafia,1997,,43.0,0,,21,,31,interpolates,0,resurrection,2,1
+No Friends In The Industry,Drake,11,2021,70,Niggaz Ain't Barin' Dat,Three 6 Mafia,1999,,38.0,0,,22,,11,samples,0,resurrection,8,1
+No Friends In The Industry,Drake,11,2021,70,When I Call Your Name,Vince Gill,1989,1980.0,62.0,1,83.0,32,72.0,11,samples,0,underdog,8,1
+No Me Quiero Casar,Bad Bunny,65,2023,85,Hey Girl,Frankie Boy,1996,1969.0,28.0,1,52.0,27,-13.0,65,samples,0,confirmation,1,1
+No Me Quiero Casar,Bad Bunny,65,2023,85,La Calle Me Lo Pidio,"Yandel, Tego Calderón",2003,,56.0,0,,20,,65,samples,0,resurrection,1,1
+No Me Quiero Casar,Bad Bunny,65,2023,85,Para Todas las Ladies Remix,Don Chezina,1996,,2.0,0,,27,,65,samples,0,resurrection,1,1
+No Mistakes,Kanye West,36,2018,62,Children Get Together,The Edwin Hawkins Singers,1971,,16.0,0,,47,,36,samples,0,resurrection,1,1
+No Mistakes,Kanye West,36,2018,62,Hey Young World,Slick Rick,1988,,44.0,0,,30,,36,samples,0,resurrection,1,1
+No Mistakes,Kanye West,36,2018,62,Touch The Sky,"Kanye West, Lupe Fiasco",2005,2006.0,79.0,1,42.0,13,6.0,36,interpolates,0,confirmation,1,9
+No Tears Left To Cry,Ariana Grande,3,2018,80,Summer of Love,Steps,2000,2018.0,41.0,1,84.0,18,81.0,3,interpolates,0,underdog,27,1
+Noid,"Tyler, The Creator",10,2024,58,Cheerleader,Grizzly Bear,2009,,39.0,0,,15,,10,interpolates,0,resurrection,5,1
+Nokia,Drake,2,2025,84,Gran Vals,"Francisco Tárrega, Fernando Espí",2002,,31.0,0,,23,,2,interpolates,0,resurrection,27,1
+Nokia,Drake,2,2025,84,Paranoid,"Kanye West, Mr Hudson",2008,,65.0,0,,17,,2,interpolates,0,resurrection,27,1
+Not Like Us,Kendrick Lamar,1,2025,88,I Believe To My Soul,Monk Higgins,1968,,26.0,0,,57,,1,samples,0,resurrection,53,1
+Not Like Us,Kendrick Lamar,1,2025,88,It's Okay (One Blood),"The Game, Junior Reid",2006,2006.0,52.0,1,71.0,19,70.0,1,interpolates,0,underdog,53,15
+Not Like Us,Kendrick Lamar,1,2025,88,Wop (Official Version),J. Dash,2010,2013.0,56.0,1,51.0,15,50.0,1,interpolates,0,confirmation,53,1
+Nuevayol,Bad Bunny,8,2025,97,Mamá Borinquen Me Llama,"Andrés Jiménez, El Jíbaro",2012,,28.0,0,,13,,8,samples,0,resurrection,24,1
+Nuevayol,Bad Bunny,8,2025,97,Un verano en Nueva York,El Gran Combo De Puerto Rico,1975,2005.0,66.0,1,27.0,50,19.0,8,samples,0,confirmation,24,1
+OMDB,Rod Wave,89,2021,58,Over My Dead Body,Drake,2011,2010.0,78.0,1,14.0,10,-75.0,89,interpolates,0,confirmation,1,1
+OPM Babi,Playboi Carti,75,2025,63,742617000027,Slipknot,1999,,50.0,0,,26,,75,samples,0,resurrection,1,1
+OWA OWA,Lil Tecca,50,2025,67,Video Killed The Radio Star,The Buggles,1980,1980.0,66.0,1,40.0,45,-10.0,50,samples,0,confirmation,5,10
+Ocean Spray,Moneybagg Yo,69,2023,64,Smokin' and Sippin',"Juicy J, Lex Luger",2010,,25.0,0,,13,,69,samples,0,resurrection,2,1
+Oh Louisiana,Beyonce,70,2024,52,Oh Louisiana,Chuck Berry,1971,,42.0,0,,53,,70,samples,0,resurrection,1,1
+Oh U Went,Young Thug Featuring Drake,19,2023,66,Closer Than Close,The Stylistics,1981,,16.0,0,,42,,19,samples,0,resurrection,15,1
+"Oh, What A Wretched Man I Am!",$uicideboy$,91,2025,67,Baptizing Scene,Reverend W. A. Donaldson,2011,,8.0,0,,14,,91,samples,0,resurrection,1,1
+Okay,JT,72,2024,60,Trap Or Die,"Jeezy, Bun B",2005,,54.0,0,,19,,72,interpolates,0,resurrection,6,1
+Omerta,Drake,35,2019,55,Broken Language (feat. Trigger Tha Gambler) - Street Vocal,"Smoothe Da Hustler, Trigger Tha Gambler",1995,,32.0,0,,24,,35,interpolates,0,resurrection,2,1
+Omerta,Drake,35,2019,55,G.M.C.,"Viktor Vaughn, MF DOOM",2003,,38.0,0,,16,,35,interpolates,0,resurrection,2,1
+On God,Kanye West,23,2019,59,Oh My God (feat. Busta Rhymes),"A Tribe Called Quest, Busta Rhymes",1993,2022.0,55.0,1,5.0,26,-18.0,23,interpolates,0,confirmation,2,1
+On My Mama,Victoria Monet,33,2024,62,I Look Good,Chalie Boy,2009,2022.0,57.0,1,51.0,15,18.0,33,samples,0,confirmation,25,1
+One Thing At A Time,Morgan Wallen,10,2023,69,Superman,"Eminem, Dina Rae",2002,2003.0,83.0,1,15.0,21,5.0,10,interpolates,0,confirmation,30,1
+Only Wanna Be With You,Post Malone,74,2021,62,Champagne Supernova,Oasis,1995,2005.0,71.0,1,27.0,26,-47.0,74,interpolates,0,confirmation,1,1
+Oodles O' Noodles Babies,Meek Mill,85,2018,43,Love Changes,Mother's Finest,1978,2003.0,34.0,1,12.0,40,-73.0,85,samples,0,confirmation,1,1
+Opalite,Taylor Swift,2,2025,92,1+1=2 Enamorados,Luis Miguel,1982,,60.0,0,,43,,2,interpolates,0,resurrection,21,1
+Otherside,Post Malone,46,2018,61,Dust in the Wind,Kansas,1977,1978.0,79.0,1,6.0,41,-40.0,46,interpolates,0,confirmation,2,20
+Out For The Night,21 Savage,88,2019,59,Samba Pa Ti,Santana,1970,,63.0,0,,49,,88,samples,0,resurrection,1,1
+Out Of Time,The Weeknd,32,2022,77,Mary Jane (All Night Long),Mary J. Blige,1994,,66.0,0,,28,,32,interpolates,0,resurrection,3,1
+Out Of Time,The Weeknd,32,2022,77,Midnight Pretenders,Tomoko Aran,1983,,63.0,0,,39,,32,samples,0,resurrection,3,1
+Over,Lucky Daye,77,2022,63,Halfcrazy,Musiq Soulchild,2002,2002.0,65.0,1,16.0,20,-61.0,77,samples,0,confirmation,7,1
+Overdrive,Drake,42,2022,59,Bangarang (feat. Sirah),"Skrillex, Sirah",2011,2012.0,70.0,1,72.0,11,30.0,42,samples,0,confirmation,1,1
+Overseas,Ken Carson,79,2024,71,Feeling Myself,"Nicki Minaj, Beyoncé",2014,2015.0,56.0,1,39.0,10,-40.0,79,interpolates,0,confirmation,1,20
+P2,Lil Uzi Vert,11,2020,63,All The Things She Said,t.A.T.u.,2002,2003.0,86.0,1,20.0,18,9.0,11,interpolates,0,confirmation,6,20
+Paid,¥$: Kanye West & Ty Dolla $ign,53,2024,68,Get On Up,Jodeci,1995,1996.0,51.0,1,22.0,29,-31.0,53,samples,0,confirmation,1,18
+Paid,¥$: Kanye West & Ty Dolla $ign,53,2024,68,Heavy Price Paid,"Halo, Martin O'Donnell, Michael Salvatori",2004,2024.0,41.0,1,53.0,20,0.0,53,interpolates,0,confirmation,1,1
+Paid,¥$: Kanye West & Ty Dolla $ign,53,2024,68,Roxanne,The Police,1978,1979.0,79.0,1,32.0,46,-21.0,53,interpolates,0,confirmation,1,13
+Paint The Town Red,Doja Cat,1,2024,77,Walk on By,Dionne Warwick,1964,1964.0,66.0,1,6.0,60,5.0,1,samples,0,confirmation,37,13
+Painting Pictures,Superstar Pride,25,2023,53,Soon as I Get Home,Faith Evans,1995,1996.0,60.0,1,21.0,28,-4.0,25,samples,0,confirmation,15,20
+Panini,Lil Nas X,5,2020,61,In Bloom,Nirvana,1991,,71.0,0,,29,,5,interpolates,0,resurrection,32,1
+Panini,Lil Nas X,5,2020,61,Waitin' For The Wind,Spooky Tooth,2000,,28.0,0,,20,,5,samples,0,resurrection,32,1
+Paperwork,¥$: Kanye West & Ty Dolla $ign,64,2024,57,O Dj Controla a Bunda,"Dj Batata, Mc Creu",2014,2020.0,10.0,1,4.0,10,-60.0,64,samples,0,confirmation,1,1
+Papi's Home,Drake,8,2021,64,Daddy's Home,Montell Jordan,1995,,39.0,0,,26,,8,samples,0,resurrection,4,1
+Part Of Me,A Boogie wit da Hoodie,66,2025,66,We Belong Together,Mariah Carey,2005,2006.0,72.0,1,1.0,20,-65.0,66,interpolates,0,confirmation,1,43
+Photograph,J. Cole,14,2018,56,Minha (All Mine),Kenny Burrell,1995,,5.0,0,,23,,14,samples,0,resurrection,2,1
+Physical,Dua Lipa,60,2020,77,Physical,Olivia Newton-John,2002,1982.0,40.0,1,1.0,18,-59.0,60,interpolates,0,confirmation,2,26
+Pink Friday Girls,Nicki Minaj,82,2023,62,Girls Just Want to Have Fun,Cyndi Lauper,1983,1984.0,82.0,1,2.0,40,-80.0,82,samples,0,confirmation,1,25
+Pink Venom,BLACKPINK,22,2022,65,Made You Look,Nas,2002,2003.0,56.0,1,32.0,20,10.0,22,interpolates,0,confirmation,6,13
+Pink Venom,BLACKPINK,22,2022,65,P.I.M.P.,50 Cent,2003,2003.0,71.0,1,3.0,19,-19.0,22,interpolates,0,confirmation,6,25
+Pink Venom,BLACKPINK,22,2022,65,Pon de Replay,Rihanna,2005,2005.0,81.0,1,2.0,17,-20.0,22,interpolates,0,confirmation,6,27
+Pipe Down,Drake,14,2021,76,Jazzy Belle,Outkast,1996,1997.0,56.0,1,52.0,25,38.0,14,samples,0,confirmation,4,14
+Plan B,Megan Thee Stallion,29,2022,60,Freek 'N You - Mr. Dalvin's Freek Mix,"Jodeci, Mr. Dalvin",1995,1995.0,8.0,1,14.0,27,-15.0,29,samples,0,confirmation,10,1
+Players,Coi Leray,9,2023,69,The Message (feat. Melle Mel & Duke Bootee),"Grandmaster Flash & The Furious Five, Grandmaster Melle Mel, Duke Bootee",1982,1982.0,52.0,1,62.0,41,53.0,9,samples,0,underdog,26,1
+Players,Coi Leray,9,2023,69,The Next Episode,"Dr. Dre, Snoop Dogg",1999,2022.0,81.0,1,23.0,24,14.0,9,interpolates,0,confirmation,26,21
+Playing Games,Summer Walker,16,2020,61,Say My Name,Destiny's Child,1999,2000.0,80.0,1,1.0,21,-15.0,16,interpolates,0,confirmation,20,32
+Plutoski,Future,29,2024,61,I Got You (I Feel Good),James Brown & The Famous Flames,1966,1966.0,69.0,1,3.0,58,-26.0,29,samples,0,confirmation,3,12
+Plutoski,Future,29,2024,61,Who U Wit,Lil Jon & The East Side Boyz,2001,,33.0,0,,23,,29,samples,0,resurrection,3,1
+Poke It Out,Wale Featuring J. Cole,73,2022,60,Vivrant Thing,Q-Tip,1999,1999.0,54.0,1,26.0,23,-47.0,73,samples,0,confirmation,8,20
+Poochie Gown,Gunna,42,2022,62,Life Of An Outlaw,Makaveli,1996,,51.0,0,,26,,42,samples,0,resurrection,2,1
+Praise God,Kanye West,20,2021,72,ドリーム・オブ・ユー〜レモンライムの青い風,Mariya Takeuchi,2008,1968.0,37.0,1,34.0,13,14.0,20,samples,0,confirmation,7,1
+Praise Jah In The Moonlight,YG Marley,34,2024,74,Crisis,Bob Marley & The Wailers,1978,,53.0,0,,46,,34,samples,0,resurrection,13,1
+Problematic,¥$: Kanye West & Ty Dolla $ign,79,2024,51,Bound 2,Kanye West,2013,2014.0,83.0,1,12.0,11,-67.0,79,interpolates,0,confirmation,1,6
+Problematic,¥$: Kanye West & Ty Dolla $ign,79,2024,51,Get Em High,"Kanye West, Talib Kweli, Common",2004,,60.0,0,,20,,79,interpolates,0,resurrection,1,1
+Problematic,¥$: Kanye West & Ty Dolla $ign,79,2024,51,So Appalled,"Kanye West, JAŸ-Z, Pusha T, CyHi, Swizz Beatz, RZA",2010,,62.0,0,,14,,79,interpolates,0,resurrection,1,1
+Promotion,¥$: Kanye West & Ty Dolla $ign Featuring Future,76,2024,62,Good Life,"Kanye West, T-Pain",2007,2008.0,76.0,1,7.0,17,-69.0,76,interpolates,0,confirmation,1,21
+Promotion,¥$: Kanye West & Ty Dolla $ign Featuring Future,76,2024,62,Keep the Fire Burnin' - Gorgeous Mix,"Future Breeze, Gorgeous",1997,2024.0,0.0,1,36.0,27,-40.0,76,interpolates,0,confirmation,1,1
+Psychic,Chris Brown Featuring Jack Harlow,78,2022,58,Me & U,Cassie,2006,2006.0,81.0,1,3.0,16,-75.0,78,samples,0,confirmation,1,27
+Puppet,"Tyler, The Creator",88,2019,68,I Thought I Saw Your Face Today,She & Him,2008,1972.0,92.0,1,16.0,11,-72.0,88,samples,0,confirmation,1,11
+Pure Souls,Kanye West,52,2021,59,Soul Survivor,"Jeezy, Akon",2005,,69.0,0,,16,,52,interpolates,0,resurrection,1,1
+Pure Souls,Kanye West,52,2021,59,Strasbourg / St. Denis,Roy Hargrove,2008,,53.0,0,,13,,52,samples,0,resurrection,1,1
+Pure/Honey,Beyonce,64,2022,64,Cunty - Wave Edit,Kevin Aviance,1999,,36.0,0,,23,,64,samples,0,resurrection,1,1
+Pure/Honey,Beyonce,64,2022,64,Mystery of Love,Mr. Fingers,2011,,45.0,0,,11,,64,samples,0,resurrection,1,1
+Pure/Honey,Beyonce,64,2022,64,Yogurt with Honey feat. MisSaxoVaya (Vocal Mix),Q-bik,2010,1999.0,0.0,1,70.0,12,6.0,64,samples,0,confirmation,1,1
+Push Ups,Drake,17,2024,71,Drop & Gimme 50 (feat. Hurricane Chris),"Mike Jones, Hurricane Chris",2009,,52.0,0,,15,,17,interpolates,0,resurrection,6,1
+Push Ups,Drake,17,2024,71,Wicked Games,The Weeknd,2012,2013.0,65.0,1,53.0,12,36.0,17,interpolates,0,confirmation,6,20
+Put It On Da Floor Again,Latto Featuring Cardi B,13,2023,59,Laffy Taffy,D4L,2005,2006.0,69.0,1,1.0,18,-12.0,13,samples,0,confirmation,16,26
+R.E.M,Ariana Grande,72,2018,67,Mr. Sandman,The Chordettes,1957,1975.0,65.0,1,85.0,61,13.0,72,interpolates,0,confirmation,1,1
+R.I.P Screw,Travis Scott,26,2018,64,Maan!,"Big Moe, E.S.G., Big Pokey",2000,,43.0,0,,18,,26,interpolates,0,resurrection,2,1
+Race My Mind,Drake,18,2021,72,Bossy (feat. Too $hort),"Kelis, Too $hort",2008,2006.0,48.0,1,16.0,13,-2.0,18,interpolates,0,confirmation,3,1
+Race My Mind,Drake,18,2021,72,Dead Presidents II,JAŸ-Z,1996,1996.0,52.0,1,50.0,25,32.0,18,samples,0,confirmation,3,1
+Race My Mind,Drake,18,2021,72,Give It To Me Baby,Rick James,1981,1981.0,69.0,1,40.0,40,22.0,18,interpolates,0,confirmation,3,14
+Radar,Playboi Carti,43,2025,62,Bottom Of The Map,Jeezy,2005,2003.0,48.0,1,3.0,20,-40.0,43,samples,0,confirmation,1,1
+Radar,Playboi Carti,43,2025,62,John,"Lil Wayne, Rick Ross",2011,2011.0,59.0,1,22.0,14,-21.0,43,interpolates,0,confirmation,1,20
+Raining In Houston,Drake,43,2025,67,Ain't Nothing I Can Do,Tyrone Davis,1979,,44.0,0,,46,,43,samples,0,resurrection,2,1
+Raining In Houston,Drake,43,2025,67,Be With You,Beyoncé,2003,,53.0,0,,22,,43,samples,0,resurrection,2,1
+Ratchet Happy Birthday,Drake,51,2018,51,Just Memories,Eddie Kendricks,1972,2014.0,11.0,1,39.0,46,-12.0,51,samples,0,confirmation,1,1
+Red Button,Drake,51,2023,60,Method Man,Wu-Tang Clan,1993,1994.0,61.0,1,69.0,30,18.0,51,interpolates,0,confirmation,1,14
+Red Ruby Da Sleeze,Nicki Minaj,13,2023,57,Ghetto Red Hot,Super Cat,1992,,45.0,0,,31,,13,interpolates,0,resurrection,12,1
+Red Ruby Da Sleeze,Nicki Minaj,13,2023,57,"Never Leave You (Uh Oooh, Uh Oooh)",Lumidee,2003,2003.0,62.0,1,3.0,20,-10.0,13,samples,0,confirmation,12,20
+Reincarnated,Kendrick Lamar,8,2024,70,Made Niggaz,2Pac,1997,,45.0,0,,27,,8,samples,0,resurrection,4,1
+Respect The Game,Meek Mill,57,2018,65,A Garden Of Peace,Lonnie Liston Smith,1983,,38.0,0,,35,,57,samples,0,resurrection,1,1
+Ribbon In The Sky,Rod Wave,84,2020,60,Picture Me Rollin',"2Pac, Danny Boy, Syke, C-PO",1998,,56.0,0,,22,,84,interpolates,0,resurrection,1,1
+Ribs,Lorde,99,2025,83,Lover's Spit,Broken Social Scene,2003,2010.0,51.0,1,14.0,22,-85.0,99,interpolates,0,confirmation,2,1
+Ring Ring Ring,"Tyler, the Creator",44,2025,76,All in the Way You Get Down,"Ray Parker Jr., Raydio",1981,2025.0,33.0,1,91.0,44,47.0,44,samples,0,confirmation,6,1
+Ring Ring Ring,"Tyler, the Creator",44,2025,76,Get Down On It,Kool & The Gang,1981,1982.0,70.0,1,10.0,44,-34.0,44,interpolates,0,confirmation,6,17
+Ring Ring Ring,"Tyler, the Creator",44,2025,76,Off the Wall,Michael Jackson,1979,1980.0,73.0,1,10.0,46,-34.0,44,interpolates,0,confirmation,6,17
+Ring Ring Ring,"Tyler, the Creator",44,2025,76,Saturday Love,"Cherrelle, Alexander O'Neal",1985,1986.0,55.0,1,26.0,40,-18.0,44,interpolates,0,confirmation,6,17
+Robbery,Juice WRLD,27,2019,78,Reverse This Curse,Escape the Fate,2006,1986.0,49.0,1,4.0,13,-23.0,27,interpolates,0,confirmation,19,1
+Robbery,Juice WRLD,27,2019,78,Robbery '95,Necro,2001,2019.0,52.0,1,27.0,18,0.0,27,interpolates,0,confirmation,19,1
+Rock,Plies,95,2018,48,Late Nite Tip,Three 6 Mafia,1997,,56.0,0,,21,,95,samples,0,resurrection,5,1
+Romantic Homicide,d4vd,33,2025,84,In My Head,Bedroom,2013,,68.0,0,,12,,33,samples,0,resurrection,21,1
+Rule The World,2 Chainz Featuring Ariana Grande,94,2019,53,Why Don't We Fall in Love,Amerie,2002,2002.0,63.0,1,23.0,17,-71.0,94,samples,0,confirmation,2,19
+Running Out Of Time,"Tyler, The Creator",65,2019,73,Hit It Run,Run–D.M.C.,1986,,28.0,0,,33,,65,samples,0,resurrection,1,1
+SOS,SZA,32,2023,61,"Listen (From the Motion Picture ""Dreamgirls"")",Beyoncé,2007,2007.0,57.0,1,61.0,16,29.0,32,interpolates,0,confirmation,5,1
+SOS,SZA,32,2023,61,Until I Found The Lord (My Soul Couldn't Rest),Gabriel Hardeman Delegation,1975,2022.0,19.0,1,83.0,48,51.0,32,samples,0,underdog,5,1
+Sacrifice,The Weeknd,11,2022,70,I Want To Thank You,Alicia Myers,1998,,52.0,0,,24,,11,samples,0,resurrection,10,1
+Sacrifice,The Weeknd,11,2022,70,I'll Do Anything for You,Denroy Morgan,1982,,38.0,0,,40,,11,samples,0,resurrection,10,1
+Sacrifice,The Weeknd,11,2022,70,Thriller,Michael Jackson,2008,2025.0,70.0,1,4.0,14,-7.0,11,samples,0,confirmation,10,26
+Sanguine Paradise,Lil Uzi Vert,28,2019,72,Who U Wit,Lil Jon & The East Side Boyz,2001,,33.0,0,,18,,28,samples,0,resurrection,16,1
+Scared To Live,The Weeknd,24,2020,63,Your Song,Elton John,1970,1971.0,80.0,1,8.0,50,-16.0,24,interpolates,0,confirmation,1,14
+Scorpio,Moneybagg Yo,66,2022,60,How’s It Goin’ Down (Album Version),DMX,1998,1998.0,,1,70.0,24,4.0,66,samples,1,confirmation,15,1
+Scorpio,Moneybagg Yo,66,2022,60,How’s It Goin’ Down (Single Version),DMX,1998,1998.0,,1,70.0,24,4.0,66,samples,1,confirmation,15,1
+Screw The World Interlude,Drake,42,2023,49,If I Ruled the World (Imagine That) (feat. Lauryn Hill),"Nas, Ms. Lauryn Hill",1996,1996.0,69.0,1,53.0,27,11.0,42,samples,0,confirmation,1,1
+Seek & Destroy,SZA,24,2023,66,Full Moon,Brandy,2002,2002.0,59.0,1,18.0,21,-6.0,24,interpolates,0,confirmation,7,20
+Self Care,Mac Miller,33,2018,75,On & On,Erykah Badu,1997,1997.0,70.0,1,12.0,21,-21.0,33,samples,0,confirmation,3,19
+Self Control,YoungBoy Never Broke Again,50,2019,66,"Down And Out - From ""Bugsy Malone"" Original Motion Picture Soundtrack",Paul Williams,1976,,34.0,0,,43,,50,samples,0,resurrection,11,1
+Shake Sumn,DaBaby,65,2023,65,Air Raid Siren: Alert,actuality recording,2007,,38.0,0,,16,,65,samples,0,resurrection,16,1
+She Had Me At Heads Carolina,Cole Swindell,16,2023,72,"Heads Carolina, Tails California",Jo Dee Messina,1996,,68.0,0,,27,,16,interpolates,0,resurrection,36,1
+She Ready,Key Glock,91,2025,62,"Yes, I'm Ready",Barbara Mason,1965,1965.0,56.0,1,5.0,60,-86.0,91,samples,0,confirmation,4,14
+Shirt,SZA,11,2023,69,Blue And Grey Shirt,Mark Eitzel,1991,2023.0,10.0,1,11.0,32,0.0,11,interpolates,0,confirmation,23,1
+Shut Down,BLACKPINK,25,2022,67,La Campanella,"Niccolò Paganini, Salvatore Accardo, Orchestra Da Camera Italiana",2010,2021.0,46.0,1,91.0,12,66.0,25,samples,0,underdog,3,1
+Sicko Mode,Travis Scott,1,2019,82,I Wanna Rock,Luke,1992,1992.0,41.0,1,73.0,27,72.0,1,samples,0,underdog,52,14
+Single Again,Big Sean,64,2019,46,I Wish,Carl Thomas,2000,2000.0,57.0,1,20.0,19,-44.0,64,samples,0,confirmation,3,20
+Sirens,Travis Scott,27,2023,64,Explorer Suite,New England,1980,,22.0,0,,43,,27,samples,0,resurrection,2,1
+Sirens,Travis Scott,27,2023,64,Nsunka Lwendo,Amanaz,1975,,27.0,0,,48,,27,samples,0,resurrection,2,1
+Sittin' On Top Of The World,Burna Boy,80,2023,49,Top of the World (feat. Ma$e),"Brandy, Ma$e",1998,2006.0,58.0,1,45.0,25,-35.0,80,samples,0,confirmation,3,1
+Slide,¥$: Kanye West & Ty Dolla $ign,88,2024,64,Hot Music,"Soho, Pal Joey",2008,,38.0,0,,16,,88,samples,0,resurrection,1,1
+Slide,¥$: Kanye West & Ty Dolla $ign,88,2024,64,Touch,Omarion,2005,2005.0,45.0,1,27.0,19,-61.0,88,samples,0,confirmation,1,3
+Slide Away,Miley Cyrus,47,2019,65,Slide Away (Cb3 Solo),"Thomas Andersen, Norsk Noteservice Wind Orchestra",2007,2019.0,0.0,1,47.0,12,0.0,47,interpolates,0,confirmation,6,1
+Smile (Living My Best Life),Lil' Duval Featuring Snoop Dogg & Ball Greezy,56,2019,48,Curious,Midnight Star,1984,,51.0,0,,35,,56,samples,0,resurrection,19,1
+Smoking On My Ex Pack,SZA,52,2022,60,Open Up Your Eyes,Tonic,1996,,54.0,0,,26,,52,samples,0,resurrection,2,1
+So Be It,Clipse,62,2025,66,Lip Gloss,Lil Mama,2007,2007.0,63.0,1,10.0,18,-52.0,62,interpolates,0,confirmation,1,11
+Solar Power,Lorde,64,2021,61,Can I Kick It?,A Tribe Called Quest,1990,,71.0,0,,31,,64,interpolates,0,resurrection,1,1
+Somebody,Latto,94,2025,69,Are You That Somebody?,Aaliyah,2002,1999.0,69.0,1,21.0,23,-73.0,94,interpolates,0,confirmation,3,8
+Somebody,Latto,94,2025,69,Give It To Me Baby,Rick James,1981,1981.0,69.0,1,40.0,44,-54.0,94,samples,0,confirmation,3,14
+Something Real,Post Malone,67,2023,60,"Für Elise, WoO 59","Ludwig van Beethoven, Nelly Kokinos",1991,,62.0,0,,32,,67,interpolates,0,resurrection,1,1
+Something Special,Pop Smoke,41,2020,60,So Into You,Tamia,1998,2003.0,73.0,1,4.0,22,-37.0,41,samples,0,confirmation,7,20
+Something Special,Pop Smoke,41,2020,60,What These Bitches Want,"DMX, Sisqo",1999,,62.0,0,,21,,41,interpolates,0,resurrection,7,1
+Somewhere Over Laredo,Lainey Wilson,36,2025,68,Over The Rainbow,Judy Garland,1939,,56.0,0,,86,,36,interpolates,0,resurrection,21,1
+Sorry Not Sorry,"Tyler, The Creator",48,2023,65,Rusty (feat. Domo Genesis & Earl Sweatshirt),"Tyler, The Creator, Domo Genesis, Earl Sweatshirt",2013,1966.0,57.0,1,49.0,10,1.0,48,interpolates,0,confirmation,2,1
+South Atlanta Baby,Playboi Carti,88,2025,60,Thin Line Between Love and Hate,The Persuaders,2005,1971.0,54.0,1,15.0,20,-73.0,88,samples,0,confirmation,1,12
+Speed Drive,Charli XCX,73,2023,61,Cobrastyle,Robyn,2005,2005.0,33.0,1,27.0,18,-46.0,73,samples,0,confirmation,5,1
+Splash Warning,"Meek Mill Featuring Future, Roddy Ricch & Young Thug",77,2018,45,Dirt Off Your Shoulder,JAŸ-Z,2003,2004.0,64.0,1,5.0,15,-72.0,77,interpolates,0,confirmation,1,26
+Sports Car,Tate McRae,16,2025,77,Buttons,The Pussycat Dolls,2005,2006.0,71.0,1,3.0,20,-13.0,16,interpolates,0,confirmation,23,30
+Squabble Up,Kendrick Lamar,1,2025,80,When I Hear Music,Debbie Deb,1995,,58.0,0,,30,,1,samples,0,resurrection,30,1
+Standing Next To You,Jung Kook,5,2024,83,I Love You More,Rene & Angela,1981,,46.0,0,,43,,5,samples,0,resurrection,19,1
+Stargazing,Travis Scott,8,2018,73,Bitches - Reply,DJ Jimi,1992,,15.0,0,,26,,8,samples,0,resurrection,8,1
+Started From,Lil Durk,55,2022,49,Finish What The Jester Started / Main Title,Christopher Drake,2010,2022.0,19.0,1,55.0,12,0.0,55,interpolates,0,confirmation,1,1
+Stay High,Juice WRLD,34,2020,72,Stay - Original Single Edit,"Sash!, La Trec",1997,2020.0,57.0,1,34.0,23,0.0,34,interpolates,0,confirmation,2,1
+Stepdad,Eminem,93,2020,50,Amame Peteribí,Pescado Rabioso,1973,,32.0,0,,47,,93,samples,0,resurrection,1,1
+Stepping Stone,Eminem,42,2018,53,All These Things That I've Done,The Killers,2004,1991.0,76.0,1,28.0,14,-14.0,42,samples,0,confirmation,1,14
+Sticky,Drake,6,2022,71,Who Will Survive In America,Kanye West,2010,2012.0,54.0,1,13.0,12,7.0,6,samples,0,confirmation,13,1
+Stickz N Stonez,J. Cole,53,2024,57,"To Keep From Crying, After the Dream",Comus,1966,1966.0,,1,18.0,58,-35.0,53,samples,1,confirmation,1,1
+Stir Fry,Migos,8,2018,75,The Champ - Original Version,The Mohawks,1968,,35.0,0,,50,,8,samples,0,resurrection,21,1
+Stoned,Mac Miller,97,2025,71,Buffalo Gals - DJ Cut Special Stereo Mix,"Malcolm McLaren, The World's Famous Supreme Team",1984,,20.0,0,,41,,97,samples,0,resurrection,1,1
+Stop Playing With Me,"Tyler, the Creator",51,2025,65,King Of The Beats Lesson #1,Mantronix,1990,2005.0,20.0,1,27.0,35,-24.0,51,samples,0,confirmation,2,1
+Stop Playing With Me,"Tyler, the Creator",51,2025,65,Montagehalle,"Gorilla Aktiv, Nick Deinhardt, Tommi Eckart",1982,,3.0,0,,43,,51,samples,0,resurrection,2,1
+Streets,Doja Cat,16,2021,84,Streets Is Callin',B2K,2000,,36.0,0,,21,,16,samples,0,resurrection,20,1
+Sucka Free,"Tyler, the Creator",48,2025,68,How We Do,"The Game, 50 Cent",2005,2005.0,76.0,1,4.0,20,-44.0,48,interpolates,0,confirmation,2,28
+Sugar On My Tongue,"Tyler, The Creator",41,2025,84,King Of The Beats Lesson #1,Mantronix,1990,2005.0,20.0,1,27.0,35,-14.0,41,samples,0,confirmation,25,1
+Sugar On My Tongue,"Tyler, The Creator",41,2025,84,My Humps,Black Eyed Peas,2005,2006.0,78.0,1,3.0,20,-38.0,41,samples,0,confirmation,25,36
+Sugar Wraith,Post Malone,57,2018,61,Fly,Sugar Ray,1997,1983.0,68.0,1,79.0,21,22.0,57,interpolates,0,confirmation,1,1
+Summer Renaissance,Beyonce,47,2022,61,I Feel Love,Donna Summer,1977,1978.0,62.0,1,6.0,45,-41.0,47,interpolates,0,confirmation,1,23
+Summer Renaissance,Beyonce,47,2022,61,Sexy M.F.,"Prince, The New Power Generation",1992,1992.0,39.0,1,66.0,30,19.0,47,interpolates,0,confirmation,1,1
+Super Freaky Girl,Nicki Minaj,1,2023,67,Freaks,"French Montana, Nicki Minaj",2013,2013.0,39.0,1,77.0,10,76.0,1,interpolates,0,underdog,25,7
+Super Freaky Girl,Nicki Minaj,1,2023,67,Make Em' Say Uhh,"Master P, Silkk The Shocker, Mia X, Fiend",1997,1998.0,50.0,1,16.0,26,15.0,1,interpolates,0,confirmation,25,27
+Super Freaky Girl,Nicki Minaj,1,2023,67,Super Freak,Rick James,1981,1982.0,74.0,1,16.0,42,15.0,1,samples,0,confirmation,25,1
+Super Freaky Girl,Nicki Minaj,1,2023,67,The Motto,"Drake, Lil Wayne",2011,2012.0,75.0,1,14.0,12,13.0,1,interpolates,0,confirmation,25,35
+Super Freaky Girl,Nicki Minaj,1,2023,67,U Can't Touch This,MC Hammer,1990,1990.0,74.0,1,8.0,33,7.0,1,samples,0,confirmation,25,17
+Survival,Drake,17,2018,60,I Ain't Mad At Cha,"2Pac, Danny Boy",1998,2019.0,55.0,1,39.0,20,22.0,17,samples,0,confirmation,2,1
+TSU,Drake,9,2021,75,Half On a Baby - Radio Version,R. Kelly,1998,,47.0,0,,23,,9,samples,0,resurrection,5,1
+TSU,Drake,9,2021,75,Sailing,*NSYNC,1997,,40.0,0,,24,,9,samples,0,resurrection,5,1
+TSU,Drake,9,2021,75,Until The End Of Time (with Beyoncé),"Justin Timberlake, Beyoncé",2006,2008.0,63.0,1,17.0,15,8.0,9,samples,0,confirmation,5,1
+Talking,¥$: Kanye West & Ty Dolla $ign Featuring North West,30,2024,84,Rain On Me,Ashanti,2003,2005.0,61.0,1,27.0,21,-3.0,30,interpolates,0,confirmation,2,20
+Tap In,Saweetie,20,2020,63,Blow the Whistle,Too $hort,2006,,67.0,0,,14,,20,samples,0,resurrection,19,1
+Tears,Sabrina Carpenter,3,2025,87,"Yes Sir, I Can Boogie",Baccara,1998,,65.0,0,,27,,3,interpolates,0,resurrection,20,1
+Teflon Don,Future,21,2024,62,"Speak Softly Love - Love Theme from ""The Godfather""",Andy Williams,1989,,41.0,0,,35,,21,samples,0,resurrection,3,1
+Tell Me What It Is,"Tyler, the Creator",82,2025,62,Millionaire (feat. André 3000),"Kelis, André 3000",2003,2019.0,47.0,1,39.0,22,-43.0,82,interpolates,0,confirmation,1,1
+Tell Ur Girlfriend,Lay Bankz,58,2024,56,Pony,Ginuwine,1999,1997.0,74.0,1,6.0,25,-52.0,58,samples,0,confirmation,6,27
+Thang For You,Rylo Rodriguez Featuring NoCap,91,2023,63,What You Won't Do for Love,Bobby Caldwell,1978,1979.0,74.0,1,9.0,45,-82.0,91,samples,0,confirmation,2,20
+That Way,Lil Uzi Vert,20,2020,55,I Want It That Way,Backstreet Boys,1999,1999.0,85.0,1,6.0,21,-14.0,20,interpolates,0,confirmation,12,31
+That Way,Lil Uzi Vert,20,2020,55,Think (About It),Lyn Collins,1972,1972.0,52.0,1,66.0,48,46.0,20,samples,0,confirmation,12,7
+Thats What I Want,Lil Nas X,8,2022,73,Hey Ya!,Outkast,2003,2004.0,84.0,1,1.0,19,-7.0,8,interpolates,0,confirmation,45,32
+The Adventures Of Moon Man & Slim Shady,Kid Cudi & Eminem,22,2020,54,Freestyler,Bomfunk MC's,1999,,58.0,0,,21,,22,samples,0,resurrection,1,1
+The Black Seminole.,Lil Yachty,80,2023,55,Breathe (In the Air),Pink Floyd,1973,,81.0,0,,50,,80,interpolates,0,resurrection,1,1
+The Black Seminole.,Lil Yachty,80,2023,55,Comfortably Numb,Pink Floyd,1979,,80.0,0,,44,,80,interpolates,0,resurrection,1,1
+The Black Seminole.,Lil Yachty,80,2023,55,One of These Days,Pink Floyd,1971,,59.0,0,,52,,80,samples,0,resurrection,1,1
+The Black Seminole.,Lil Yachty,80,2023,55,Purple Haze,Jimi Hendrix,1967,1967.0,68.0,1,65.0,56,-15.0,80,interpolates,0,confirmation,1,8
+The Black Seminole.,Lil Yachty,80,2023,55,Speak to Me,Pink Floyd,1973,1972.0,63.0,1,14.0,50,-66.0,80,samples,0,confirmation,1,1
+The Boy Is Mine,Ariana Grande,16,2024,78,The Boy Is Mine,"Brandy, Monica",1998,1998.0,75.0,1,1.0,26,-15.0,16,interpolates,0,confirmation,20,27
+The Cut Off,J. Cole Featuring kiLL edward,28,2018,55,Kissing My Love,Bill Withers,1972,1973.0,50.0,1,31.0,46,3.0,28,samples,0,confirmation,1,10
+The Games We Play,Pusha T,100,2018,57,Heart 'N Soul,Booker T. Averheart,1970,,14.0,0,,48,,100,samples,0,resurrection,1,1
+The Games We Play,Pusha T,100,2018,57,Politics As Usual,JAŸ-Z,1996,,41.0,0,,22,,100,interpolates,0,resurrection,1,1
+The Heart Part 5,Kendrick Lamar,15,2022,53,I Want You,Marvin Gaye,1976,1976.0,64.0,1,15.0,46,0.0,15,samples,0,confirmation,2,13
+The Heart Part 5,Kendrick Lamar,15,2022,53,Izzo (H.O.V.A.),JAŸ-Z,2001,2001.0,58.0,1,8.0,21,-7.0,15,interpolates,0,confirmation,2,20
+The Largest,BigXthaPlug,71,2025,70,Slippin' Into Darkness,War,1976,1972.0,51.0,1,16.0,49,-55.0,71,samples,0,confirmation,19,22
+The Man,Taylor Swift,23,2020,77,We Break the Dawn,Michelle Williams,2008,,33.0,0,,12,,23,interpolates,0,resurrection,8,1
+The Ringer,Eminem,8,2018,62,Eric B. Is President,"Eric B. & Rakim, Marley Marl",1987,,42.0,0,,31,,8,interpolates,0,resurrection,4,1
+The Take,Tory Lanez Featuring Chris Brown,66,2019,87,A Milli,Lil Wayne,2008,2008.0,70.0,1,6.0,11,-60.0,66,interpolates,0,confirmation,1,23
+The Take,Tory Lanez Featuring Chris Brown,66,2019,87,Lottery,Chris Brown,2007,,38.0,0,,12,,66,interpolates,0,resurrection,1,1
+The Take,Tory Lanez Featuring Chris Brown,66,2019,87,Take You Down,Chris Brown,2007,2008.0,69.0,1,43.0,12,-23.0,66,samples,0,confirmation,1,20
+The Way Back,Zach Bryan,57,2024,72,Heaven,Bryan Adams,1984,1985.0,85.0,1,1.0,40,-56.0,57,interpolates,0,confirmation,1,19
+The Weekend,SZA,29,2018,74,Set the Mood Prelude / Until the End of Time,Justin Timberlake,2006,2008.0,44.0,1,17.0,12,-12.0,29,samples,0,confirmation,24,1
+There He Go,DaBaby,89,2019,43,"Affirmative Action (feat. AZ, Cormega & Foxy Brown)","Nas, AZ, Cormega, Foxy Brown",1996,1994.0,58.0,1,43.0,23,-46.0,89,interpolates,0,confirmation,1,1
+Thick Of It,KSI Featuring Trippie Redd,64,2024,63,Snow (Hey Oh),Red Hot Chili Peppers,2006,2007.0,83.0,1,22.0,18,-42.0,64,interpolates,0,confirmation,4,20
+Thot Shit,Megan Thee Stallion,16,2021,71,No Vaseline,Ice Cube,1991,1994.0,67.0,1,8.0,30,-8.0,16,interpolates,0,confirmation,20,1
+Throw It Away,Summer Walker,41,2021,57,Nothing In This World,"KeKe Wyatt, Avant",2001,2002.0,51.0,1,27.0,20,-14.0,41,interpolates,0,confirmation,1,20
+Thunder,Imagine Dragons,4,2018,85,Paper Planes,M.I.A.,2007,2008.0,79.0,1,4.0,11,0.0,4,interpolates,0,confirmation,51,20
+Titi Me Pregunto,Bad Bunny,5,2022,95,Air Raid Siren: Alert,actuality recording,2007,,38.0,0,,15,,5,samples,0,resurrection,33,1
+Titi Me Pregunto,Bad Bunny,5,2022,95,No Te Puedo Olvidar,Anthony Santos,1999,,47.0,0,,23,,5,samples,0,resurrection,33,1
+Todo de Ti,Rauw Alejandro,32,2021,79,Big Girls Don't Cry (Personal),Fergie,2006,2008.0,68.0,1,1.0,15,-31.0,32,interpolates,0,confirmation,20,1
+Told My,Future,81,2024,54,A Story Told,"Patrick Stanke, Mark Seibert, Mathias Edenborn",2009,2024.0,37.0,1,81.0,15,0.0,81,interpolates,0,confirmation,1,1
+Told My,Future,81,2024,54,Whatcha Gonna Do,Koopsta Knicca,1999,,26.0,0,,25,,81,samples,0,resurrection,1,1
+Tomorrow,"Tyler, The Creator",53,2024,63,Summertime,Rosinha De Valença,1971,,44.0,0,,53,,53,samples,0,resurrection,2,1
+Toxic,YG,81,2022,53,Be Happy,Mary J. Blige,1994,1995.0,57.0,1,29.0,28,-52.0,81,samples,0,confirmation,2,20
+Trauma,Meek Mill,61,2018,47,Taking Me Higher,Barclay James Harvest,1977,,16.0,0,,41,,61,samples,0,resurrection,1,1
+Treat Me,Chloe,81,2022,54,Ms. New Booty,"Bubba Sparxxx, Ying Yang Twins, Mr. Collipark",2005,2006.0,61.0,1,7.0,17,-74.0,81,interpolates,0,confirmation,1,24
+True Story,Ariana Grande,30,2024,65,4 Page Letter,Aaliyah,1996,,53.0,0,,28,,30,samples,0,resurrection,2,1
+True Story,Ariana Grande,30,2024,65,Cry Me a River,Justin Timberlake,2002,2003.0,78.0,1,3.0,22,-27.0,30,samples,0,confirmation,2,20
+Trust Issues,Drake,58,2019,80,"Nigga What, Nigga Who (Originator 99)","JAŸ-Z, Big Jaz",1998,,49.0,0,,21,,58,interpolates,0,resurrection,1,1
+Try That In A Small Town,Jason Aldean,1,2023,66,Beat It,Michael Jackson,1982,1983.0,83.0,1,1.0,41,0.0,1,interpolates,0,confirmation,20,25
+Tu Sancho,Fuerza Regida,65,2025,87,Don't Say A Word,Ellie Goulding,2013,,24.0,0,,12,,65,samples,0,resurrection,10,1
+Tu Sancho,Fuerza Regida,65,2025,87,Pound Cake / Paris Morton Music 2,"Drake, JAŸ-Z",2013,2013.0,64.0,1,65.0,12,0.0,65,samples,0,confirmation,10,10
+Turks & Caicos,Rod Wave Featuring 21 Savage,24,2024,71,"Girls, Girls, Girls",JAŸ-Z,2001,2002.0,51.0,1,17.0,23,-7.0,24,interpolates,0,confirmation,13,17
+Twerkulator,City Girls,51,2021,58,I Wanna Rock,Luke,1992,1992.0,41.0,1,73.0,29,22.0,51,interpolates,0,confirmation,9,14
+Twerkulator,City Girls,51,2021,58,Planet Rock,"Afrika Bambaataa, The Soulsonic Force",1982,1982.0,58.0,1,48.0,39,-3.0,51,samples,0,confirmation,9,11
+Typa,Glorilla,42,2025,71,Love,Keyshia Cole,2005,2006.0,83.0,1,19.0,20,-23.0,42,samples,0,confirmation,14,19
+Type Dangerous,Mariah Carey,95,2025,50,Children's Story,Slick Rick,1988,,61.0,0,,37,,95,interpolates,0,resurrection,1,1
+Type Dangerous,Mariah Carey,95,2025,50,Eric B. Is President,"Eric B. & Rakim, Marley Marl",1987,,42.0,0,,38,,95,samples,0,resurrection,1,1
+U 2 Luv,Ne-Yo & Jeremih,66,2020,48,Computer Love,Zapp,1993,,53.0,0,,27,,66,samples,0,resurrection,8,1
+U 2 Luv,Ne-Yo & Jeremih,66,2020,48,Juicy Fruit,Mtume,1983,1983.0,49.0,1,45.0,37,-21.0,66,samples,0,confirmation,8,12
+Undecided,Chris Brown,35,2019,59,I Love Your Smile,Shanice,1991,1992.0,62.0,1,2.0,28,-33.0,35,samples,0,confirmation,12,26
+Up,Cardi B,1,2021,67,Once Upon A Time In The Projects,Ice Cube,1990,,37.0,0,,31,,1,interpolates,0,resurrection,20,1
+Up Up And Away,Juice WRLD,42,2020,64,Up Up & Away,Kid Cudi,2009,,62.0,0,,11,,42,interpolates,0,resurrection,2,1
+Uproar,Lil Wayne,7,2019,63,You Keep Me Hangin' On,The Moog Machine,1969,,2.0,0,,50,,7,samples,0,resurrection,20,1
+Us Vs. Them,$uicideBoy$,96,2024,60,99 Problems,JAŸ-Z,2003,2004.0,63.0,1,30.0,21,-66.0,96,interpolates,0,confirmation,1,12
+Usain Boo,Kodak Black,81,2022,47,On & On,Eamon,2004,2005.0,39.0,1,27.0,18,-54.0,81,samples,0,confirmation,1,1
+Vamp Anthem,Playboi Carti,90,2021,70,"Toccata & Fugue in D Minor, BWV 565: I. Toccata","Johann Sebastian Bach, Simon Preston",1989,,44.0,0,,32,,90,samples,0,resurrection,1,1
+Vampire,Olivia Rodrigo,1,2024,84,Creep,Radiohead,1993,1993.0,92.0,1,34.0,31,33.0,1,interpolates,0,confirmation,35,20
+Vegas,Doja Cat,10,2023,55,Hound Dog,Big Mama Thornton,1989,,55.0,0,,34,,10,samples,0,resurrection,30,1
+Venom,Eminem,43,2018,67,More Bounce to the Ounce,Zapp,1980,1980.0,55.0,1,86.0,38,43.0,43,samples,0,confirmation,5,7
+Vertigo,Khalid,89,2018,47,Viva La Vida,Coldplay,2008,2009.0,87.0,1,1.0,10,-88.0,89,interpolates,0,confirmation,1,51
+Vete,Bad Bunny,33,2020,74,Si Te Vas (feat. Kartiel),"Noriega, Kartiel",2004,,52.0,0,,16,,33,interpolates,0,resurrection,18,1
+Vete,Bad Bunny,33,2020,74,Si te Vas - The Remix,"Héctor ""El Father"", Kartiel y Zion",2006,,49.0,0,,14,,33,interpolates,0,resurrection,18,1
+Violent Crimes,Kanye West,27,2018,81,We Major,"Kanye West, Nas, Really Doe",2005,,65.0,0,,13,,27,interpolates,0,resurrection,2,1
+Virgo's Groove,Beyonce,43,2022,62,Star,"702, Clipse",2003,,38.0,0,,19,,43,interpolates,0,resurrection,1,1
+Vou 787,Bad Bunny,53,2023,70,Vogue,Madonna,2009,1990.0,68.0,1,1.0,14,-52.0,53,samples,0,confirmation,1,24
+Voy A Llevarte Pa PR,Bad Bunny,17,2025,93,Déjale Caer To' El Peso (feat. Yomo),"Héctor ""El Father"", Yomo",2006,,69.0,0,,19,,17,samples,0,resurrection,20,1
+Voy A Llevarte Pa PR,Bad Bunny,17,2025,93,La Barría,"Wisin & Yandel, Héctor ""El Father""",2005,,57.0,0,,20,,17,interpolates,0,resurrection,20,1
+Voy A Llevarte Pa PR,Bad Bunny,17,2025,93,Me Quiere Besar,Alexis y Fido,2006,,58.0,0,,19,,17,interpolates,0,resurrection,20,1
+Voy A Llevarte Pa PR,Bad Bunny,17,2025,93,Si Estoy Facil,Hector & Tito,2005,,58.0,0,,20,,17,interpolates,0,resurrection,20,1
+Voy A Llevarte Pa PR,Bad Bunny,17,2025,93,Voy Cazando (Remix),"DJ Nelson, DJ Rafy Mercenario",2005,,12.0,0,,20,,17,interpolates,0,resurrection,20,1
+Vultures,¥$: Kanye West & Ty Dolla $ign Featuring Lil Durk & Bump J,34,2024,51,Cold,"Kanye West, DJ Khaled",2012,2012.0,48.0,1,86.0,12,52.0,34,samples,0,underdog,2,1
+Vultures,¥$: Kanye West & Ty Dolla $ign Featuring Lil Durk & Bump J,34,2024,51,Hopelessly Devoted To You - From “Grease”,Olivia Newton-John,1978,,77.0,0,,46,,34,interpolates,0,resurrection,2,1
+WAKA,6ix9ine Featuring A Boogie Wit da Hoodie,51,2018,66,Back That Azz Up,"JUVENILE, Lil Wayne, Mannie Fresh",1998,1999.0,70.0,1,68.0,20,17.0,51,interpolates,0,confirmation,3,30
+WE (Warm Embrace),Chris Brown,79,2022,48,Let's Chill,Guy,1990,1991.0,56.0,1,41.0,32,-38.0,79,interpolates,0,confirmation,1,15
+WFM,RealestK,67,2021,58,Talking to the Moon,Bruno Mars,2010,2005.0,84.0,1,27.0,11,-40.0,67,samples,0,confirmation,4,1
+Walk,Playboi Carti,96,2025,58,Sydney,Bankroll Fresh,2015,,28.0,0,,10,,96,samples,0,resurrection,1,1
+Want Me Dead,Young Thug Featuring 21 Savage,59,2023,55,Outro,2Pac,2002,,0.0,0,,21,,59,samples,0,resurrection,1,1
+Warm It Up,Logic Featuring Young Sinatra,98,2018,47,Life's a Bitch (feat. AZ & Olu Dara),"Nas, AZ, Olu Dara",1994,1961.0,62.0,1,82.0,24,-16.0,98,interpolates,0,confirmation,1,1
+Warm It Up,Logic Featuring Young Sinatra,98,2018,47,Young At Heart,Frank Sinatra,1963,,57.0,0,,55,,98,interpolates,0,resurrection,1,1
+Way Less Sad,AJR,54,2021,63,My Little Town,Simon & Garfunkel,1975,1976.0,48.0,1,9.0,46,-45.0,54,samples,0,confirmation,15,14
+We're Good,Dua Lipa,31,2021,68,Mr. Tambourine Man,Bob Dylan,1965,,65.0,0,,56,,31,interpolates,0,resurrection,18,1
+Welcome To Tha Carter,Lil Wayne,62,2025,50,Trigger Finger,"Lil Wayne, Soulja Boy",2013,,50.0,0,,12,,62,interpolates,0,resurrection,1,1
+Welcome To Tha Carter,Lil Wayne,62,2025,50,Victory (feat. The Notorious B.I.G. & Busta Rhymes),"Diddy, The Notorious B.I.G., Busta Rhymes",1997,1998.0,57.0,1,19.0,28,-43.0,62,interpolates,0,confirmation,1,1
+Went Legit,G Herbo,70,2025,64,Drive Slow,"Kanye West, Paul Wall, GLC",2005,,60.0,0,,20,,70,samples,0,resurrection,20,1
+Went Legit,G Herbo,70,2025,64,Wildflower,Hank Crawford,1973,,46.0,0,,52,,70,samples,0,resurrection,20,1
+What About Me,Lil Wayne Featuring Sosamann,24,2018,65,Remember the Time,Michael Jackson,1991,1992.0,80.0,1,3.0,27,-21.0,24,interpolates,0,confirmation,1,20
+What It Is (Block Boy),Doechii Featuring Kodak Black,29,2023,74,No Scrubs,TLC,1999,1999.0,84.0,1,1.0,24,-28.0,29,interpolates,0,confirmation,29,28
+What It Is (Block Boy),Doechii Featuring Kodak Black,29,2023,74,Some Cut,Trillville,2004,2005.0,51.0,1,14.0,19,-15.0,29,interpolates,0,confirmation,29,1
+What Would Meek Do?,Pusha T Featuring Kanye West,75,2018,50,Hail Mary,2Pac,1998,,69.0,0,,20,,75,interpolates,0,resurrection,1,1
+What Would Meek Do?,Pusha T Featuring Kanye West,75,2018,50,Heart of the Sunrise,Yes,1981,1966.0,40.0,1,18.0,37,-57.0,75,samples,0,confirmation,1,1
+What You Know Bout Love,Pop Smoke,9,2021,73,Differences,Ginuwine,2001,2002.0,67.0,1,4.0,20,-5.0,9,samples,0,confirmation,42,30
+What's Goin On,Cardi B Featuring Lizzo,63,2025,58,What's Up?,4 Non Blondes,1992,1993.0,85.0,1,14.0,33,-49.0,63,interpolates,0,confirmation,2,26
+What's Next,Drake,1,2021,68,HYFR (Hell Ya Fucking Right),"Drake, Lil Wayne",2011,2012.0,73.0,1,62.0,10,61.0,1,interpolates,0,underdog,16,20
+Whatchu Kno About Me,GloRilla & Sexyy Red,17,2025,65,"Wipe Me Down (feat. Foxx, Webbie & Boosie Badazz) - Remix","Trill Family, Boosie Badazz, Webbie, Foxx",2007,,67.0,0,,18,,17,samples,0,resurrection,22,1
+Whatever She Wants,Bryson Tiller,19,2024,76,Whatever She Wants (Karaoke Lead Vocal Demo)[In the Style of Jars Of Clay],Backtrack Professional Karaoke Band,2009,2024.0,0.0,1,19.0,15,0.0,19,interpolates,0,confirmation,20,1
+When To Say When,Drake,35,2020,59,Song Cry,JAŸ-Z,2001,,54.0,0,,19,,35,samples,0,resurrection,1,1
+Where Them Girls At,Megan Thee Stallion,77,2024,61,Booty Hopscotch,Kstylis,2012,,35.0,0,,12,,77,samples,0,resurrection,1,1
+Where Them Girls At,Megan Thee Stallion,77,2024,61,Booty Me Down,Kstylis,2013,,54.0,0,,11,,77,samples,0,resurrection,1,1
+Whim Whamiee,PLUTO & YKNIECE,51,2025,63,Wham Bam,DJ Cool Breeze & OJ Da Juiceman,2012,,8.0,0,,13,,51,samples,0,resurrection,16,1
+Wick Man,Drake,71,2023,55,Landscape,Koen De Bruyne,2007,,3.0,0,,16,,71,samples,0,resurrection,1,1
+Wilshire,"Tyler, The Creator",95,2021,60,The Knight Hawk,the jet age of tomorrow,2010,,25.0,0,,11,,95,samples,0,resurrection,1,1
+Window Pain (Outro),J. Cole,41,2018,55,Only Faith And Hope,J.O.B. Orquestra,1978,,21.0,0,,40,,41,samples,0,resurrection,1,1
+Without Me,Halsey,1,2019,85,Cry Me a River,Justin Timberlake,2002,2003.0,78.0,1,3.0,17,2.0,1,interpolates,0,confirmation,52,20
+Wockesha,Moneybagg Yo,20,2021,65,Foolish,Ashanti,2002,2002.0,75.0,1,1.0,19,-19.0,20,samples,0,confirmation,28,32
+Wockesha,Moneybagg Yo,20,2021,65,Stay With Me,DeBarge,1983,,53.0,0,,38,,20,samples,0,resurrection,28,1
+Woman,Doja Cat,7,2022,84,Woman - Demo,Maroon 5,2002,2022.0,33.0,1,7.0,20,0.0,7,interpolates,0,confirmation,52,1
+Worldwide Steppers,Kendrick Lamar,19,2022,58,Break Through,The Funkees,2012,,27.0,0,,10,,19,samples,0,resurrection,1,1
+Worldwide Steppers,Kendrick Lamar,19,2022,58,Father I Stretch My Hands,Pastor T.L. Barrett and the Youth for Christ Choir,1976,2014.0,42.0,1,39.0,46,20.0,19,interpolates,0,confirmation,1,1
+Worldwide Steppers,Kendrick Lamar,19,2022,58,"Look up, Look Down",Soft Touch,2005,,34.0,0,,17,,19,samples,0,resurrection,1,1
+Worldwide Steppers,Kendrick Lamar,19,2022,58,Main Title And First Victim,John Williams,2000,,41.0,0,,22,,19,samples,0,resurrection,1,1
+Ya Ya,Beyonce,39,2024,63,Good Vibrations,The Beach Boys,2012,1967.0,52.0,1,1.0,12,-38.0,39,interpolates,0,confirmation,2,14
+Ya Ya,Beyonce,39,2024,63,Love Is Strange,Mickey & Sylvia,1987,,52.0,0,,37,,39,interpolates,0,resurrection,2,1
+YaYa,6ix9ine,99,2020,53,"Baila Morena (with Luny Tunes, Noriega) - Remix","Hector & Tito, Luny Tunes, Noriega",2005,,71.0,0,,15,,99,interpolates,0,resurrection,1,1
+Ye vs The People,Kanye West Featuring T.I.,85,2018,38,7-Rooms Of Gloom,Four Tops,1967,1967.0,32.0,1,14.0,51,-71.0,85,samples,0,confirmation,1,8
+"Yes, And?",Ariana Grande,1,2024,71,Vogue,Madonna,2009,1990.0,68.0,1,1.0,15,0.0,1,interpolates,0,confirmation,13,24
+Yikes,Kanye West,8,2018,63,Ha,JUVENILE,1998,2000.0,49.0,1,19.0,20,11.0,8,interpolates,0,confirmation,5,10
+Yikes,Kanye West,8,2018,63,Kothbiro,Black Savage,1975,,28.0,0,,43,,8,samples,0,resurrection,5,1
+You Broke My Heart,Drake,11,2024,76,I Got over Love,Major Harris,1976,,29.0,0,,48,,11,samples,0,resurrection,19,1
+You Broke My Heart,Drake,11,2024,76,Stoned Love,The Supremes,1970,1971.0,33.0,1,7.0,54,-4.0,11,samples,0,confirmation,19,14
+Young Harleezy,Jack Harlow,97,2022,49,6 Foot 7 Foot,"Lil Wayne, Cory Gunz",2011,2011.0,72.0,1,9.0,11,-88.0,97,interpolates,0,confirmation,1,21
+Young Harleezy,Jack Harlow,97,2022,49,Bitch Niggaz,"Dr. Dre, Hittman, Six-Two, Snoop Dogg",1999,,54.0,0,,23,,97,samples,0,resurrection,1,1
+Yukon,Justin Bieber,17,2025,85,Untitled,Eminem,2010,,54.0,0,,15,,17,interpolates,0,resurrection,33,1
+Zombieboy,Lady Gaga,85,2025,67,Animals,Maroon 5,2014,,83.0,0,,11,,85,interpolates,0,resurrection,1,33
+cLOUDs,J. Cole,69,2025,67,Never Been - Remix,Wiz Khalifa,2010,,49.0,0,,15,,69,samples,0,resurrection,2,1
+feelslikeimfallinginlove,Coldplay,81,2024,62,Funeral Singers,Califone,2009,,33.0,0,,15,,81,samples,0,resurrection,1,1
+ily,Surf Mesa Featuring Emilee,23,2020,59,Can't Take My Eyes off You,Frankie Valli,2003,1967.0,74.0,1,2.0,17,-21.0,23,samples,0,confirmation,28,16
+interlude,J. Cole,8,2021,45,A Day In The Park,Michal Urbaniak,2009,,40.0,0,,12,,8,samples,0,resurrection,3,1

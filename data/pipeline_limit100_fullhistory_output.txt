@@ -1,0 +1,145 @@
+[1/100] Checking: 4X4 - Travis Scott
+[2/100] Checking: A Bar Song (Tipsy) - Shaboozey
+[3/100] Checking: All I Want For Christmas Is You - Mariah Carey
+[4/100] Checking: Die With A Smile - Lady Gaga & Bruno Mars
+[5/100] Checking: Fortnight - Taylor Swift Featuring Post Malone
+[6/100] Checking: Ghostbusters - Ray Parker Jr.
+[7/100] Checking: Golden - HUNTR/X: EJAE, Audrey Nuna & REI AMI
+[8/100] Checking: Humble. - Kendrick Lamar
+[9/100] Checking: I Had Some Help - Post Malone Featuring Morgan Wallen
+[10/100] Checking: Like That - Future, Metro Boomin & Kendrick Lamar
+[11/100] Checking: Lose Control - Teddy Swims
+[12/100] Checking: Love Somebody - Morgan Wallen
+[13/100] Checking: Luther - Kendrick Lamar & SZA
+[14/100] Checking: Manchild - Sabrina Carpenter
+[15/100] Checking: Monster Mash - Bobby "Boris" Pickett And The Crypt-Kickers
+[16/100] Checking: Not Like Us - Kendrick Lamar
+[17/100] Checking: Ordinary - Alex Warren
+[18/100] Checking: Please Please Please - Sabrina Carpenter
+[19/100] Checking: Rockin' Around The Christmas Tree - Brenda Lee
+[20/100] Checking: Squabble Up - Kendrick Lamar
+[21/100] Checking: The Fate Of Ophelia - Taylor Swift
+[22/100] Checking: Too Sweet - Hozier
+[23/100] Checking: What I Want - Morgan Wallen Featuring Tate McRae
+[24/100] Checking: Beautiful Things - Benson Boone
+[25/100] Checking: Birds Of A Feather - Billie Eilish
+[26/100] Checking: DTMF - Bad Bunny
+[27/100] Checking: Daisies - Justin Bieber
+[28/100] Checking: Evil J0rdan - Playboi Carti
+[29/100] Checking: I'm The Problem - Morgan Wallen
+[30/100] Checking: Jingle Bell Rock - Bobby Helms
+[31/100] Checking: Just In Case - Morgan Wallen
+[32/100] Checking: Last Christmas - Wham!
+[33/100] Checking: Million Dollar Baby - Tommy Richman
+[34/100] Checking: Nokia - Drake
+[35/100] Checking: Opalite - Taylor Swift
+[36/100] Checking: Somebody's Watching Me - Rockwell
+[37/100] Checking: TV Off - Kendrick Lamar Featuring Lefty Gunplay
+[38/100] Checking: Taste - Sabrina Carpenter
+[39/100] Checking: What Did I Miss? - Drake
+[40/100] Checking: APT. - ROSE & Bruno Mars
+[41/100] Checking: Baile Inolvidable - Bad Bunny
+[42/100] Checking: Elizabeth Taylor - Taylor Swift
+[43/100] Checking: Espresso - Sabrina Carpenter
+[44/100] Checking: Euphoria - Kendrick Lamar
+[45/100] Checking: Soda Pop - Saja Boys: Andrew Choi, Neckwav, Danny Chung, Kevin Woo & samUIL Lee
+[46/100] Checking: Tears - Sabrina Carpenter
+[47/100] Checking: The Subway - Chappell Roan
+[48/100] Checking: Timeless - The Weeknd & Playboi Carti
+[49/100] Checking: Tit For Tat - Tate McRae
+[50/100] Checking: A Holly Jolly Christmas - Burl Ives
+[51/100] Checking: All The Way - BigXthaPlug Featuring Bailey Zimmerman
+[52/100] Checking: Father Figure - Taylor Swift
+[53/100] Checking: Good Luck, Babe! - Chappell Roan
+[54/100] Checking: Man I Need - Olivia Dean
+[55/100] Checking: Pink Pony Club - Chappell Roan
+[56/100] Checking: Rather Lie - Playboi Carti & The Weeknd
+[57/100] Checking: Smile - Morgan Wallen
+[58/100] Checking: Thriller - Michael Jackson
+[59/100] Checking: Wacced Out Murals - Kendrick Lamar
+[60/100] Checking: Your Idol - Saja Boys: Andrew Choi, Neckwav, Danny Chung, Kevin Woo & samUIL Lee
+[61/100] Checking: Hey Now - Kendrick Lamar Featuring Dody6
+[62/100] Checking: It's The Most Wonderful Time Of The Year - Andy Williams
+[63/100] Checking: Love Me Not - Ravyn Lenae
+[64/100] Checking: Santa Tell Me - Ariana Grande
+[65/100] Checking: The Giver - Chappell Roan
+[66/100] Checking: Wood - Taylor Swift
+[67/100] Checking: Feliz Navidad - Jose Feliciano
+[68/100] Checking: Gimme A Hug - Drake
+[69/100] Checking: Mutt - Leon Thomas
+[70/100] Checking: That's So True - Gracie Abrams
+[71/100] Checking: The Christmas Song (Merry Christmas To You) - Nat "King" Cole
+[72/100] Checking: Wi$h Li$t - Taylor Swift
+[73/100] Checking: Actually Romantic - Taylor Swift
+[74/100] Checking: All The Stars - Kendrick Lamar & SZA
+[75/100] Checking: Folded - Kehlani
+[76/100] Checking: I Got Better - Morgan Wallen
+[77/100] Checking: Let It Snow! Let It Snow! Let It Snow! - Dean Martin
+[78/100] Checking: Lies Lies Lies - Morgan Wallen
+[79/100] Checking: St. Chroma - Tyler, The Creator Featuring Daniel Caesar
+[80/100] Checking: Underneath The Tree - Kelly Clarkson
+[81/100] Checking: How It's Done - HUNTR/X: EJAE, Audrey Nuna & REI AMI
+[82/100] Checking: I Ain't Coming Back - Morgan Wallen Featuring Post Malone
+[83/100] Checking: I Ain't Coming Back - Morgan Wallen & Post Malone
+[84/100] Checking: Nuevayol - Bad Bunny
+[85/100] Checking: Sleigh Ride - The Ronettes
+[86/100] Checking: Superman - Morgan Wallen
+[87/100] Checking: The Life Of A Showgirl - Taylor Swift Featuring Sabrina Carpenter
+[88/100] Checking: Anxiety - Doechii
+[89/100] Checking: Eldest Daughter - Taylor Swift
+  Genius relationships failed: HTTPSConnectionPool(host='api.genius.com', port=443): Read timed out. (read timeout=20)
+[90/100] Checking: 30 For 30 - SZA With Kendrick Lamar
+  Genius search failed: HTTPSConnectionPool(host='api.genius.com', port=443): Max retries exceeded with url: /search?q=30+For+30+SZA+With+Kendrick+Lamar (Caused by NameResolutionError("HTTPSConnection(host='api.genius.com', port=443): Failed to resolve 'api.genius.com' ([Errno -3] Temporary failure in name resolution)"))
+[91/100] Checking: Back To Friends - sombr
+[92/100] Checking: Cancelled! - Taylor Swift
+[93/100] Checking: Outside - Cardi B
+[94/100] Checking: Run Rudolph Run - Chuck Berry
+[95/100] Checking: Sticky - Tyler, The Creator Featuring GloRilla, Sexyy Red & Lil Wayne
+[96/100] Checking: Choosin' Texas - Ella Langley
+[97/100] Checking: Dodger Blue - Kendrick Lamar Featuring Wallie the Sensei, Siete7x & Roddy Ricch
+[98/100] Checking: Mistletoe - Justin Bieber
+[99/100] Checking: Ruin The Friendship - Taylor Swift
+[100/100] Checking: Cry For Me - The Weeknd
+Billboard history loaded: 31419 songs across 66 years (1960-2025)
+Recent candidates (2018-2025): 100 unique tracks
+Genius lookups completed: 99
+Revival pairs found: 36
+Pairs skipped (unresolved years): 2
+Spotify unresolved: 3
+
+RESULTS BY STORY TYPE:
+Resurrections (never charted -> now famous): 16
+Underdogs (modest hit -> much bigger revival): 3
+Confirmations (famous -> famous again): 17
+
+TOP 10 RESURRECTIONS (by years_between):
+revival_song    revival_artist  revival_peak         original_song                  original_artist  original_release_year  years_between
+ Not Like Us    Kendrick Lamar             1  I Believe To My Soul                     Monk Higgins                   1968             57
+     Anxiety           Doechii             9               Seville                       Luiz Bonfá                   1968             57
+        Mutt       Leon Thomas             6       Silly Love Song                      Enchantment                   1977             48
+     Opalite      Taylor Swift             2      1+1=2 Enamorados                      Luis Miguel                   1982             43
+ Squabble Up    Kendrick Lamar             1     When I Hear Music                       Debbie Deb                   1995             30
+       Tears Sabrina Carpenter             3 Yes Sir, I Can Boogie                          Baccara                   1998             27
+ Evil J0rdan     Playboi Carti             2             Scientist                    Dopplereffekt                   1999             26
+       Nokia             Drake             2             Gran Vals Francisco Tárrega, Fernando Espí                   2002             23
+    Euphoria    Kendrick Lamar             3    Wish A Mutha Would                      Frayser Boy                   2003             22
+    Euphoria    Kendrick Lamar             3           Get Em High  Kanye West, Talib Kweli, Common                   2004             21
+
+TOP 10 UNDERDOGS (by chart_jump):
+revival_song revival_artist  revival_peak         original_song       original_artist  original_peak  chart_jump
+    Euphoria Kendrick Lamar             3        Worst Behavior                 Drake           89.0        86.0
+         4X4   Travis Scott             1               Say Sum                 Migos           79.0        78.0
+ Not Like Us Kendrick Lamar             1 It's Okay (One Blood) The Game, Junior Reid           71.0        70.0
+
+TOP 10 CONFIRMATIONS (by original_peak):
+      revival_song                              revival_artist  revival_peak                            original_song       original_artist  original_peak
+     Love Somebody                               Morgan Wallen             1               (I Just) Died In Your Arms          Cutting Crew            1.0
+     Father Figure                                Taylor Swift             4               Father Figure - Remastered        George Michael            1.0
+           Anxiety                                     Doechii             9             Somebody That I Used To Know         Gotye, Kimbra            1.0
+        Man I Need                                 Olivia Dean             4 The Way You Make Me Feel - 2012 Remaster       Michael Jackson            1.0
+       Not Like Us                              Kendrick Lamar             1                               God's Plan                 Drake            1.0
+      Monster Mash Bobby "Boris" Pickett And The Crypt-Kickers             1                       Mashed Potato Time         Dee Dee Sharp            2.0
+A Bar Song (Tipsy)                                   Shaboozey             1                         Tipsy - Club Mix                J-Kwon            2.0
+    Last Christmas                                       Wham!             2                  Can't Smile Without You         Barry Manilow            3.0
+      Ghostbusters                              Ray Parker Jr.             1                        I Want A New Drug Huey Lewis & The News            6.0
+          Euphoria                              Kendrick Lamar             3                          Walk It Talk It          Migos, Drake           10.0
