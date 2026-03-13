@@ -176,10 +176,148 @@
       }
 
       .chart-shell {
-        position: relative;
-        width: 100vw;
-        height: auto;
+        display: grid;
+        grid-template-columns: minmax(280px, 32%) minmax(0, 1fr);
+        gap: 20px;
+        padding: 0 24px 24px;
+        height: calc(100vh - 100px);
         min-height: calc(100vh - 100px);
+      }
+
+      .browser-panel,
+      .chart-panel {
+        min-height: 0;
+        height: 100%;
+      }
+
+      .browser-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+        border: 1px solid rgba(31, 31, 27, 0.08);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.55);
+      }
+
+      .browser-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        color: #666666;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .browser-subtle {
+        color: #9a9a9a;
+        letter-spacing: 0;
+        text-transform: none;
+      }
+
+      .revival-browser {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-height: 0;
+        overflow-y: auto;
+        padding-right: 4px;
+      }
+
+      .browser-row {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        border: 1px solid rgba(31, 31, 27, 0.08);
+        border-radius: 14px;
+        background: rgba(250, 250, 248, 0.85);
+        padding: 10px 12px;
+        text-align: left;
+        cursor: pointer;
+        transition:
+          border-color 160ms ease,
+          background 160ms ease,
+          transform 160ms ease;
+      }
+
+      .browser-row:hover {
+        border-color: rgba(31, 31, 27, 0.18);
+        background: rgba(255, 255, 255, 0.95);
+        transform: translateX(2px);
+      }
+
+      .browser-row.is-active {
+        border-color: rgba(31, 31, 27, 0.3);
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 10px 20px rgba(31, 31, 27, 0.06);
+      }
+
+      .browser-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        flex: 0 0 auto;
+      }
+
+      .browser-copy {
+        min-width: 0;
+      }
+
+      .browser-song {
+        display: block;
+        color: #20201c;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .browser-meta {
+        display: block;
+        margin-top: 2px;
+        color: #8a8a8a;
+        font-size: 11px;
+        line-height: 1.35;
+      }
+
+      .browser-stats {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 2px;
+        white-space: nowrap;
+      }
+
+      .browser-peak {
+        color: #20201c;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .browser-weeks {
+        color: #9a9a9a;
+        font-size: 10px;
+      }
+
+      .chart-panel {
+        position: relative;
+        border: 1px solid rgba(31, 31, 27, 0.06);
+        border-radius: 18px;
+        background: rgba(250, 250, 248, 0.72);
+        overflow: hidden;
+      }
+
+      #chart {
+        width: 100%;
+        height: 100%;
+      }
+
+      .chart-empty-state {
+        position: absolute;
+        inset: 0;
       }
 
       #chart,
@@ -338,10 +476,19 @@
           padding: 5px 10px;
         }
 
-        .legend {
-          left: 16px;
-          right: 16px;
-          bottom: 14px;
+        .chart-shell {
+          grid-template-columns: 1fr;
+          height: auto;
+          min-height: 0;
+          padding: 0 16px 16px;
+        }
+
+        .browser-panel {
+          max-height: 38vh;
+        }
+
+        .chart-panel {
+          min-height: 56vh;
         }
       }
     </style>
@@ -370,7 +517,20 @@
       </header>
 
       <section class="chart-shell">
-        <div id="chart" aria-label="Music sample connections chart"></div>
+        <aside class="browser-panel" aria-label="Revival browser">
+          <div class="browser-heading">
+            <span>Revival Browser</span>
+            <span id="browser-count" class="browser-subtle"></span>
+          </div>
+          <div id="revival-browser" class="revival-browser"></div>
+        </aside>
+
+        <div id="chart-panel" class="chart-panel">
+          <div id="chart" aria-label="Music sample connections chart"></div>
+          <div id="chart-empty" class="empty-state chart-empty-state">
+            Select a song to explore its musical origins.
+          </div>
+        </div>
       </section>
     </div>
 
@@ -384,11 +544,16 @@
       };
 
       const chartNode = document.getElementById("chart");
+      const chartPanelNode = document.getElementById("chart-panel");
+      const chartEmptyNode = document.getElementById("chart-empty");
       const filtersNode = document.getElementById("filters");
       const counterNode = document.getElementById("counter");
+      const browserNode = document.getElementById("revival-browser");
+      const browserCountNode = document.getElementById("browser-count");
 
       let allRows = [];
       let activeYear = DEFAULT_YEAR;
+      let selectedRevivalKey = null;
       let lockedId = null;
       let svg;
       let rootLayer;
@@ -408,6 +573,24 @@
 
       function truncate(text, maxLength = 25) {
         return text.length > maxLength ? `${text.slice(0, maxLength - 1).trimEnd()}…` : text;
+      }
+
+      function getRevivalKey(row) {
+        return `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+      }
+
+      function getOriginalKey(row) {
+        return `${row.originalSong}__${row.originalArtist}`.toLowerCase();
+      }
+
+      function revivalSort(a, b) {
+        return (
+          d3.ascending(a.revivalPeak, b.revivalPeak) ||
+          d3.descending(a.revivalWeeksOnChart, b.revivalWeeksOnChart) ||
+          d3.descending(a.revivalSpotifyPopularity, b.revivalSpotifyPopularity) ||
+          d3.ascending(a.revivalSong, b.revivalSong) ||
+          d3.ascending(a.revivalArtist, b.revivalArtist)
+        );
       }
 
       function clamp(value, min, max) {
@@ -510,6 +693,90 @@
         originalLabelsLayer.selectAll("g.original-inline-label").remove();
       }
 
+      function setChartEmptyState(isVisible) {
+        chartEmptyNode.hidden = !isVisible;
+        chartEmptyNode.style.display = isVisible ? "grid" : "none";
+        if (svg) {
+          svg.style("display", isVisible ? "none" : "block");
+        }
+      }
+
+      function buildBrowserData(rows) {
+        const revivalColorMap = buildRevivalColorMap(rows);
+        return Array.from(d3.group(rows, (row) => getRevivalKey(row)), ([revivalKey, group]) => {
+          const first = group[0];
+          return {
+            revivalKey,
+            revivalSong: first.revivalSong,
+            revivalArtist: first.revivalArtist,
+            revivalChartYear: first.revivalChartYear,
+            revivalPeak: first.revivalPeak,
+            revivalWeeksOnChart: first.revivalWeeksOnChart,
+            revivalSpotifyPopularity: first.revivalSpotifyPopularity,
+            relationshipType: first.relationshipType,
+            revivalColor: revivalColorMap.get(revivalKey) || RELATIONSHIP_COLOR[first.relationshipType],
+            originalsCount: group.length
+          };
+        }).sort(revivalSort);
+      }
+
+      function renderBrowser(browserData) {
+        browserCountNode.textContent = `${browserData.length} songs`;
+
+        const browserSelection = d3.select(browserNode)
+          .selectAll("button.browser-row")
+          .data(browserData, (d) => d.revivalKey);
+
+        browserSelection
+          .join(
+            (enter) => {
+              const button = enter
+                .append("button")
+                .attr("type", "button")
+                .attr("class", "browser-row");
+
+              button.append("span").attr("class", "browser-dot");
+
+              const copy = button.append("span").attr("class", "browser-copy");
+              copy.append("span").attr("class", "browser-song");
+              copy.append("span").attr("class", "browser-meta");
+
+              const stats = button.append("span").attr("class", "browser-stats");
+              stats.append("span").attr("class", "browser-peak");
+              stats.append("span").attr("class", "browser-weeks");
+
+              return button;
+            },
+            (update) => update,
+            (exit) => exit.remove()
+          )
+          .classed("is-active", (d) => d.revivalKey === selectedRevivalKey)
+          .attr("aria-pressed", (d) => (d.revivalKey === selectedRevivalKey ? "true" : "false"))
+          .on("click", (_, revival) => {
+            selectedRevivalKey = revival.revivalKey;
+            lockedId = null;
+            hideInlineLabels();
+            render(true);
+          });
+
+        const rows = d3.select(browserNode).selectAll("button.browser-row");
+
+        rows.select(".browser-dot")
+          .style("background", (d) => d.revivalColor);
+
+        rows.select(".browser-song")
+          .text((d) => d.revivalSong);
+
+        rows.select(".browser-meta")
+          .text((d) => `${d.revivalArtist} • ${d.revivalChartYear}`);
+
+        rows.select(".browser-peak")
+          .text((d) => `#${d.revivalPeak}`);
+
+        rows.select(".browser-weeks")
+          .text((d) => `${d.revivalWeeksOnChart} weeks`);
+      }
+
       function buildButtons() {
         filtersNode.innerHTML = "";
 
@@ -525,6 +792,7 @@
             }
 
             activeYear = year;
+            selectedRevivalKey = null;
             lockedId = null;
             hideInlineLabels();
             render(true);
@@ -549,7 +817,7 @@
         const uniqueRevivals = new Map();
 
         rows.forEach((row) => {
-          const key = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+          const key = getRevivalKey(row);
           if (!uniqueRevivals.has(key)) {
             uniqueRevivals.set(key, row);
           }
@@ -559,15 +827,7 @@
         const grouped = d3.group([...uniqueRevivals.entries()], ([, row]) => row.relationshipType);
 
         grouped.forEach((entries, relationshipType) => {
-          const sortedEntries = entries.slice().sort(([, a], [, b]) => {
-            return (
-              d3.ascending(a.revivalPeak, b.revivalPeak) ||
-              d3.descending(a.revivalWeeksOnChart, b.revivalWeeksOnChart) ||
-              d3.descending(a.revivalSpotifyPopularity, b.revivalSpotifyPopularity) ||
-              d3.ascending(a.revivalSong, b.revivalSong) ||
-              d3.ascending(a.revivalArtist, b.revivalArtist)
-            );
-          });
+          const sortedEntries = entries.slice().sort(([, a], [, b]) => revivalSort(a, b));
 
           if (relationshipType === "cover") {
             sortedEntries.forEach(([key]) => colorMap.set(key, "#9B72AA"));
@@ -602,6 +862,7 @@
         const revivalCount = Math.max(uniqueRevivals.size, 1);
         const slotHeight = Math.max((height - 120) / revivalCount, 0);
         const bottomMargin = height - 40;
+        const singleRevivalY = topMargin + (bottomMargin - topMargin) * 0.36;
         const yScale = d3
           .scaleLinear()
           .domain([1, 100])
@@ -636,7 +897,10 @@
 
             return {
               key: keyFn(item),
-              y: topMargin + index * slotHeight + slotHeight / 2,
+              y:
+                sortedItems.length === 1
+                  ? singleRevivalY
+                  : topMargin + index * slotHeight + slotHeight / 2,
               xOffset,
               r: radiusFn(item),
             };
@@ -693,19 +957,14 @@
 
         const revivalPositionMap = makeRankedPositionMap(
           rows,
-          (row) => `${row.revivalSong}__${row.revivalArtist}`.toLowerCase(),
+          (row) => getRevivalKey(row),
           (row) => row.revivalPeak,
-          (a, b) =>
-            d3.ascending(a.revivalPeak, b.revivalPeak) ||
-            d3.descending(a.revivalWeeksOnChart, b.revivalWeeksOnChart) ||
-            d3.descending(a.revivalSpotifyPopularity, b.revivalSpotifyPopularity) ||
-            d3.ascending(a.revivalSong, b.revivalSong) ||
-            d3.ascending(a.revivalArtist, b.revivalArtist),
+          (a, b) => revivalSort(a, b),
           (row) => weeksRadius(row.revivalWeeksOnChart)
         );
         const originalYMap = makePeakOffsetMap(
           rows.filter((row) => row.everCharted && Number.isFinite(row.originalPeak)),
-          (row) => `${row.originalSong}__${row.originalArtist}`.toLowerCase(),
+          (row) => getOriginalKey(row),
           (row) => row.originalPeak,
           (row) => row.originalWeeksOnChart
         );
@@ -714,13 +973,12 @@
           .slice()
           .sort(
             (a, b) =>
-              d3.ascending(a.revivalPeak, b.revivalPeak) ||
-              d3.ascending(a.revivalSong, b.revivalSong) ||
+              revivalSort(a, b) ||
               d3.ascending(a.originalSong, b.originalSong)
           )
           .map((row) => {
-            const revivalKey = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
-            const originalKey = `${row.originalSong}__${row.originalArtist}`.toLowerCase();
+            const revivalKey = getRevivalKey(row);
+            const originalKey = getOriginalKey(row);
             const revivalPosition = revivalPositionMap.get(revivalKey) || { y: topMargin, xOffset: 0 };
             const revivalY = revivalPosition.y;
             const revivalX = revivalXBase + revivalPosition.xOffset;
@@ -946,27 +1204,31 @@
       }
 
       function render(animate) {
-        const width = window.innerWidth;
-        const rows = filteredRows();
+        const browserRows = filteredRows();
+        const browserData = buildBrowserData(browserRows);
+        const selectionExists = selectedRevivalKey && browserData.some((revival) => revival.revivalKey === selectedRevivalKey);
+        if (!selectionExists) {
+          selectedRevivalKey = null;
+        }
+
+        const rows = selectedRevivalKey
+          ? browserRows.filter((row) => getRevivalKey(row) === selectedRevivalKey)
+          : [];
+        const width = Math.max(chartPanelNode.clientWidth, 320);
         const topMargin = 80;
-        const uniqueRevivals = new Map();
-        rows.forEach((row) => {
-          const key = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
-          if (!uniqueRevivals.has(key)) {
-            uniqueRevivals.set(key, row);
-          }
-        });
-        const revivalCount = Math.max(uniqueRevivals.size, 1);
         const viewportHeight = window.innerHeight - 100;
         const height = viewportHeight;
-        const slotHeight = Math.max((height - 120) / revivalCount, 0);
+        const slotHeight = selectedRevivalKey ? Math.max((height - 120) / Math.max(browserData.length, 1), 0) : 0;
 
         chartNode.style.height = `${height}px`;
-        counterNode.textContent = `Showing ${rows.length} connections`;
+        renderBrowser(browserData);
+        counterNode.textContent = `Showing ${browserData.length} songs`;
         updateButtons();
 
         ensureSvg(width, height);
 
+        bandLayer.selectAll("*").remove();
+        timelineLayer.selectAll("*").remove();
         svg.selectAll(".arc").remove();
         svg.selectAll("g.original-mark").remove();
         svg.selectAll("g.revival-mark").remove();
@@ -987,12 +1249,11 @@
         revivalSelection = revivalLayer.selectAll("g.revival-mark");
 
         if (!rows.length) {
-          d3.select(chartNode)
-            .append("div")
-            .attr("class", "empty-state")
-            .text("No connections found for that year.");
+          setChartEmptyState(true);
           return;
         }
+
+        setChartEmptyState(false);
 
         const laidOut = computeLayout(rows, width, height);
         const transition = d3.transition().duration(animate ? 320 : 0);
@@ -1070,7 +1331,7 @@
         const currentYear =
           activeYear === "ALL" ? d3.max(rows, (row) => row.revivalChartYear) || DEFAULT_YEAR : activeYear;
         const timelineXForYear = (year) =>
-          clamp((width - 200) - ((currentYear - year) / 90) * (width * 0.85), leftMargin, width - 200);
+          clamp((width - 180) - ((currentYear - year) / 90) * (width * 0.85), leftMargin, width - 180);
 
         const timelineGroup = timelineLayer.selectAll("g.reference-timeline").data([null]).join("g").attr("class", "reference-timeline");
         timelineGroup
@@ -1079,7 +1340,7 @@
           .join("line")
           .attr("class", "timeline-axis")
           .attr("x1", leftMargin)
-          .attr("x2", width - 200)
+          .attr("x2", width - 180)
           .attr("y1", timelineY)
           .attr("y2", timelineY)
           .attr("stroke", "#ccc");
