@@ -656,16 +656,28 @@
         const topMargin = 80;
         const bottomMargin = height - 40;
         const zoneOrder = ["number1", "top10", "top40", "charted", "never-charted"];
-        const zoneHeight = (bottomMargin - topMargin) / zoneOrder.length;
-        const zoneBounds = new Map(
-          zoneOrder.map((zoneKey, index) => [
-            zoneKey,
-            {
-              y0: topMargin + index * zoneHeight,
-              y1: topMargin + (index + 1) * zoneHeight,
-            },
-          ])
-        );
+        const zoneWeights = new Map([
+          ["number1", 0.1],
+          ["top10", 0.16],
+          ["top40", 0.24],
+          ["charted", 0.29],
+          ["never-charted", 0.21],
+        ]);
+        const totalHeight = bottomMargin - topMargin;
+        let runningY = topMargin;
+        const zoneBounds = new Map();
+
+        zoneOrder.forEach((zoneKey, index) => {
+          const zoneHeight =
+            index === zoneOrder.length - 1
+              ? bottomMargin - runningY
+              : totalHeight * (zoneWeights.get(zoneKey) || 0);
+          zoneBounds.set(zoneKey, {
+            y0: runningY,
+            y1: runningY + zoneHeight,
+          });
+          runningY += zoneHeight;
+        });
 
         const getPeakBucket = (peak, everCharted = true) => {
           if (!everCharted || !Number.isFinite(peak)) {
@@ -692,6 +704,14 @@
         };
       }
 
+      function projectYearsBetween(yearsBetween) {
+        const normalized = clamp(yearsBetween / 90, 0, 1);
+        if (normalized <= 0.65) {
+          return (normalized / 0.65) * 0.78;
+        }
+        return 0.78 + ((normalized - 0.65) / 0.35) * 0.22;
+      }
+
       function computeLayout(rows, width, height) {
         const revivalXBase = width - 196;
         const leftMargin = 80;
@@ -716,15 +736,6 @@
 
           const sortedItems = [...uniqueItems.values()].sort(sortFn);
           const bucketGroups = d3.group(sortedItems, (item) => bucketFn(item));
-          const peakGroupIndex = includeXOffset ? new Map() : null;
-          const peakGroupSizes =
-            includeXOffset && peakFn
-              ? d3.rollup(
-                  sortedItems,
-                  (group) => group.length,
-                  (item) => peakFn(item)
-                )
-              : null;
           const positionedItems = [];
 
           zoneOrder.forEach((zoneKey) => {
@@ -763,13 +774,18 @@
                 let xOffset = 0;
 
                 if (includeXOffset && peakFn) {
-                  const exactPeak = peakFn(item);
-                  const indexWithinGroup = peakGroupIndex.get(exactPeak) || 0;
-                  peakGroupIndex.set(exactPeak, indexWithinGroup + 1);
+                  const radii = peakItems.map((entry) => radiusFn(entry));
+                  const gap = 12;
+                  const clusterWidth =
+                    radii.reduce((sum, current) => sum + current * 2, 0) + gap * Math.max(radii.length - 1, 0);
+                  let cursor = -clusterWidth / 2;
 
-                  const wrappedIndex = indexWithinGroup % 3;
-                  const wrappedGroupSize = Math.min(peakGroupSizes.get(exactPeak) || 1, 3);
-                  xOffset = (wrappedIndex - (wrappedGroupSize - 1) / 2) * 34;
+                  xOffset = radii
+                    .map((entryRadius) => {
+                      const center = cursor + entryRadius;
+                      cursor += entryRadius * 2 + gap;
+                      return center;
+                    })[index];
                 }
 
                 positionedItems.push({
@@ -851,7 +867,7 @@
               });
             }
             const originalX = clamp(
-              revivalX - (row.yearsBetween / 90) * (width * 0.85),
+              revivalX - projectYearsBetween(row.yearsBetween) * (width * 0.85),
               leftMargin + 20,
               revivalX - 24
             );
@@ -913,6 +929,25 @@
           });
       }
 
+      function pulseOriginalByKey(originalKey) {
+        const target = originalSelection.filter((d) => d.originalKey === originalKey);
+
+        target
+          .interrupt()
+          .transition()
+          .duration(180)
+          .attrTween("transform", (d) => {
+            const interpolate = d3.interpolateNumber(1, 1.5);
+            return (t) => `translate(${d.originalX},${d.originalY}) scale(${interpolate(t)})`;
+          })
+          .transition()
+          .duration(220)
+          .attrTween("transform", (d) => {
+            const interpolate = d3.interpolateNumber(1.5, 1);
+            return (t) => `translate(${d.originalX},${d.originalY}) scale(${interpolate(t)})`;
+          });
+      }
+
       function resetFocus() {
         const t = d3.transition().duration(200);
         arcSelection.transition(t).style("opacity", 0.06);
@@ -931,46 +966,55 @@
         hideInlineLabels();
       }
 
-      function applyFocus(link, pulse = false) {
+      function applyFocus(link, pulse = false, mode = "link") {
+        const relatedLinks =
+          mode === "original" ? arcSelection.data().filter((d) => d.originalKey === link.originalKey) : [link];
+        const relatedIds = new Set(relatedLinks.map((d) => d.id));
+        const relatedRevivalKeys = new Set(relatedLinks.map((d) => d.revivalKey));
+        const relatedOriginalKeys = new Set(relatedLinks.map((d) => d.originalKey));
         const t = d3.transition().duration(200);
         arcSelection
           .transition(t)
-          .style("opacity", (d) => (d.id === link.id ? 0.92 : 0.02));
+          .style("opacity", (d) => (relatedIds.has(d.id) ? 0.92 : 0.02));
 
         arcSelection
-          .filter((d) => d.id === link.id)
+          .filter((d) => relatedIds.has(d.id))
           .raise();
 
         revivalSelection
           .transition(t)
-          .style("opacity", (d) => (d.revivalKey === link.revivalKey ? 1 : 0.08));
+          .style("opacity", (d) => (relatedRevivalKeys.has(d.revivalKey) ? 1 : 0.08));
 
         revivalSelection
           .select("circle")
           .transition(t)
-          .attr("fill-opacity", (d) => (d.revivalKey === link.revivalKey ? revivalActiveFillOpacity() : revivalDimFillOpacity()))
-          .attr("stroke-width", (d) => (d.revivalKey === link.revivalKey ? 2 : 1));
+          .attr("fill-opacity", (d) => (relatedRevivalKeys.has(d.revivalKey) ? revivalActiveFillOpacity() : revivalDimFillOpacity()))
+          .attr("stroke-width", (d) => (relatedRevivalKeys.has(d.revivalKey) ? 2 : 1));
 
         revivalSelection
-          .filter((d) => d.revivalKey === link.revivalKey)
+          .filter((d) => relatedRevivalKeys.has(d.revivalKey))
           .raise();
 
         originalSelection
           .transition(t)
-          .style("opacity", (d) => (d.id === link.id ? 1 : 0.08));
+          .style("opacity", (d) => (relatedOriginalKeys.has(d.originalKey) ? 1 : 0.08));
 
         originalSelection
           .select("circle")
           .transition(t)
-          .attr("fill-opacity", (d) => (d.id === link.id ? originalActiveFillOpacity(d) : originalDimFillOpacity()))
-          .attr("stroke-width", (d) => (d.id === link.id ? 2 : 1));
+          .attr("fill-opacity", (d) => (relatedOriginalKeys.has(d.originalKey) ? originalActiveFillOpacity(d) : originalDimFillOpacity()))
+          .attr("stroke-width", (d) => (relatedOriginalKeys.has(d.originalKey) ? 2 : 1));
 
         originalSelection
-          .filter((d) => d.id === link.id)
+          .filter((d) => relatedOriginalKeys.has(d.originalKey))
           .raise();
 
         if (pulse) {
-          pulseOriginal(link.id);
+          if (mode === "original") {
+            pulseOriginalByKey(link.originalKey);
+          } else {
+            pulseOriginal(link.id);
+          }
         }
 
         showInlineLabels(link);
@@ -978,6 +1022,7 @@
 
       function applyRevivalFocus(revival, pulse = false) {
         const relatedIds = new Set(revival.originals.map((item) => item.id));
+        const relatedOriginalKeys = new Set(revival.originals.map((item) => item.originalKey));
         const t = d3.transition().duration(200);
 
         arcSelection
@@ -1004,21 +1049,21 @@
 
         originalSelection
           .transition(t)
-          .style("opacity", (d) => (relatedIds.has(d.id) ? 1 : 0.08));
+          .style("opacity", (d) => (relatedOriginalKeys.has(d.originalKey) ? 1 : 0.08));
 
         originalSelection
           .select("circle")
           .transition(t)
-          .attr("fill-opacity", (d) => (relatedIds.has(d.id) ? originalActiveFillOpacity(d) : originalDimFillOpacity()))
-          .attr("stroke-width", (d) => (relatedIds.has(d.id) ? 2 : 1));
+          .attr("fill-opacity", (d) => (relatedOriginalKeys.has(d.originalKey) ? originalActiveFillOpacity(d) : originalDimFillOpacity()))
+          .attr("stroke-width", (d) => (relatedOriginalKeys.has(d.originalKey) ? 2 : 1));
 
         originalSelection
-          .filter((d) => relatedIds.has(d.id))
+          .filter((d) => relatedOriginalKeys.has(d.originalKey))
           .raise();
 
         if (pulse) {
-          revival.originals.forEach((item) => {
-            pulseOriginal(item.id);
+          [...relatedOriginalKeys].forEach((originalKey) => {
+            pulseOriginalByKey(originalKey);
           });
         }
 
@@ -1026,7 +1071,7 @@
         showInlineLabels(revival.originals[0], revival.originals);
       }
 
-      function bindInteraction(selection) {
+      function bindInteraction(selection, mode = "link") {
         selection
           .on("mouseenter", function (event, link) {
             if (lockedId && lockedId !== link.id) {
@@ -1034,7 +1079,7 @@
             }
 
             d3.select(this).raise();
-            applyFocus(link, !lockedId);
+            applyFocus(link, !lockedId, mode);
           })
           .on("mouseleave", function () {
             if (!lockedId) {
@@ -1045,7 +1090,7 @@
             event.stopPropagation();
             lockedId = link.id;
             d3.select(this).raise();
-            applyFocus(link, false);
+            applyFocus(link, false, mode);
           });
       }
 
@@ -1090,7 +1135,6 @@
       function render(animate) {
         const width = window.innerWidth;
         const rows = filteredRows();
-        const { zoneBounds } = getZoneGeometry(window.innerHeight - 100);
         const uniqueRevivals = new Map();
         rows.forEach((row) => {
           const key = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
@@ -1100,6 +1144,7 @@
         });
         const viewportHeight = window.innerHeight - 100;
         const height = viewportHeight;
+        const { zoneBounds } = getZoneGeometry(height);
 
         chartNode.style.height = `${height}px`;
         counterNode.textContent = `Showing ${rows.length} connections`;
@@ -1191,10 +1236,11 @@
         const leftMargin = 80;
         const timelineY = height - 15;
         const timelineTicks = [1960, 1970, 1980, 1990, 2000, 2010];
+        const revivalAnchorX = width - 196;
         const currentYear =
           activeYear === "ALL" ? d3.max(rows, (row) => row.revivalChartYear) || DEFAULT_YEAR : activeYear;
         const timelineXForYear = (year) =>
-          clamp((width - 196) - ((currentYear - year) / 90) * (width * 0.85), leftMargin, width - 196);
+          clamp(revivalAnchorX - projectYearsBetween(currentYear - year) * (width * 0.85), leftMargin, revivalAnchorX);
 
         const timelineGroup = timelineLayer.selectAll("g.reference-timeline").data([null]).join("g").attr("class", "reference-timeline");
         timelineGroup
@@ -1203,7 +1249,7 @@
           .join("line")
           .attr("class", "timeline-axis")
           .attr("x1", leftMargin)
-          .attr("x2", width - 196)
+          .attr("x2", revivalAnchorX)
           .attr("y1", timelineY)
           .attr("y2", timelineY)
           .attr("stroke", "#ccc");
@@ -1357,8 +1403,8 @@
           .attr("fill", (d) => d.revivalColor)
           .attr("stroke", (d) => d.revivalColor);
 
-        bindInteraction(arcSelection);
-        bindInteraction(originalSelection);
+        bindInteraction(arcSelection, "link");
+        bindInteraction(originalSelection, "original");
 
         revivalSelection
           .on("mouseenter", function (event, revival) {
