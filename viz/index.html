@@ -352,7 +352,7 @@
         <div class="header-top">
           <div class="title-block">
             <h1>How Modern Music Resurrects the Past</h1>
-            <p class="subtitle">Bubble size = chart peak. Arc length = how far back it reached. Height = weeks on chart.</p>
+            <p class="subtitle">Bubble size = weeks on chart. Vertical zone = chart peak bucket. Arc length = how far back it reached.</p>
           </div>
           <div class="header-legend" aria-label="Legend">
             <span class="header-legend-item"><span class="header-legend-dot" style="background: #e07a5f"></span><span>This year's hit</span></span>
@@ -427,7 +427,31 @@
       }
 
       function peakLabel(peak) {
-        return Number.isFinite(peak) ? `#${Math.round(peak)}` : "uncharted";
+        return Number.isFinite(peak) && peak > 0 ? `#${Math.round(peak)}` : "Uncharted";
+      }
+
+      function originalBaseFillOpacity(d) {
+        return d.everCharted ? 0.7 : 0.4;
+      }
+
+      function originalActiveFillOpacity(d) {
+        return d.everCharted ? 0.92 : 0.82;
+      }
+
+      function originalDimFillOpacity() {
+        return 0.18;
+      }
+
+      function revivalBaseFillOpacity() {
+        return 0.85;
+      }
+
+      function revivalActiveFillOpacity() {
+        return 0.98;
+      }
+
+      function revivalDimFillOpacity() {
+        return 0.22;
       }
 
       function colorWithOpacity(color, opacity) {
@@ -599,15 +623,36 @@
             uniqueRevivals.set(key, row);
           }
         });
-        const revivalCount = Math.max(uniqueRevivals.size, 1);
-        const slotHeight = Math.max((height - 120) / revivalCount, 0);
         const bottomMargin = height - 40;
-        const yScale = d3
-          .scaleLinear()
-          .domain([1, 100])
-          .range([topMargin, bottomMargin])
-          .clamp(true);
-        const makeRankedPositionMap = (items, keyFn, peakFn, sortFn, radiusFn) => {
+        const zoneOrder = ["number1", "top10", "top40", "charted", "never-charted"];
+        const zoneHeight = (bottomMargin - topMargin) / zoneOrder.length;
+        const zoneBounds = new Map(
+          zoneOrder.map((zoneKey, index) => [
+            zoneKey,
+            {
+              y0: topMargin + index * zoneHeight,
+              y1: topMargin + (index + 1) * zoneHeight,
+            },
+          ])
+        );
+
+        const getPeakBucket = (peak, everCharted = true) => {
+          if (!everCharted || !Number.isFinite(peak)) {
+            return "never-charted";
+          }
+          if (peak === 1) {
+            return "number1";
+          }
+          if (peak >= 2 && peak <= 10) {
+            return "top10";
+          }
+          if (peak >= 11 && peak <= 40) {
+            return "top40";
+          }
+          return "charted";
+        };
+
+        const makeZonePositionMap = (items, keyFn, bucketFn, sortFn, radiusFn, includeXOffset = false, peakFn = null) => {
           const uniqueItems = new Map();
 
           items.forEach((item) => {
@@ -618,28 +663,49 @@
           });
 
           const sortedItems = [...uniqueItems.values()].sort(sortFn);
-          const peakGroupIndex = new Map();
-          const peakGroupSizes = d3.rollup(
-            sortedItems,
-            (group) => group.length,
-            (item) => peakFn(item)
-          );
+          const bucketGroups = d3.group(sortedItems, (item) => bucketFn(item));
+          const peakGroupIndex = includeXOffset ? new Map() : null;
+          const peakGroupSizes =
+            includeXOffset && peakFn
+              ? d3.rollup(
+                  sortedItems,
+                  (group) => group.length,
+                  (item) => peakFn(item)
+                )
+              : null;
+          const positionedItems = [];
 
-          const positionedItems = sortedItems.map((item, index) => {
-            const peakValue = peakFn(item);
-            const indexWithinGroup = peakGroupIndex.get(peakValue) || 0;
-            peakGroupIndex.set(peakValue, indexWithinGroup + 1);
+          zoneOrder.forEach((zoneKey) => {
+            const zoneItems = (bucketGroups.get(zoneKey) || []).slice().sort(sortFn);
+            if (!zoneItems.length) {
+              return;
+            }
 
-            const wrappedIndex = indexWithinGroup % 3;
-            const wrappedGroupSize = Math.min(peakGroupSizes.get(peakValue) || 1, 3);
-            const xOffset = (wrappedIndex - (wrappedGroupSize - 1) / 2) * 28;
+            const zone = zoneBounds.get(zoneKey);
+            const zoneSlotHeight = (zone.y1 - zone.y0) / zoneItems.length;
 
-            return {
-              key: keyFn(item),
-              y: topMargin + index * slotHeight + slotHeight / 2,
-              xOffset,
-              r: radiusFn(item),
-            };
+            zoneItems.forEach((item, index) => {
+              const radius = radiusFn(item);
+              const unclampedY = zone.y0 + index * zoneSlotHeight + zoneSlotHeight / 2;
+              const y = clamp(unclampedY, zone.y0 + radius + 4, zone.y1 - radius - 4);
+              let xOffset = 0;
+
+              if (includeXOffset && peakFn) {
+                const peakValue = peakFn(item);
+                const indexWithinGroup = peakGroupIndex.get(peakValue) || 0;
+                peakGroupIndex.set(peakValue, indexWithinGroup + 1);
+
+                const wrappedIndex = indexWithinGroup % 3;
+                const wrappedGroupSize = Math.min(peakGroupSizes.get(peakValue) || 1, 3);
+                xOffset = (wrappedIndex - (wrappedGroupSize - 1) / 2) * 28;
+              }
+
+              positionedItems.push({
+                key: keyFn(item),
+                y,
+                xOffset,
+              });
+            });
           });
 
           return new Map(
@@ -652,62 +718,34 @@
             ])
           );
         };
-        const makePeakOffsetMap = (items, keyFn, peakFn, tiebreakFn) => {
-          const uniqueItems = new Map();
 
-          items.forEach((item) => {
-            const key = keyFn(item);
-            if (!uniqueItems.has(key)) {
-              uniqueItems.set(key, item);
-            }
-          });
-
-          const groups = d3.group([...uniqueItems.values()], (item) => peakFn(item));
-          const yMap = new Map();
-
-          [...groups.entries()].forEach(([peakValue, groupItems]) => {
-            if (!Number.isFinite(peakValue)) {
-              return;
-            }
-
-            const sortedGroup = groupItems.slice().sort((a, b) => {
-              return (
-                d3.descending(tiebreakFn(a), tiebreakFn(b)) ||
-                d3.ascending(a.revivalSong || a.originalSong, b.revivalSong || b.originalSong) ||
-                d3.ascending(a.revivalArtist || a.originalArtist, b.revivalArtist || b.originalArtist)
-              );
-            });
-
-            const targetY = yScale(peakValue);
-            const groupSize = sortedGroup.length;
-
-            sortedGroup.forEach((item, index) => {
-              const rawOffset = (index - (groupSize - 1) / 2) * 14;
-              const offset = clamp(rawOffset, -20, 20);
-              yMap.set(keyFn(item), targetY + offset);
-            });
-          });
-
-          return yMap;
-        };
-
-        const revivalPositionMap = makeRankedPositionMap(
+        const revivalPositionMap = makeZonePositionMap(
           rows,
           (row) => `${row.revivalSong}__${row.revivalArtist}`.toLowerCase(),
-          (row) => row.revivalPeak,
+          (row) => getPeakBucket(row.revivalPeak, true),
           (a, b) =>
             d3.ascending(a.revivalPeak, b.revivalPeak) ||
             d3.descending(a.revivalWeeksOnChart, b.revivalWeeksOnChart) ||
             d3.descending(a.revivalSpotifyPopularity, b.revivalSpotifyPopularity) ||
             d3.ascending(a.revivalSong, b.revivalSong) ||
             d3.ascending(a.revivalArtist, b.revivalArtist),
-          (row) => weeksRadius(row.revivalWeeksOnChart)
+          (row) => weeksRadius(row.revivalWeeksOnChart),
+          true,
+          (row) => row.revivalPeak
         );
-        const originalYMap = makePeakOffsetMap(
-          rows.filter((row) => row.everCharted && Number.isFinite(row.originalPeak)),
+        const originalYMap = makeZonePositionMap(
+          rows,
           (row) => `${row.originalSong}__${row.originalArtist}`.toLowerCase(),
-          (row) => row.originalPeak,
-          (row) => row.originalWeeksOnChart
+          (row) => getPeakBucket(row.originalPeak, row.everCharted),
+          (a, b) =>
+            d3.ascending(
+              Number.isFinite(a.originalPeak) ? a.originalPeak : Number.POSITIVE_INFINITY,
+              Number.isFinite(b.originalPeak) ? b.originalPeak : Number.POSITIVE_INFINITY
+            ) ||
+            d3.descending(a.originalWeeksOnChart, b.originalWeeksOnChart) ||
+            d3.ascending(a.originalSong, b.originalSong) ||
+            d3.ascending(a.originalArtist, b.originalArtist),
+          (row) => originalRadius(row)
         );
         const revivalColorMap = buildRevivalColorMap(rows);
         const positionedRows = rows
@@ -742,13 +780,7 @@
               leftMargin + 20,
               revivalX - 24
             );
-            const originalY = clamp(
-              row.everCharted && Number.isFinite(row.originalPeak)
-                ? (originalYMap.get(originalKey) ?? yScale(row.originalPeak))
-                : bottomMargin,
-              topMargin,
-              bottomMargin
-            );
+            const originalY = originalYMap.get(originalKey)?.y ?? zoneBounds.get("never-charted").y0 + zoneHeight / 2;
             const startX = originalX + originalR;
             const endX = revivalX - revivalR;
             const cp1x = originalX + (revivalX - originalX) * 0.3;
@@ -810,6 +842,16 @@
         arcSelection.transition(t).style("opacity", 0.06);
         revivalSelection.transition(t).style("opacity", 1);
         originalSelection.transition(t).style("opacity", 1);
+        revivalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", revivalBaseFillOpacity())
+          .attr("stroke-width", 1);
+        originalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", (d) => originalBaseFillOpacity(d))
+          .attr("stroke-width", 1);
         hideInlineLabels();
       }
 
@@ -828,12 +870,24 @@
           .style("opacity", (d) => (d.revivalKey === link.revivalKey ? 1 : 0.08));
 
         revivalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", (d) => (d.revivalKey === link.revivalKey ? revivalActiveFillOpacity() : revivalDimFillOpacity()))
+          .attr("stroke-width", (d) => (d.revivalKey === link.revivalKey ? 2 : 1));
+
+        revivalSelection
           .filter((d) => d.revivalKey === link.revivalKey)
           .raise();
 
         originalSelection
           .transition(t)
           .style("opacity", (d) => (d.id === link.id ? 1 : 0.08));
+
+        originalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", (d) => (d.id === link.id ? originalActiveFillOpacity(d) : originalDimFillOpacity()))
+          .attr("stroke-width", (d) => (d.id === link.id ? 2 : 1));
 
         originalSelection
           .filter((d) => d.id === link.id)
@@ -863,12 +917,24 @@
           .style("opacity", (d) => (d.revivalKey === revival.revivalKey ? 1 : 0.08));
 
         revivalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", (d) => (d.revivalKey === revival.revivalKey ? revivalActiveFillOpacity() : revivalDimFillOpacity()))
+          .attr("stroke-width", (d) => (d.revivalKey === revival.revivalKey ? 2 : 1));
+
+        revivalSelection
           .filter((d) => d.revivalKey === revival.revivalKey)
           .raise();
 
         originalSelection
           .transition(t)
           .style("opacity", (d) => (relatedIds.has(d.id) ? 1 : 0.08));
+
+        originalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", (d) => (relatedIds.has(d.id) ? originalActiveFillOpacity(d) : originalDimFillOpacity()))
+          .attr("stroke-width", (d) => (relatedIds.has(d.id) ? 2 : 1));
 
         originalSelection
           .filter((d) => relatedIds.has(d.id))
@@ -1279,6 +1345,7 @@
         const revivalPeak = Number(row.revival_peak);
         const revivalChartYear = Number(row.revival_chart_year);
         const originalPeak = Number(row.original_peak);
+        const normalizedOriginalPeak = Number.isFinite(originalPeak) && originalPeak > 0 ? originalPeak : null;
         const yearsBetween = Number(row.years_between);
         const originalReleaseYear = Number(row.original_release_year);
         const revivalSpotifyPopularity = Number(row.revival_spotify_popularity);
@@ -1307,8 +1374,8 @@
           revivalWeeksOnChart: Number.isFinite(revivalWeeksOnChart) ? revivalWeeksOnChart : 1,
           originalSong: row.original_song,
           originalArtist: row.original_artist,
-          originalPeak: Number.isFinite(originalPeak) ? originalPeak : null,
-          originalPeakDisplay: Number.isFinite(originalPeak) ? originalPeak : null,
+          originalPeak: normalizedOriginalPeak,
+          originalPeakDisplay: normalizedOriginalPeak,
           originalWeeksOnChart: Number.isFinite(originalWeeksOnChart) ? originalWeeksOnChart : 1,
           originalReleaseYear,
           everCharted,
