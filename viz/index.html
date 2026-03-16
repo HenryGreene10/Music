@@ -491,23 +491,42 @@
           .attr("height", bbox.height + paddingY * 2);
       }
 
-      function buildLabelPlacement(nodeX, nodeY, bbox, variant, chartWidth, chartHeight) {
+      function buildLabelPlacement(nodeX, nodeY, nodeClearance, bbox, variant, chartWidth, chartHeight) {
         const paddingX = 8;
         const paddingY = 6;
         const edgePad = 10;
-        const sidePad = 14;
-        const diagonalPadX = 18;
-        const diagonalPadY = Math.max(18, bbox.height * 0.45);
+        const cardGap = nodeClearance + 12;
+        const sidePad = cardGap;
+        const diagonalPadX = cardGap + 4;
+        const diagonalPadY = Math.max(cardGap, bbox.height * 0.45 + nodeClearance * 0.35);
         const isLeft = variant.includes("left");
+        const isRight = variant.includes("right");
         const isAbove = variant.startsWith("above");
         const isBelow = variant.startsWith("below");
-        let x = isLeft ? nodeX - (variant === "left" ? sidePad : diagonalPadX) : nodeX + (variant === "right" ? sidePad : diagonalPadX);
+        const isVertical = variant === "above" || variant === "below";
+        let x = nodeX;
+        if (isLeft) {
+          x = nodeX - (variant === "left" ? sidePad : diagonalPadX);
+        } else if (isRight) {
+          x = nodeX + (variant === "right" ? sidePad : diagonalPadX);
+        }
         let y = nodeY - (bbox.y + bbox.height / 2);
 
         if (isAbove) {
           y -= diagonalPadY;
         } else if (isBelow) {
           y += diagonalPadY;
+        }
+
+        if (isVertical) {
+          const centeredRectLeft = x + bbox.x - paddingX;
+          const centeredRectRight = x + bbox.x + bbox.width + paddingX;
+          if (centeredRectLeft < edgePad) {
+            x += edgePad - centeredRectLeft;
+          }
+          if (centeredRectRight > chartWidth - edgePad) {
+            x -= centeredRectRight - (chartWidth - edgePad);
+          }
         }
 
         const unclampedRect = {
@@ -570,6 +589,10 @@
         score += (variantOrder.indexOf(candidate.variant) === -1 ? variantOrder.length : variantOrder.indexOf(candidate.variant)) * 18;
         score += candidate.displacement * 10;
         score += Math.abs(candidate.y - node.y) * 0.25;
+        const ownNodeDistance = pointToRectDistance(node.x, node.y, candidate.rect);
+        if (ownNodeDistance < node.clearance + 6) {
+          score += (node.clearance + 6 - ownNodeDistance) * 220;
+        }
 
         placedRects.forEach((rect) => {
           score += placementOverlapArea(candidate.rect, rect.rect) * 4;
@@ -594,25 +617,25 @@
 
         if (xRatio < 0.33) {
           return yRatio < 0.35
-            ? ["left", "below-left", "below-right", "above-left", "right", "above-right"]
-            : ["left", "above-left", "below-left", "right", "above-right", "below-right"];
+            ? ["left", "below-left", "below", "below-right", "above-left", "right", "above-right", "above"]
+            : ["left", "above-left", "above", "below-left", "right", "above-right", "below-right", "below"];
         }
 
         if (xRatio > 0.66) {
           return yRatio > 0.65
-            ? ["right", "above-right", "above-left", "below-right", "left", "below-left"]
-            : ["right", "below-right", "above-right", "left", "below-left", "above-left"];
+            ? ["right", "above-right", "above", "above-left", "below-right", "left", "below-left", "below"]
+            : ["right", "below-right", "below", "above-right", "left", "below-left", "above-left", "above"];
         }
 
         if (yRatio < 0.4) {
-          return ["below-right", "below-left", "right", "left", "above-right", "above-left"];
+          return ["below", "below-right", "below-left", "right", "left", "above-right", "above-left", "above"];
         }
 
         if (yRatio > 0.6) {
-          return ["above-right", "above-left", "right", "left", "below-right", "below-left"];
+          return ["above", "above-right", "above-left", "right", "left", "below-right", "below-left", "below"];
         }
 
-        return ["above-right", "above-left", "below-right", "below-left", "right", "left"];
+        return ["above-right", "above-left", "below-right", "below-left", "right", "left", "above", "below"];
       }
 
       function chooseAdaptivePlacement(label, node, variantOrder, placedRects, nearbyNodes) {
@@ -620,10 +643,10 @@
         const { chartWidth, chartHeight } = chartDimensions();
         const variants = [...new Set(variantOrder)];
         const candidates = variants.map((variant) => {
-          const align = variant.includes("left") ? "end" : "start";
+          const align = variant.includes("left") ? "end" : variant.includes("right") ? "start" : "middle";
           const bbox = measureLabelBox(label, align);
           applyLabelBox(label, bbox);
-          const candidate = buildLabelPlacement(node.x, node.y, bbox, variant, chartWidth, chartHeight);
+          const candidate = buildLabelPlacement(node.x, node.y, node.clearance || 10, bbox, variant, chartWidth, chartHeight);
           candidate.score = scoreLabelPlacement(candidate, node, placedRects, nearbyNodes, variants);
           return candidate;
         });
@@ -667,11 +690,11 @@
         label.style("opacity", 1);
         const fallbackOrder =
           preferredSide === "left"
-            ? ["left", "above-left", "below-left", "right", "above-right", "below-right"]
-            : ["right", "above-right", "below-right", "left", "above-left", "below-left"];
+            ? ["left", "above-left", "below-left", "above", "below", "right", "above-right", "below-right"]
+            : ["right", "above-right", "below-right", "above", "below", "left", "above-left", "below-left"];
         return chooseAdaptivePlacement(
           label,
-          { x: nodeX, y: nodeY, key: `${nodeX}-${nodeY}` },
+          { x: nodeX, y: nodeY, key: `${nodeX}-${nodeY}`, clearance: 10 },
           fallbackOrder,
           [],
           []
@@ -722,8 +745,8 @@
 
         const revivalPlacement = chooseAdaptivePlacement(
           revivalLabel,
-          { x: link.revivalX, y: link.revivalY, key: link.revivalKey },
-          ["left", "above-left", "below-left", "above-right", "below-right", "right"],
+          { x: link.revivalX, y: link.revivalY, key: link.revivalKey, clearance: link.revivalR },
+          ["left", "above-left", "below-left", "above", "below", "above-right", "below-right", "right"],
           [],
           nearbyNodes
         );
@@ -763,7 +786,7 @@
 
           const placement = chooseAdaptivePlacement(
             group,
-            { x: item.originalX, y: item.originalY, key: item.originalKey },
+            { x: item.originalX, y: item.originalY, key: item.originalKey, clearance: item.originalR },
             candidateOrderForOriginal({ x: item.originalX, y: item.originalY }, sourceExtent),
             placedRects,
             [
