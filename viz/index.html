@@ -491,14 +491,38 @@
           .attr("height", bbox.height + paddingY * 2);
       }
 
+      function variantDirection(variant) {
+        switch (variant) {
+          case "left":
+            return { x: -1, y: 0 };
+          case "right":
+            return { x: 1, y: 0 };
+          case "above":
+            return { x: 0, y: -1 };
+          case "below":
+            return { x: 0, y: 1 };
+          case "above-left":
+            return { x: -0.75, y: -0.65 };
+          case "above-right":
+            return { x: 0.75, y: -0.65 };
+          case "below-left":
+            return { x: -0.75, y: 0.65 };
+          case "below-right":
+            return { x: 0.75, y: 0.65 };
+          default:
+            return { x: 1, y: 0 };
+        }
+      }
+
       function buildLabelPlacement(nodeX, nodeY, nodeClearance, bbox, variant, chartWidth, chartHeight) {
         const paddingX = 8;
         const paddingY = 6;
         const edgePad = 10;
-        const cardGap = nodeClearance + 12;
+        const requiredGap = nodeClearance + 18;
+        const cardGap = requiredGap + 4;
         const sidePad = cardGap;
-        const diagonalPadX = cardGap + 4;
-        const diagonalPadY = Math.max(cardGap, bbox.height * 0.45 + nodeClearance * 0.35);
+        const diagonalPadX = cardGap + 8;
+        const diagonalPadY = Math.max(cardGap + 4, bbox.height * 0.45 + nodeClearance * 0.45);
         const isLeft = variant.includes("left");
         const isRight = variant.includes("right");
         const isAbove = variant.startsWith("above");
@@ -551,24 +575,57 @@
           shiftY -= unclampedRect.y1 - (chartHeight - edgePad);
         }
 
-        const clampedX = x + shiftX;
-        const clampedY = y + shiftY;
-        const rect = {
-          x0: clampedX + bbox.x - paddingX,
-          y0: clampedY + bbox.y - paddingY,
-          x1: clampedX + bbox.x + bbox.width + paddingX,
-          y1: clampedY + bbox.y + bbox.height + paddingY,
+        let finalX = x + shiftX;
+        let finalY = y + shiftY;
+        let rect = {
+          x0: finalX + bbox.x - paddingX,
+          y0: finalY + bbox.y - paddingY,
+          x1: finalX + bbox.x + bbox.width + paddingX,
+          y1: finalY + bbox.y + bbox.height + paddingY,
         };
+        const direction = variantDirection(variant);
+        const ownGapDistance = pointToRectDistance(nodeX, nodeY, rect);
+        if (ownGapDistance < requiredGap) {
+          const extra = requiredGap - ownGapDistance;
+          finalX += direction.x * extra;
+          finalY += direction.y * extra;
+          const pushedRect = {
+            x0: finalX + bbox.x - paddingX,
+            y0: finalY + bbox.y - paddingY,
+            x1: finalX + bbox.x + bbox.width + paddingX,
+            y1: finalY + bbox.y + bbox.height + paddingY,
+          };
+          if (pushedRect.x0 < edgePad) {
+            finalX += edgePad - pushedRect.x0;
+          }
+          if (pushedRect.x1 > chartWidth - edgePad) {
+            finalX -= pushedRect.x1 - (chartWidth - edgePad);
+          }
+          if (pushedRect.y0 < edgePad) {
+            finalY += edgePad - pushedRect.y0;
+          }
+          if (pushedRect.y1 > chartHeight - edgePad) {
+            finalY -= pushedRect.y1 - (chartHeight - edgePad);
+          }
+          rect = {
+            x0: finalX + bbox.x - paddingX,
+            y0: finalY + bbox.y - paddingY,
+            x1: finalX + bbox.x + bbox.width + paddingX,
+            y1: finalY + bbox.y + bbox.height + paddingY,
+          };
+        }
 
         return {
           variant,
           side: isLeft ? "left" : "right",
-          x: clampedX,
-          y: clampedY,
+          x: finalX,
+          y: finalY,
           bbox,
           rect,
           anchorAlign: isLeft ? "end" : "start",
-          displacement: Math.hypot(clampedX - x, clampedY - y),
+          displacement: Math.hypot(finalX - x, finalY - y),
+          ownGapDistance: pointToRectDistance(nodeX, nodeY, rect),
+          requiredGap,
         };
       }
 
@@ -589,9 +646,8 @@
         score += (variantOrder.indexOf(candidate.variant) === -1 ? variantOrder.length : variantOrder.indexOf(candidate.variant)) * 18;
         score += candidate.displacement * 10;
         score += Math.abs(candidate.y - node.y) * 0.25;
-        const ownNodeDistance = pointToRectDistance(node.x, node.y, candidate.rect);
-        if (ownNodeDistance < node.clearance + 6) {
-          score += (node.clearance + 6 - ownNodeDistance) * 220;
+        if (candidate.ownGapDistance < candidate.requiredGap) {
+          score += (candidate.requiredGap - candidate.ownGapDistance) * 600;
         }
 
         placedRects.forEach((rect) => {
@@ -651,7 +707,8 @@
           return candidate;
         });
 
-        const best = candidates.sort((a, b) => d3.ascending(a.score, b.score))[0];
+        const validCandidates = candidates.filter((candidate) => candidate.ownGapDistance >= candidate.requiredGap - 1);
+        const best = (validCandidates.length ? validCandidates : candidates).sort((a, b) => d3.ascending(a.score, b.score))[0];
         text.attr("text-anchor", best.anchorAlign);
         applyLabelBox(label, best.bbox);
         label.attr("transform", `translate(${best.x},${best.y})`);
