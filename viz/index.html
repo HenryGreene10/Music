@@ -286,12 +286,12 @@
       }
 
       .inline-label .song {
-        font-size: 9px;
+        font-size: 11px;
         font-weight: 700;
       }
 
       .inline-label .artist {
-        font-size: 9px;
+        font-size: 10px;
         fill: #999999;
       }
 
@@ -301,9 +301,22 @@
       }
 
       .inline-label .peak {
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 700;
         fill: #e07a5f;
+      }
+
+      .inline-label .heading {
+        font-size: 10px;
+        font-weight: 700;
+        fill: #666666;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .inline-label .source-meta {
+        font-size: 10px;
+        fill: #8f8f8f;
       }
 
       .inline-label.original .song,
@@ -464,21 +477,8 @@
         return `${parsed}`;
       }
 
-      function setInlineLabel(label, lines, nodeX, nodeY, preferredSide, className) {
-        label.attr("class", `inline-label ${className}`);
-
+      function placeLabelWithinChart(label, nodeX, nodeY, preferredSide) {
         const text = label.select("text");
-        const tspans = text.selectAll("tspan").data(lines);
-
-        tspans
-          .join("tspan")
-          .attr("class", (_, index) => (index === 0 ? "song" : index === 1 ? "artist" : index === 2 ? "year" : "peak"))
-          .attr("x", 0)
-          .attr("dy", (_, index) => (index === 0 ? 0 : index === 3 ? 14 : 13))
-          .text((d) => d);
-
-        label.style("opacity", 1);
-
         const chartWidth = Number(svg?.attr("width")) || chartNode.clientWidth || window.innerWidth;
         const chartHeight = Number(svg?.attr("height")) || chartNode.clientHeight || window.innerHeight;
         const paddingX = 8;
@@ -533,7 +533,94 @@
         label.attr("transform", `translate(${clampedX},${placement.y})`);
       }
 
+      function setInlineLabel(label, lines, nodeX, nodeY, preferredSide, className) {
+        label.attr("class", `inline-label ${className}`);
+
+        const text = label.select("text");
+        const tspans = text.selectAll("tspan").data(lines);
+
+        tspans
+          .join("tspan")
+          .attr("class", (_, index) => (index === 0 ? "song" : index === 1 ? "artist" : index === 2 ? "year" : "peak"))
+          .attr("x", 0)
+          .attr("dy", (_, index) => (index === 0 ? 0 : index === 3 ? 14 : 13))
+          .text((d) => d);
+
+        label.style("opacity", 1);
+        placeLabelWithinChart(label, nodeX, nodeY, preferredSide);
+      }
+
+      function dedupeOriginalItems(originalItems) {
+        return Array.from(
+          d3.group(originalItems, (d) => d.originalKey),
+          ([, items]) =>
+            items
+              .slice()
+              .sort(
+                (a, b) =>
+                  d3.ascending(a.originalY, b.originalY) ||
+                  d3.ascending(a.originalX, b.originalX) ||
+                  d3.ascending(a.id, b.id)
+              )[0]
+        );
+      }
+
+      function shouldGroupOriginalLabels(originalItems) {
+        if (originalItems.length <= 1) {
+          return false;
+        }
+
+        if (originalItems.length >= 3) {
+          return true;
+        }
+
+        const sorted = originalItems.slice().sort((a, b) => d3.ascending(a.originalY, b.originalY));
+        const minGap = d3.min(sorted.slice(1).map((item, index) => item.originalY - sorted[index].originalY)) ?? Infinity;
+        const ySpread = (d3.max(sorted, (d) => d.originalY) ?? 0) - (d3.min(sorted, (d) => d.originalY) ?? 0);
+        const xSpread = (d3.max(sorted, (d) => d.originalX) ?? 0) - (d3.min(sorted, (d) => d.originalX) ?? 0);
+
+        return minGap < 72 || (ySpread < 110 && xSpread < 120);
+      }
+
+      function setGroupedSourcesLabel(label, originalItems) {
+        const uniqueItems = dedupeOriginalItems(originalItems);
+        const text = label.select("text");
+        label.attr("class", "inline-label original grouped-sources");
+
+        const rows = [
+          { className: "heading", text: uniqueItems.length === 1 ? "Source" : "Sources" },
+          ...uniqueItems.flatMap((item) => [
+            { className: "song", text: item.originalSong },
+            {
+              className: "source-meta",
+              text: `${item.originalArtist} — ${item.originalReleaseYear} — ${peakLabel(item.originalPeakDisplay)}`,
+            },
+          ]),
+        ];
+
+        text
+          .selectAll("tspan")
+          .data(rows)
+          .join("tspan")
+          .attr("class", (d) => d.className)
+          .attr("x", 0)
+          .attr("dy", (_, index) => {
+            if (index === 0) {
+              return 0;
+            }
+            return rows[index].className === "song" ? 16 : 13;
+          })
+          .text((d) => d.text);
+
+        label.style("opacity", 1);
+
+        const anchorX = (d3.max(uniqueItems, (d) => d.originalX) ?? 80) + 18;
+        const anchorY = (d3.min(uniqueItems, (d) => d.originalY) ?? 0) + ((d3.max(uniqueItems, (d) => d.originalY) ?? 0) - (d3.min(uniqueItems, (d) => d.originalY) ?? 0)) / 2;
+        placeLabelWithinChart(label, anchorX, anchorY, "right");
+      }
+
       function showInlineLabels(link, originalItems = [link]) {
+        const uniqueOriginalItems = dedupeOriginalItems(originalItems);
         setInlineLabel(
           revivalLabel,
           [link.revivalSong, link.revivalArtist, String(link.revivalChartYear), peakLabel(link.revivalPeak)],
@@ -543,9 +630,27 @@
           "revival"
         );
 
+        if (shouldGroupOriginalLabels(uniqueOriginalItems)) {
+          const groupedLabel = originalLabelsLayer
+            .selectAll("g.grouped-source-label")
+            .data([uniqueOriginalItems])
+            .join((enter) => {
+              const group = enter.append("g").attr("class", "grouped-source-label");
+              group.append("rect").attr("rx", 4).attr("ry", 4);
+              group.append("text");
+              return group;
+            });
+
+          setGroupedSourcesLabel(groupedLabel, uniqueOriginalItems);
+          originalLabelsLayer.selectAll("g.original-inline-label").remove();
+          return;
+        }
+
+        originalLabelsLayer.selectAll("g.grouped-source-label").remove();
+
         const originalLabels = originalLabelsLayer
           .selectAll("g.original-inline-label")
-          .data(originalItems, (d) => d.id)
+          .data(uniqueOriginalItems, (d) => d.originalKey)
           .join(
             (enter) => {
               const group = enter.append("g");
@@ -571,7 +676,7 @@
 
       function hideInlineLabels() {
         revivalLabel.style("opacity", 0);
-        originalLabelsLayer.selectAll("g.original-inline-label").remove();
+        originalLabelsLayer.selectAll("*").remove();
       }
 
       function buildButtons() {
@@ -1010,14 +1115,10 @@
           .raise();
 
         if (pulse) {
-          if (mode === "original") {
-            pulseOriginalByKey(link.originalKey);
-          } else {
-            pulseOriginal(link.id);
-          }
+          pulseOriginalByKey(link.originalKey);
         }
 
-        showInlineLabels(link);
+        showInlineLabels(link, relatedLinks);
       }
 
       function applyRevivalFocus(revival, pulse = false) {
