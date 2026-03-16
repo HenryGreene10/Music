@@ -616,6 +616,7 @@
       }
 
       function chooseAdaptivePlacement(label, node, variantOrder, placedRects, nearbyNodes) {
+        const text = label.select("text");
         const { chartWidth, chartHeight } = chartDimensions();
         const variants = [...new Set(variantOrder)];
         const candidates = variants.map((variant) => {
@@ -628,9 +629,26 @@
         });
 
         const best = candidates.sort((a, b) => d3.ascending(a.score, b.score))[0];
+        text.attr("text-anchor", best.anchorAlign);
         applyLabelBox(label, best.bbox);
         label.attr("transform", `translate(${best.x},${best.y})`);
         return best;
+      }
+
+      function placementOrderForOriginals(originalItems, extent) {
+        return originalItems
+          .slice()
+          .sort((a, b) => {
+            const aXR = extent.xSpan > 0 ? (a.originalX - extent.minX) / extent.xSpan : 0.5;
+            const bXR = extent.xSpan > 0 ? (b.originalX - extent.minX) / extent.xSpan : 0.5;
+            const aExtremity = Math.abs(aXR - 0.5);
+            const bExtremity = Math.abs(bXR - 0.5);
+            return (
+              d3.descending(aExtremity, bExtremity) ||
+              d3.ascending(a.originalY, b.originalY) ||
+              d3.ascending(a.originalX, b.originalX)
+            );
+          });
       }
 
       function setInlineLabel(label, lines, nodeX, nodeY, preferredSide, className) {
@@ -726,8 +744,13 @@
             (exit) => exit.remove()
           );
 
+        const labelGroupByKey = new Map();
         originalLabels.each(function (item) {
-          const group = d3.select(this);
+          labelGroupByKey.set(item.originalKey, d3.select(this));
+        });
+
+        placementOrderForOriginals(uniqueOriginalItems, sourceExtent).forEach((item) => {
+          const group = labelGroupByKey.get(item.originalKey);
           group.attr("class", "inline-label original original-inline-label").style("opacity", 1);
           const lines = [item.originalSong, item.originalArtist, String(item.originalReleaseYear), peakLabel(item.originalPeakDisplay)];
           const tspans = group.select("text").selectAll("tspan").data(lines);
