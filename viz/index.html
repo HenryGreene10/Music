@@ -285,6 +285,11 @@
         filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12));
       }
 
+      .inline-label line.label-leader {
+        stroke: rgba(74, 74, 74, 0.18);
+        stroke-width: 1;
+      }
+
       .inline-label .song {
         font-size: 11px;
         font-weight: 700;
@@ -304,19 +309,6 @@
         font-size: 12px;
         font-weight: 700;
         fill: #e07a5f;
-      }
-
-      .inline-label .heading {
-        font-size: 10px;
-        font-weight: 700;
-        fill: #666666;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-      }
-
-      .inline-label .source-meta {
-        font-size: 10px;
-        fill: #8f8f8f;
       }
 
       .inline-label.original .song,
@@ -531,6 +523,15 @@
           .attr("height", placement.bbox.height + paddingY * 2);
 
         label.attr("transform", `translate(${clampedX},${placement.y})`);
+
+        return {
+          x: clampedX,
+          y: placement.y,
+          bbox: placement.bbox,
+          side: placement.side,
+          chartWidth,
+          chartHeight,
+        };
       }
 
       function setInlineLabel(label, lines, nodeX, nodeY, preferredSide, className) {
@@ -547,7 +548,7 @@
           .text((d) => d);
 
         label.style("opacity", 1);
-        placeLabelWithinChart(label, nodeX, nodeY, preferredSide);
+        return placeLabelWithinChart(label, nodeX, nodeY, preferredSide);
       }
 
       function dedupeOriginalItems(originalItems) {
@@ -565,58 +566,51 @@
         );
       }
 
-      function shouldGroupOriginalLabels(originalItems) {
-        if (originalItems.length <= 1) {
-          return false;
+      function spreadOriginalLabelPlacements(placements) {
+        if (placements.length <= 1) {
+          return placements;
         }
 
-        if (originalItems.length >= 3) {
-          return true;
+        const sorted = placements.slice().sort((a, b) => d3.ascending(a.baseY, b.baseY));
+        const minGap = 68;
+        const chartHeight = sorted[0].chartHeight;
+        const edgePad = 10;
+
+        for (let i = 1; i < sorted.length; i += 1) {
+          const prev = sorted[i - 1];
+          const current = sorted[i];
+          const gap = current.targetY - prev.targetY;
+          if (gap < minGap) {
+            current.targetY += minGap - gap;
+          }
         }
 
-        const sorted = originalItems.slice().sort((a, b) => d3.ascending(a.originalY, b.originalY));
-        const minGap = d3.min(sorted.slice(1).map((item, index) => item.originalY - sorted[index].originalY)) ?? Infinity;
-        const ySpread = (d3.max(sorted, (d) => d.originalY) ?? 0) - (d3.min(sorted, (d) => d.originalY) ?? 0);
-        const xSpread = (d3.max(sorted, (d) => d.originalX) ?? 0) - (d3.min(sorted, (d) => d.originalX) ?? 0);
+        for (let i = sorted.length - 2; i >= 0; i -= 1) {
+          const next = sorted[i + 1];
+          const current = sorted[i];
+          const gap = next.targetY - current.targetY;
+          if (gap < minGap) {
+            current.targetY -= minGap - gap;
+          }
+        }
 
-        return minGap < 72 || (ySpread < 110 && xSpread < 120);
-      }
+        const minTarget = d3.min(sorted, (d) => d.targetY + d.bbox.y - 6) ?? edgePad;
+        if (minTarget < edgePad) {
+          const shift = edgePad - minTarget;
+          sorted.forEach((item) => {
+            item.targetY += shift;
+          });
+        }
 
-      function setGroupedSourcesLabel(label, originalItems) {
-        const uniqueItems = dedupeOriginalItems(originalItems);
-        const text = label.select("text");
-        label.attr("class", "inline-label original grouped-sources");
+        const maxTarget = d3.max(sorted, (d) => d.targetY + d.bbox.y + d.bbox.height + 6) ?? chartHeight - edgePad;
+        if (maxTarget > chartHeight - edgePad) {
+          const shift = maxTarget - (chartHeight - edgePad);
+          sorted.forEach((item) => {
+            item.targetY -= shift;
+          });
+        }
 
-        const rows = [
-          { className: "heading", text: uniqueItems.length === 1 ? "Source" : "Sources" },
-          ...uniqueItems.flatMap((item) => [
-            { className: "song", text: item.originalSong },
-            {
-              className: "source-meta",
-              text: `${item.originalArtist} — ${item.originalReleaseYear} — ${peakLabel(item.originalPeakDisplay)}`,
-            },
-          ]),
-        ];
-
-        text
-          .selectAll("tspan")
-          .data(rows)
-          .join("tspan")
-          .attr("class", (d) => d.className)
-          .attr("x", 0)
-          .attr("dy", (_, index) => {
-            if (index === 0) {
-              return 0;
-            }
-            return rows[index].className === "song" ? 16 : 13;
-          })
-          .text((d) => d.text);
-
-        label.style("opacity", 1);
-
-        const anchorX = (d3.max(uniqueItems, (d) => d.originalX) ?? 80) + 18;
-        const anchorY = (d3.min(uniqueItems, (d) => d.originalY) ?? 0) + ((d3.max(uniqueItems, (d) => d.originalY) ?? 0) - (d3.min(uniqueItems, (d) => d.originalY) ?? 0)) / 2;
-        placeLabelWithinChart(label, anchorX, anchorY, "right");
+        return sorted;
       }
 
       function showInlineLabels(link, originalItems = [link]) {
@@ -630,30 +624,13 @@
           "revival"
         );
 
-        if (shouldGroupOriginalLabels(uniqueOriginalItems)) {
-          const groupedLabel = originalLabelsLayer
-            .selectAll("g.grouped-source-label")
-            .data([uniqueOriginalItems])
-            .join((enter) => {
-              const group = enter.append("g").attr("class", "grouped-source-label");
-              group.append("rect").attr("rx", 4).attr("ry", 4);
-              group.append("text");
-              return group;
-            });
-
-          setGroupedSourcesLabel(groupedLabel, uniqueOriginalItems);
-          originalLabelsLayer.selectAll("g.original-inline-label").remove();
-          return;
-        }
-
-        originalLabelsLayer.selectAll("g.grouped-source-label").remove();
-
         const originalLabels = originalLabelsLayer
           .selectAll("g.original-inline-label")
           .data(uniqueOriginalItems, (d) => d.originalKey)
           .join(
             (enter) => {
               const group = enter.append("g");
+              group.append("line").attr("class", "label-leader");
               group.append("rect").attr("rx", 4).attr("ry", 4);
               group.append("text");
               return group;
@@ -662,15 +639,45 @@
             (exit) => exit.remove()
           );
 
+        const placements = [];
         originalLabels.each(function (item) {
-          setInlineLabel(
-            d3.select(this),
+          const group = d3.select(this);
+          const placement = setInlineLabel(
+            group,
             [item.originalSong, item.originalArtist, String(item.originalReleaseYear), peakLabel(item.originalPeakDisplay)],
             item.originalX,
             item.originalY,
             "right",
             "original original-inline-label"
           );
+          placements.push({
+            item,
+            group,
+            baseY: placement.y,
+            targetY: placement.y,
+            bbox: placement.bbox,
+            x: placement.x,
+            side: placement.side,
+            chartHeight: placement.chartHeight,
+          });
+        });
+
+        spreadOriginalLabelPlacements(placements).forEach((placement) => {
+          const deltaY = placement.targetY - placement.baseY;
+          placement.group.attr("transform", `translate(${placement.x},${placement.targetY})`);
+
+          const anchorX =
+            placement.side === "left" ? placement.bbox.x + placement.bbox.width : placement.bbox.x;
+          const anchorY = 0;
+          const showLeader = Math.abs(deltaY) > 10;
+
+          placement.group
+            .select("line.label-leader")
+            .attr("x1", placement.item.originalX - placement.x)
+            .attr("y1", placement.item.originalY - placement.targetY)
+            .attr("x2", anchorX)
+            .attr("y2", anchorY)
+            .style("opacity", showLeader ? 1 : 0);
         });
       }
 
@@ -765,8 +772,8 @@
           ["number1", 0.1],
           ["top10", 0.16],
           ["top40", 0.24],
-          ["charted", 0.29],
-          ["never-charted", 0.21],
+          ["charted", 0.34],
+          ["never-charted", 0.16],
         ]);
         const totalHeight = bottomMargin - topMargin;
         let runningY = topMargin;
@@ -1338,10 +1345,39 @@
         const timelineY = height - 15;
         const timelineTicks = [1960, 1970, 1980, 1990, 2000, 2010];
         const revivalAnchorX = width - 196;
+        const revivalGuideTop = (zoneBounds.get("number1")?.y0 ?? 80) - 8;
+        const revivalGuideBottom = timelineY - 12;
         const currentYear =
           activeYear === "ALL" ? d3.max(rows, (row) => row.revivalChartYear) || DEFAULT_YEAR : activeYear;
         const timelineXForYear = (year) =>
           clamp(revivalAnchorX - projectYearsBetween(currentYear - year) * (width * 0.85), leftMargin, revivalAnchorX);
+
+        const revivalGuide = timelineLayer.selectAll("g.revival-guide").data([null]).join("g").attr("class", "revival-guide");
+        revivalGuide
+          .selectAll("line.guide-line")
+          .data([null])
+          .join("line")
+          .attr("class", "guide-line")
+          .attr("x1", revivalAnchorX + 18)
+          .attr("x2", revivalAnchorX + 18)
+          .attr("y1", revivalGuideTop)
+          .attr("y2", revivalGuideBottom)
+          .attr("stroke", "#9f948a")
+          .attr("stroke-opacity", 0.18)
+          .attr("stroke-dasharray", "2,4");
+
+        revivalGuide
+          .selectAll("text.guide-label")
+          .data([null])
+          .join("text")
+          .attr("class", "guide-label")
+          .attr("x", revivalAnchorX + 24)
+          .attr("y", revivalGuideTop + 2)
+          .attr("fill", "#9f948a")
+          .attr("fill-opacity", 0.7)
+          .attr("font-size", 10)
+          .attr("font-style", "italic")
+          .text("Revivals");
 
         const timelineGroup = timelineLayer.selectAll("g.reference-timeline").data([null]).join("g").attr("class", "reference-timeline");
         timelineGroup
