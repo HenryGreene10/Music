@@ -469,69 +469,168 @@
         return `${parsed}`;
       }
 
-      function placeLabelWithinChart(label, nodeX, nodeY, preferredSide) {
+      function chartDimensions() {
+        return {
+          chartWidth: Number(svg?.attr("width")) || chartNode.clientWidth || window.innerWidth,
+          chartHeight: Number(svg?.attr("height")) || chartNode.clientHeight || window.innerHeight,
+        };
+      }
+
+      function measureLabelBox(label, align) {
         const text = label.select("text");
-        const chartWidth = Number(svg?.attr("width")) || chartNode.clientWidth || window.innerWidth;
-        const chartHeight = Number(svg?.attr("height")) || chartNode.clientHeight || window.innerHeight;
+        text.attr("text-anchor", align);
+        return text.node().getBBox();
+      }
+
+      function applyLabelBox(label, bbox, paddingX = 8, paddingY = 6) {
+        label
+          .select("rect")
+          .attr("x", bbox.x - paddingX)
+          .attr("y", bbox.y - paddingY)
+          .attr("width", bbox.width + paddingX * 2)
+          .attr("height", bbox.height + paddingY * 2);
+      }
+
+      function buildLabelPlacement(nodeX, nodeY, bbox, variant, chartWidth, chartHeight) {
         const paddingX = 8;
         const paddingY = 6;
         const edgePad = 10;
         const sidePad = 14;
+        const diagonalPadX = 18;
+        const diagonalPadY = Math.max(18, bbox.height * 0.45);
+        const isLeft = variant.includes("left");
+        const isAbove = variant.startsWith("above");
+        const isBelow = variant.startsWith("below");
+        let x = isLeft ? nodeX - (variant === "left" ? sidePad : diagonalPadX) : nodeX + (variant === "right" ? sidePad : diagonalPadX);
+        let y = nodeY - (bbox.y + bbox.height / 2);
 
-        const measureForSide = (side) => {
-          text.attr("text-anchor", side === "left" ? "end" : "start");
-          const bbox = text.node().getBBox();
-          let x = side === "left" ? nodeX - sidePad : nodeX + sidePad;
-          let y = nodeY - (bbox.y + bbox.height / 2);
+        if (isAbove) {
+          y -= diagonalPadY;
+        } else if (isBelow) {
+          y += diagonalPadY;
+        }
 
-          const top = y + bbox.y - paddingY;
-          const bottom = y + bbox.y + bbox.height + paddingY;
-          if (top < edgePad) {
-            y += edgePad - top;
-          }
-          if (bottom > chartHeight - edgePad) {
-            y -= bottom - (chartHeight - edgePad);
-          }
-
-          return { side, bbox, x, y };
+        const unclampedRect = {
+          x0: x + bbox.x - paddingX,
+          y0: y + bbox.y - paddingY,
+          x1: x + bbox.x + bbox.width + paddingX,
+          y1: y + bbox.y + bbox.height + paddingY,
         };
 
-        let placement = measureForSide(preferredSide);
-        const leftEdge = placement.x + placement.bbox.x - paddingX;
-        const rightEdge = placement.x + placement.bbox.x + placement.bbox.width + paddingX;
-        if (leftEdge < edgePad && preferredSide === "left") {
-          placement = measureForSide("right");
-        } else if (rightEdge > chartWidth - edgePad && preferredSide === "right") {
-          placement = measureForSide("left");
+        let shiftX = 0;
+        let shiftY = 0;
+        if (unclampedRect.x0 < edgePad) {
+          shiftX += edgePad - unclampedRect.x0;
+        }
+        if (unclampedRect.x1 > chartWidth - edgePad) {
+          shiftX -= unclampedRect.x1 - (chartWidth - edgePad);
+        }
+        if (unclampedRect.y0 < edgePad) {
+          shiftY += edgePad - unclampedRect.y0;
+        }
+        if (unclampedRect.y1 > chartHeight - edgePad) {
+          shiftY -= unclampedRect.y1 - (chartHeight - edgePad);
         }
 
-        let clampedX = placement.x;
-        const finalLeftEdge = clampedX + placement.bbox.x - paddingX;
-        const finalRightEdge = clampedX + placement.bbox.x + placement.bbox.width + paddingX;
-        if (finalLeftEdge < edgePad) {
-          clampedX += edgePad - finalLeftEdge;
-        }
-        if (finalRightEdge > chartWidth - edgePad) {
-          clampedX -= finalRightEdge - (chartWidth - edgePad);
-        }
-
-        label
-          .select("rect")
-          .attr("x", placement.bbox.x - paddingX)
-          .attr("y", placement.bbox.y - paddingY)
-          .attr("width", placement.bbox.width + paddingX * 2)
-          .attr("height", placement.bbox.height + paddingY * 2);
-
-        label.attr("transform", `translate(${clampedX},${placement.y})`);
+        const clampedX = x + shiftX;
+        const clampedY = y + shiftY;
+        const rect = {
+          x0: clampedX + bbox.x - paddingX,
+          y0: clampedY + bbox.y - paddingY,
+          x1: clampedX + bbox.x + bbox.width + paddingX,
+          y1: clampedY + bbox.y + bbox.height + paddingY,
+        };
 
         return {
+          variant,
+          side: isLeft ? "left" : "right",
           x: clampedX,
-          y: placement.y,
-          bbox: placement.bbox,
-          side: placement.side,
-          chartWidth,
-          chartHeight,
+          y: clampedY,
+          bbox,
+          rect,
+          anchorAlign: isLeft ? "end" : "start",
+          displacement: Math.hypot(clampedX - x, clampedY - y),
         };
+      }
+
+      function placementOverlapArea(a, b) {
+        const overlapX = Math.max(0, Math.min(a.x1, b.x1) - Math.max(a.x0, b.x0));
+        const overlapY = Math.max(0, Math.min(a.y1, b.y1) - Math.max(a.y0, b.y0));
+        return overlapX * overlapY;
+      }
+
+      function pointToRectDistance(x, y, rect) {
+        const dx = Math.max(rect.x0 - x, 0, x - rect.x1);
+        const dy = Math.max(rect.y0 - y, 0, y - rect.y1);
+        return Math.hypot(dx, dy);
+      }
+
+      function scoreLabelPlacement(candidate, node, placedRects, nearbyNodes, variantOrder) {
+        let score = 0;
+        score += (variantOrder.indexOf(candidate.variant) === -1 ? variantOrder.length : variantOrder.indexOf(candidate.variant)) * 18;
+        score += candidate.displacement * 10;
+        score += Math.abs(candidate.y - node.y) * 0.25;
+
+        placedRects.forEach((rect) => {
+          score += placementOverlapArea(candidate.rect, rect.rect) * 4;
+        });
+
+        nearbyNodes.forEach((otherNode) => {
+          if (otherNode.key === node.key) {
+            return;
+          }
+          const distance = pointToRectDistance(otherNode.x, otherNode.y, candidate.rect);
+          if (distance < otherNode.clearance) {
+            score += (otherNode.clearance - distance) * 140;
+          }
+        });
+
+        return score;
+      }
+
+      function candidateOrderForOriginal(node, extent) {
+        const xRatio = extent.xSpan > 0 ? (node.x - extent.minX) / extent.xSpan : 0.5;
+        const yRatio = extent.ySpan > 0 ? (node.y - extent.minY) / extent.ySpan : 0.5;
+
+        if (xRatio < 0.33) {
+          return yRatio < 0.35
+            ? ["left", "below-left", "below-right", "above-left", "right", "above-right"]
+            : ["left", "above-left", "below-left", "right", "above-right", "below-right"];
+        }
+
+        if (xRatio > 0.66) {
+          return yRatio > 0.65
+            ? ["right", "above-right", "above-left", "below-right", "left", "below-left"]
+            : ["right", "below-right", "above-right", "left", "below-left", "above-left"];
+        }
+
+        if (yRatio < 0.4) {
+          return ["below-right", "below-left", "right", "left", "above-right", "above-left"];
+        }
+
+        if (yRatio > 0.6) {
+          return ["above-right", "above-left", "right", "left", "below-right", "below-left"];
+        }
+
+        return ["above-right", "above-left", "below-right", "below-left", "right", "left"];
+      }
+
+      function chooseAdaptivePlacement(label, node, variantOrder, placedRects, nearbyNodes) {
+        const { chartWidth, chartHeight } = chartDimensions();
+        const variants = [...new Set(variantOrder)];
+        const candidates = variants.map((variant) => {
+          const align = variant.includes("left") ? "end" : "start";
+          const bbox = measureLabelBox(label, align);
+          applyLabelBox(label, bbox);
+          const candidate = buildLabelPlacement(node.x, node.y, bbox, variant, chartWidth, chartHeight);
+          candidate.score = scoreLabelPlacement(candidate, node, placedRects, nearbyNodes, variants);
+          return candidate;
+        });
+
+        const best = candidates.sort((a, b) => d3.ascending(a.score, b.score))[0];
+        applyLabelBox(label, best.bbox);
+        label.attr("transform", `translate(${best.x},${best.y})`);
+        return best;
       }
 
       function setInlineLabel(label, lines, nodeX, nodeY, preferredSide, className) {
@@ -548,7 +647,17 @@
           .text((d) => d);
 
         label.style("opacity", 1);
-        return placeLabelWithinChart(label, nodeX, nodeY, preferredSide);
+        const fallbackOrder =
+          preferredSide === "left"
+            ? ["left", "above-left", "below-left", "right", "above-right", "below-right"]
+            : ["right", "above-right", "below-right", "left", "above-left", "below-left"];
+        return chooseAdaptivePlacement(
+          label,
+          { x: nodeX, y: nodeY, key: `${nodeX}-${nodeY}` },
+          fallbackOrder,
+          [],
+          []
+        );
       }
 
       function dedupeOriginalItems(originalItems) {
@@ -566,63 +675,41 @@
         );
       }
 
-      function spreadOriginalLabelPlacements(placements) {
-        if (placements.length <= 1) {
-          return placements;
-        }
-
-        const sorted = placements.slice().sort((a, b) => d3.ascending(a.baseY, b.baseY));
-        const minGap = 68;
-        const chartHeight = sorted[0].chartHeight;
-        const edgePad = 10;
-
-        for (let i = 1; i < sorted.length; i += 1) {
-          const prev = sorted[i - 1];
-          const current = sorted[i];
-          const gap = current.targetY - prev.targetY;
-          if (gap < minGap) {
-            current.targetY += minGap - gap;
-          }
-        }
-
-        for (let i = sorted.length - 2; i >= 0; i -= 1) {
-          const next = sorted[i + 1];
-          const current = sorted[i];
-          const gap = next.targetY - current.targetY;
-          if (gap < minGap) {
-            current.targetY -= minGap - gap;
-          }
-        }
-
-        const minTarget = d3.min(sorted, (d) => d.targetY + d.bbox.y - 6) ?? edgePad;
-        if (minTarget < edgePad) {
-          const shift = edgePad - minTarget;
-          sorted.forEach((item) => {
-            item.targetY += shift;
-          });
-        }
-
-        const maxTarget = d3.max(sorted, (d) => d.targetY + d.bbox.y + d.bbox.height + 6) ?? chartHeight - edgePad;
-        if (maxTarget > chartHeight - edgePad) {
-          const shift = maxTarget - (chartHeight - edgePad);
-          sorted.forEach((item) => {
-            item.targetY -= shift;
-          });
-        }
-
-        return sorted;
-      }
-
       function showInlineLabels(link, originalItems = [link]) {
         const uniqueOriginalItems = dedupeOriginalItems(originalItems);
-        setInlineLabel(
+        const nearbyNodes = uniqueOriginalItems.map((item) => ({
+          key: item.originalKey,
+          x: item.originalX,
+          y: item.originalY,
+          clearance: item.originalR + 14,
+        }));
+        const sourceExtent = {
+          minX: d3.min(uniqueOriginalItems, (d) => d.originalX) ?? link.originalX,
+          maxX: d3.max(uniqueOriginalItems, (d) => d.originalX) ?? link.originalX,
+          minY: d3.min(uniqueOriginalItems, (d) => d.originalY) ?? link.originalY,
+          maxY: d3.max(uniqueOriginalItems, (d) => d.originalY) ?? link.originalY,
+        };
+        sourceExtent.xSpan = Math.max(1, sourceExtent.maxX - sourceExtent.minX);
+        sourceExtent.ySpan = Math.max(1, sourceExtent.maxY - sourceExtent.minY);
+
+        revivalLabel.attr("class", "inline-label revival").style("opacity", 1);
+        const revivalText = [link.revivalSong, link.revivalArtist, String(link.revivalChartYear), peakLabel(link.revivalPeak)];
+        const revivalTspans = revivalLabel.select("text").selectAll("tspan").data(revivalText);
+        revivalTspans
+          .join("tspan")
+          .attr("class", (_, index) => (index === 0 ? "song" : index === 1 ? "artist" : index === 2 ? "year" : "peak"))
+          .attr("x", 0)
+          .attr("dy", (_, index) => (index === 0 ? 0 : index === 3 ? 14 : 13))
+          .text((d) => d);
+
+        const revivalPlacement = chooseAdaptivePlacement(
           revivalLabel,
-          [link.revivalSong, link.revivalArtist, String(link.revivalChartYear), peakLabel(link.revivalPeak)],
-          link.revivalX,
-          link.revivalY,
-          "left",
-          "revival"
+          { x: link.revivalX, y: link.revivalY, key: link.revivalKey },
+          ["left", "above-left", "below-left", "above-right", "below-right", "right"],
+          [],
+          nearbyNodes
         );
+        const placedRects = [{ rect: revivalPlacement.rect }];
 
         const originalLabels = originalLabelsLayer
           .selectAll("g.original-inline-label")
@@ -639,45 +726,50 @@
             (exit) => exit.remove()
           );
 
-        const placements = [];
         originalLabels.each(function (item) {
           const group = d3.select(this);
-          const placement = setInlineLabel(
+          group.attr("class", "inline-label original original-inline-label").style("opacity", 1);
+          const lines = [item.originalSong, item.originalArtist, String(item.originalReleaseYear), peakLabel(item.originalPeakDisplay)];
+          const tspans = group.select("text").selectAll("tspan").data(lines);
+          tspans
+            .join("tspan")
+            .attr("class", (_, index) => (index === 0 ? "song" : index === 1 ? "artist" : index === 2 ? "year" : "peak"))
+            .attr("x", 0)
+            .attr("dy", (_, index) => (index === 0 ? 0 : index === 3 ? 14 : 13))
+            .text((d) => d);
+
+          const placement = chooseAdaptivePlacement(
             group,
-            [item.originalSong, item.originalArtist, String(item.originalReleaseYear), peakLabel(item.originalPeakDisplay)],
-            item.originalX,
-            item.originalY,
-            "right",
-            "original original-inline-label"
+            { x: item.originalX, y: item.originalY, key: item.originalKey },
+            candidateOrderForOriginal({ x: item.originalX, y: item.originalY }, sourceExtent),
+            placedRects,
+            [
+              ...nearbyNodes,
+              { key: link.revivalKey, x: link.revivalX, y: link.revivalY, clearance: link.revivalR + 18 },
+            ]
           );
-          placements.push({
-            item,
-            group,
-            baseY: placement.y,
-            targetY: placement.y,
-            bbox: placement.bbox,
-            x: placement.x,
-            side: placement.side,
-            chartHeight: placement.chartHeight,
-          });
-        });
 
-        spreadOriginalLabelPlacements(placements).forEach((placement) => {
-          const deltaY = placement.targetY - placement.baseY;
-          placement.group.attr("transform", `translate(${placement.x},${placement.targetY})`);
+          const localNodeX = item.originalX - placement.x;
+          const localNodeY = item.originalY - placement.y;
+          const rect = {
+            x0: placement.bbox.x - 8,
+            y0: placement.bbox.y - 6,
+            x1: placement.bbox.x + placement.bbox.width + 8,
+            y1: placement.bbox.y + placement.bbox.height + 6,
+          };
+          const anchorX = clamp(localNodeX, rect.x0, rect.x1);
+          const anchorY = clamp(localNodeY, rect.y0, rect.y1);
+          const leaderDistance = Math.hypot(localNodeX - anchorX, localNodeY - anchorY);
 
-          const anchorX =
-            placement.side === "left" ? placement.bbox.x + placement.bbox.width : placement.bbox.x;
-          const anchorY = 0;
-          const showLeader = Math.abs(deltaY) > 10;
-
-          placement.group
+          group
             .select("line.label-leader")
-            .attr("x1", placement.item.originalX - placement.x)
-            .attr("y1", placement.item.originalY - placement.targetY)
+            .attr("x1", localNodeX)
+            .attr("y1", localNodeY)
             .attr("x2", anchorX)
             .attr("y2", anchorY)
-            .style("opacity", showLeader ? 1 : 0);
+            .style("opacity", leaderDistance > 18 ? 1 : 0);
+
+          placedRects.push({ rect: placement.rect });
         });
       }
 
