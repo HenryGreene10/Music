@@ -1251,13 +1251,13 @@
 
             sortedPeakValues.forEach((peakValue, peakIndex) => {
               const peakItems = peakGroups.get(peakValue) || [];
+              const offsetCap = zoneKey === "never-charted" ? 14 : 9;
+              const offsetStep = zoneKey === "never-charted" ? 5 : 6;
               const laneCenter =
                 zone.y0 + ((peakIndex + 0.5) / Math.max(sortedPeakValues.length, 1)) * (zone.y1 - zone.y0);
 
               peakItems.forEach((item, index) => {
                 const radius = radiusFn(item);
-                const offsetStep = 6;
-                const offsetCap = 9;
                 const rawOffset = (index - (peakItems.length - 1) / 2) * offsetStep;
                 let y = clamp(
                   laneCenter + clamp(rawOffset, -offsetCap, offsetCap),
@@ -1295,6 +1295,11 @@
                   const jitterY = ((seed * 7) % 13) - 6;
                   xOffset += jitterX;
                   y = clamp(y + jitterY, zone.y0 + radius + 2, zone.y1 - radius - 2);
+                }
+
+                if (zoneKey === "never-charted" && peakItems.length > 1) {
+                  const nudge = (index - (peakItems.length - 1) / 2) * 4;
+                  y = clamp(y + nudge, zone.y0 + radius + 2, zone.y1 - radius - 2);
                 }
 
                 positionedItems.push({
