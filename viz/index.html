@@ -643,9 +643,12 @@
 
       function scoreLabelPlacement(candidate, node, placedRects, nearbyNodes, variantOrder) {
         let score = 0;
-        score += (variantOrder.indexOf(candidate.variant) === -1 ? variantOrder.length : variantOrder.indexOf(candidate.variant)) * 18;
-        score += candidate.displacement * 10;
-        score += Math.abs(candidate.y - node.y) * 0.25;
+        const variantIndex = variantOrder.indexOf(candidate.variant) === -1 ? variantOrder.length : variantOrder.indexOf(candidate.variant);
+        const extraGap = Math.max(0, candidate.ownGapDistance - candidate.requiredGap);
+        score += variantIndex * 8;
+        score += extraGap * 26;
+        score += candidate.displacement * 6;
+        score += Math.abs(candidate.y - node.y) * 0.12;
         if (candidate.ownGapDistance < candidate.requiredGap) {
           score += (candidate.requiredGap - candidate.ownGapDistance) * 600;
         }
@@ -708,7 +711,15 @@
         });
 
         const validCandidates = candidates.filter((candidate) => candidate.ownGapDistance >= candidate.requiredGap - 1);
-        const best = (validCandidates.length ? validCandidates : candidates).sort((a, b) => d3.ascending(a.score, b.score))[0];
+        const best = (validCandidates.length ? validCandidates : candidates).sort((a, b) => {
+          if (validCandidates.length) {
+            return (
+              d3.ascending(Math.max(0, a.ownGapDistance - a.requiredGap), Math.max(0, b.ownGapDistance - b.requiredGap)) ||
+              d3.ascending(a.score, b.score)
+            );
+          }
+          return d3.ascending(a.score, b.score);
+        })[0];
         text.attr("text-anchor", best.anchorAlign);
         applyLabelBox(label, best.bbox);
         label.attr("transform", `translate(${best.x},${best.y})`);
