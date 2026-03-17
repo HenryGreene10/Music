@@ -1354,7 +1354,8 @@
             const revivalPosition = revivalPositionMap.get(revivalKey) || { y: topMargin, xOffset: 0 };
             const revivalY = revivalPosition.y;
             const revivalR = weeksRadius(row.revivalWeeksOnChart);
-            const revivalX = revivalXBase + revivalPosition.xOffset;
+            const revivalXRaw = revivalXBase + revivalPosition.xOffset;
+            const revivalX = Math.min(revivalXRaw, revivalXBase - revivalR - 4);
             const originalR = originalRadius(row);
             const revivalColor = revivalColorMap.get(revivalKey) || RELATIONSHIP_COLOR[row.relationshipType];
             const originalColor = revivalColor;
