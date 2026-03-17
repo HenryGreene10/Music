@@ -1259,7 +1259,7 @@
                 const offsetStep = 6;
                 const offsetCap = 9;
                 const rawOffset = (index - (peakItems.length - 1) / 2) * offsetStep;
-                const y = clamp(
+                let y = clamp(
                   laneCenter + clamp(rawOffset, -offsetCap, offsetCap),
                   zone.y0 + radius + 2,
                   zone.y1 - radius - 2
@@ -1287,6 +1287,14 @@
                     : 0;
 
                   xOffset = clusterOffset + peakOffset;
+                }
+
+                if (zoneKey === "top40" || zoneKey === "charted") {
+                  const seed = keyFn(item).split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
+                  const jitterX = ((seed * 13) % 19) - 9;
+                  const jitterY = ((seed * 7) % 13) - 6;
+                  xOffset += jitterX;
+                  y = clamp(y + jitterY, zone.y0 + radius + 2, zone.y1 - radius - 2);
                 }
 
                 positionedItems.push({
