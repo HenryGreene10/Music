@@ -1220,6 +1220,24 @@
             }
 
             const zone = zoneBounds.get(zoneKey);
+            const clusterCap =
+              zoneKey === "number1"
+                ? 200
+                : zoneKey === "top10"
+                  ? 160
+                  : 120;
+            const peakBandMultiplier =
+              zoneKey === "number1"
+                ? 42
+                : zoneKey === "top10"
+                  ? 36
+                  : 28;
+            const peakBandCap =
+              zoneKey === "number1"
+                ? 480
+                : zoneKey === "top10"
+                  ? 420
+                  : 320;
             const peakGroups = d3.group(zoneItems, (item) => {
               const peakValue = peakFn ? peakFn(item) : null;
               return Number.isFinite(peakValue) ? peakValue : zoneKey;
@@ -1253,7 +1271,7 @@
                   const gap = 6;
                   const rawClusterWidth =
                     radii.reduce((sum, r) => sum + r * 2, 0) + gap * Math.max(radii.length - 1, 0);
-                  const clusterWidth = Math.min(rawClusterWidth, 120);
+                  const clusterWidth = Math.min(rawClusterWidth, clusterCap);
                   const scale = clusterWidth / Math.max(rawClusterWidth, 1);
                   let cursor = -clusterWidth / 2;
                   const clusterOffset = radii
@@ -1263,7 +1281,7 @@
                       return center;
                     })[index];
                   const totalPeaks = sortedPeakValues.length;
-                  const peakBandWidth = Math.min(totalPeaks * 28, 320);
+                  const peakBandWidth = Math.min(totalPeaks * peakBandMultiplier, peakBandCap);
                   const peakOffset = totalPeaks > 1
                     ? (peakIndex / (totalPeaks - 1)) * peakBandWidth
                     : 0;
@@ -1849,13 +1867,13 @@
           .data([null])
           .join("text")
           .attr("class", "current-year-label")
-          .attr("x", revivalAnchorX + 40)
+          .attr("x", revivalAnchorX + 16)
           .attr("y", height - 18)
           .attr("fill", "#9f948a")
           .attr("fill-opacity", 0.9)
           .attr("font-size", 12)
           .attr("font-weight", "600")
-          .attr("text-anchor", "middle")
+          .attr("text-anchor", "start")
           .text(currentYear);
 
         const timelineGroup = timelineLayer.selectAll("g.reference-timeline").data([null]).join("g").attr("class", "reference-timeline");
