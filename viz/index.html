@@ -1030,6 +1030,14 @@
         return 0.78 + ((normalized - 0.65) / 0.35) * 0.22;
       }
 
+      function buildArcPath(originalX, originalY, originalR, revivalX, revivalY, revivalR) {
+        const startX = originalX + originalR;
+        const endX = revivalX - revivalR;
+        const cp1x = originalX + (revivalX - originalX) * 0.3;
+        const cp2x = originalX + (revivalX - originalX) * 0.7;
+        return `M${startX},${originalY} C${cp1x},${originalY} ${cp2x},${revivalY} ${endX},${revivalY}`;
+      }
+
       function computeLayout(rows, width, height) {
         const revivalXBase = width - 196;
         const leftMargin = 80;
@@ -1191,10 +1199,6 @@
             );
             const unchartedZone = zoneBounds.get("never-charted");
             const originalY = originalYMap.get(originalKey)?.y ?? (unchartedZone.y0 + unchartedZone.y1) / 2;
-            const startX = originalX + originalR;
-            const endX = revivalX - revivalR;
-            const cp1x = originalX + (revivalX - originalX) * 0.3;
-            const cp2x = originalX + (revivalX - originalX) * 0.7;
 
             return {
               ...row,
@@ -1213,7 +1217,7 @@
               revivalSongLabel: truncate(row.revivalSong, 28),
               revivalArtistLabel: truncate(row.revivalArtist, 28),
               revivalPeakLabel: peakLabel(row.revivalPeak),
-              path: `M${startX},${originalY} C${cp1x},${originalY} ${cp2x},${revivalY} ${endX},${revivalY}`
+              path: buildArcPath(originalX, originalY, originalR, revivalX, revivalY, revivalR)
             };
           });
 
@@ -1226,25 +1230,6 @@
         });
 
         return positionedRows;
-      }
-
-      function pulseOriginal(id) {
-        const target = originalSelection.filter((d) => d.id === id);
-
-        target
-          .interrupt()
-          .transition()
-          .duration(180)
-          .attrTween("transform", (d) => {
-            const interpolate = d3.interpolateNumber(1, 1.5);
-            return (t) => `translate(${d.originalX},${d.originalY}) scale(${interpolate(t)})`;
-          })
-          .transition()
-          .duration(220)
-          .attrTween("transform", (d) => {
-            const interpolate = d3.interpolateNumber(1.5, 1);
-            return (t) => `translate(${d.originalX},${d.originalY}) scale(${interpolate(t)})`;
-          });
       }
 
       function pulseOriginalByKey(originalKey) {
@@ -1287,6 +1272,8 @@
       function applyFocus(link, pulse = false, mode = "link") {
         const relatedLinks =
           mode === "original" ? arcSelection.data().filter((d) => d.originalKey === link.originalKey) : [link];
+        const labelLink = relatedLinks[0] || link;
+        const labelOriginalItems = mode === "original" ? [link] : relatedLinks;
         const relatedIds = new Set(relatedLinks.map((d) => d.id));
         const relatedRevivalKeys = new Set(relatedLinks.map((d) => d.revivalKey));
         const relatedOriginalKeys = new Set(relatedLinks.map((d) => d.originalKey));
@@ -1331,7 +1318,7 @@
           pulseOriginalByKey(link.originalKey);
         }
 
-        showInlineLabels(link, relatedLinks);
+        showInlineLabels(labelLink, labelOriginalItems);
       }
 
       function applyRevivalFocus(revival, pulse = false) {
@@ -1495,6 +1482,45 @@
 
         const laidOut = computeLayout(rows, width, height);
         const transition = d3.transition().duration(animate ? 320 : 0);
+
+        const originalEntities = Array.from(d3.group(laidOut, (d) => d.originalKey), ([originalKey, links]) => {
+          const first = links[0];
+          const originalX = d3.mean(links, (d) => d.originalX) ?? first.originalX;
+          const originalY = first.originalY;
+          const originalR = d3.max(links, (d) => d.originalR) ?? first.originalR;
+          const originalColor = first.originalColor;
+
+          links.forEach((link) => {
+            link.originalX = originalX;
+            link.originalY = originalY;
+            link.originalR = originalR;
+            link.originalColor = originalColor;
+            link.path = buildArcPath(link.originalX, link.originalY, link.originalR, link.revivalX, link.revivalY, link.revivalR);
+          });
+
+          return {
+            id: `original:${originalKey}`,
+            originalKey,
+            originalSong: first.originalSong,
+            originalArtist: first.originalArtist,
+            originalReleaseYear: first.originalReleaseYear,
+            originalPeak: first.originalPeak,
+            originalPeakDisplay: first.originalPeakDisplay,
+            originalWeeksOnChart: first.originalWeeksOnChart,
+            originalX,
+            originalY,
+            originalR,
+            originalColor,
+            everCharted: first.everCharted,
+            connectedLinks: links,
+            connectedRevivalKeys: [...new Set(links.map((d) => d.revivalKey))],
+          };
+        }).sort(
+          (a, b) =>
+            d3.ascending(a.originalY, b.originalY) ||
+            d3.ascending(a.originalX, b.originalX) ||
+            d3.ascending(a.originalSong, b.originalSong)
+        );
 
         const groupedRevivals = Array.from(d3.group(laidOut, (d) => d.revivalKey), ([revivalKey, originals]) => {
           const first = originals[0];
@@ -1665,7 +1691,7 @@
 
         arcSelection = arcLayer.selectAll("path.arc");
 
-        originalSelection = originalLayer.selectAll("g.original-mark").data(laidOut, (d) => d.id);
+        originalSelection = originalLayer.selectAll("g.original-mark").data(originalEntities, (d) => d.id);
 
         originalSelection
           .join(
@@ -1775,12 +1801,17 @@
           if (lockedRevival) {
             applyRevivalFocus(lockedRevival, false);
           } else {
-            const lockedLink = arcData.find((row) => row.id === lockedId);
-            if (lockedLink) {
-              applyFocus(lockedLink, false);
+            const lockedOriginal = originalEntities.find((original) => original.id === lockedId);
+            if (lockedOriginal) {
+              applyFocus(lockedOriginal, false, "original");
             } else {
-              lockedId = null;
-              resetFocus();
+              const lockedLink = arcData.find((row) => row.id === lockedId);
+              if (lockedLink) {
+                applyFocus(lockedLink, false, "link");
+              } else {
+                lockedId = null;
+                resetFocus();
+              }
             }
           }
         } else {
