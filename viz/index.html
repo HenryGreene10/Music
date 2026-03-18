@@ -1516,12 +1516,17 @@
 
       function applyFocus(link, pulse = false, mode = "link") {
         const firstDegreeLinks = mode === "original" ? arcSelection.data().filter((d) => d.originalKey === link.originalKey) : [link];
+        const isolateSplitOriginal = mode === "original" && Boolean(link.splitColors);
         const relatedRevivalKeys = new Set(firstDegreeLinks.map((d) => d.revivalKey));
-        const relatedLinks = mode === "original"
+        const relatedLinks = isolateSplitOriginal
+          ? firstDegreeLinks
+          : mode === "original"
           ? arcSelection.data().filter((d) => relatedRevivalKeys.has(d.revivalKey))
           : [link];
         const relatedIds = new Set(relatedLinks.map((d) => d.id));
-        const relatedOriginalKeys = new Set(relatedLinks.map((d) => d.originalKey));
+        const relatedOriginalKeys = isolateSplitOriginal
+          ? new Set([link.originalKey])
+          : new Set(relatedLinks.map((d) => d.originalKey));
         const t = d3.transition().duration(200);
         arcSelection
           .transition(t)
@@ -1579,11 +1584,8 @@
           pulseOriginalByKey(link.originalKey);
         }
 
-        const anchorRevival = mode === "original"
-          ? revivalSelection.data().find((d) => relatedRevivalKeys.has(d.revivalKey))
-          : null;
-        if (anchorRevival) {
-          showInlineLabels(anchorRevival.originals[0], anchorRevival.originals);
+        if (mode === "original") {
+          showInlineLabels(firstDegreeLinks);
           return;
         }
 
