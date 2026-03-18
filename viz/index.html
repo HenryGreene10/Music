@@ -1532,12 +1532,18 @@
           return;
         }
 
-        const matchedRevival = revivalSelection
-          .data()
-          .find(
+        const revivalData = revivalSelection.data();
+        const matchesArtist = (revival) => !artistQuery || revival.revivalArtist.toLowerCase().includes(artistQuery);
+        const matchedRevival =
+          revivalData.find(
+            (revival) =>
+              revival.revivalSong.toLowerCase() === songQuery &&
+              matchesArtist(revival)
+          ) ||
+          revivalData.find(
             (revival) =>
               revival.revivalSong.toLowerCase().includes(songQuery) &&
-              (!artistQuery || revival.revivalArtist.toLowerCase().includes(artistQuery))
+              matchesArtist(revival)
           );
         if (!matchedRevival) {
           return;
@@ -1569,6 +1575,21 @@
         originalSelection
           .filter((d) => relatedOriginalKeys.has(d.originalKey))
           .raise();
+
+        lockedId = matchedRevival.id;
+        applyRevivalFocus(matchedRevival, false);
+
+        arcSelection
+          .interrupt()
+          .style("opacity", (d) => (relatedIds.has(d.id) ? 1 : 0.15));
+
+        revivalSelection
+          .interrupt()
+          .style("opacity", (d) => (d.revivalKey === matchedRevival.revivalKey ? 1 : 0.15));
+
+        originalSelection
+          .interrupt()
+          .style("opacity", (d) => (relatedOriginalKeys.has(d.originalKey) ? 1 : 0.15));
       }
 
       function setScrollyMode(active) {
