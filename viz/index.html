@@ -37,11 +37,12 @@
         overflow-x: hidden;
         overflow-y: auto;
         font-family: "Avenir Next", "Segoe UI", sans-serif;
+        padding-top: 16px;
       }
 
       .page {
         display: grid;
-        grid-template-rows: 100px 1fr;
+        grid-template-rows: auto 1fr;
         width: 100vw;
         min-height: 100vh;
       }
@@ -50,8 +51,8 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 10px;
-        padding: 18px 28px 14px;
+        gap: 4px;
+        padding: 4px 28px;
       }
 
       .header-top {
@@ -64,12 +65,12 @@
       .title-block {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 2px;
         min-width: 0;
       }
 
       h1 {
-        margin: 0;
+        margin: 0 0 6px;
         font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
         font-size: clamp(26px, 3.1vw, 40px);
         line-height: 0.98;
@@ -78,7 +79,7 @@
       }
 
       .subtitle {
-        margin: 0;
+        margin: 0 0 8px;
         color: #707070;
         font-size: 13px;
         line-height: 1.35;
@@ -91,7 +92,7 @@
         flex-wrap: wrap;
         gap: 16px;
         color: #999999;
-        font-size: 11px;
+        font-size: 13px;
         white-space: nowrap;
       }
 
@@ -127,6 +128,7 @@
       .filters {
         display: flex;
         gap: 8px;
+        margin-top: 6px;
         min-width: 0;
         overflow-x: auto;
         padding-bottom: 2px;
@@ -374,6 +376,10 @@
         opacity: 0;
       }
 
+      .inline-label text {
+        line-height: 1.7;
+      }
+
       .inline-label rect {
         fill: rgba(255, 255, 255, 0.96);
         rx: 4px;
@@ -381,30 +387,35 @@
         filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12));
       }
 
+      .inline-label line.label-leader {
+        stroke: rgba(74, 74, 74, 0.18);
+        stroke-width: 1;
+      }
+
       .inline-label .song {
-        font-size: 9px;
+        font-size: 16.5px;
         font-weight: 700;
       }
 
       .inline-label .artist {
-        font-size: 9px;
-        fill: #999999;
+        font-size: 16px;
+        font-weight: 400;
+        fill: #555;
       }
 
       .inline-label .year {
-        font-size: 10px;
-        fill: #999999;
+        font-size: 16px;
+        font-weight: 400;
+        fill: #555;
       }
 
       .inline-label .peak {
-        font-size: 11px;
+        font-size: 18px;
         font-weight: 700;
-        fill: #e07a5f;
       }
 
       .inline-label.original .song,
       .inline-label.original .artist {
-        fill: #4a7fa5;
       }
 
       .story-text {
@@ -438,7 +449,7 @@
 
       @media (max-width: 720px) {
         .header {
-          padding: 16px 16px 12px;
+          padding: 4px 16px;
         }
 
         .header-top {
@@ -478,15 +489,27 @@
         <div class="header-top">
           <div class="title-block">
             <h1>How Modern Music Resurrects the Past</h1>
-            <p class="subtitle">Bubble size = chart peak. Arc length = how far back it reached. Height = weeks on chart.</p>
+            <p class="subtitle">Each arc connects a chart hit to the older song it revives.</p>
           </div>
           <div class="header-legend" aria-label="Legend">
-            <span class="header-legend-item"><span class="header-legend-dot" style="background: #e07a5f"></span><span>This year's hit</span></span>
-            <span class="header-legend-item"><span class="header-legend-dot" style="background: #4a7fa5"></span><span>Original song sampled</span></span>
-            <span class="header-legend-item"><span>Longer arc = older sample</span></span>
-            <span class="header-legend-item" style="color: #e07a5f"><span class="header-legend-stroke"></span><span>Samples</span></span>
-            <span class="header-legend-item" style="color: #3d8b8b"><span class="header-legend-stroke"></span><span>Interpolates</span></span>
-            <span class="header-legend-item" style="color: #9b72aa"><span class="header-legend-stroke"></span><span>Cover</span></span>
+            <span class="header-legend-item" style="color: #555;">
+              Larger bubble = more weeks charted
+            </span>
+            <span class="header-legend-item" style="color: #e07a5f">
+              <span class="header-legend-dot" style="background: #e07a5f"></span>
+              <span class="header-legend-stroke"></span>
+              <span>Sample</span>
+            </span>
+            <span class="header-legend-item" style="color: #3d8b8b">
+              <span class="header-legend-dot" style="background: #3d8b8b"></span>
+              <span class="header-legend-stroke"></span>
+              <span>Interpolation</span>
+            </span>
+            <span class="header-legend-item" style="color: #9b72aa">
+              <span class="header-legend-dot" style="background: #9b72aa"></span>
+              <span class="header-legend-stroke"></span>
+              <span>Sample &amp; Interpolation</span>
+            </span>
           </div>
         </div>
         <div class="controls">
@@ -516,8 +539,8 @@
     </div>
 
     <script>
-      const YEAR_OPTIONS = ["ALL", 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
-      const DEFAULT_YEAR = 2024;
+      const YEAR_OPTIONS = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+      const DEFAULT_YEAR = 2025;
       const RELATIONSHIP_COLOR = {
         samples: "#E07A5F",
         interpolates: "#3D8B8B",
@@ -578,18 +601,69 @@
 
       function weeksRadius(weeks) {
         if (!Number.isFinite(weeks) || weeks <= 0) {
-          return 5;
+          return 7.5;
         }
 
-        return clamp(5 + (weeks / 112) * 28, 5, 33);
+        return clamp(7.5 + (weeks / 112) * 42, 7.5, 49.5);
       }
 
       function originalRadius(row) {
-        return row.everCharted ? weeksRadius(row.originalWeeksOnChart) : 5;
+        return row.everCharted ? weeksRadius(row.originalWeeksOnChart) : 9;
       }
 
       function peakLabel(peak) {
-        return Number.isFinite(peak) ? `#${Math.round(peak)}` : "uncharted";
+        return Number.isFinite(peak) && peak > 0 ? `#${Math.round(peak)}` : "Uncharted";
+      }
+
+      function originalBaseFillOpacity(d) {
+        return d.everCharted ? 0.7 : 0.7;
+      }
+
+      function originalActiveFillOpacity(d) {
+        return d.everCharted ? 0.92 : 0.9;
+      }
+
+      function originalDimFillOpacity() {
+        return 0.18;
+      }
+
+      function updateOriginalMarkFill(selection, transition, opacityAccessor) {
+        const solidFill = selection.select("circle.original-fill");
+        const topHalf = selection.select("path.original-top-half");
+        const bottomHalf = selection.select("path.original-bottom-half");
+        const outline = selection.select("circle.original-outline");
+
+        solidFill
+          .interrupt()
+          .transition(transition)
+          .attr("fill-opacity", (d) => (d.splitColors ? 0 : opacityAccessor(d)));
+
+        topHalf
+          .interrupt()
+          .transition(transition)
+          .attr("fill-opacity", (d) => (d.splitColors ? opacityAccessor(d) : 0));
+
+        bottomHalf
+          .interrupt()
+          .transition(transition)
+          .attr("fill-opacity", (d) => (d.splitColors ? opacityAccessor(d) : 0));
+
+        outline
+          .interrupt()
+          .transition(transition)
+          .attr("stroke-width", (d) => (opacityAccessor(d) > originalDimFillOpacity() ? 2 : 1));
+      }
+
+      function revivalBaseFillOpacity() {
+        return 0.85;
+      }
+
+      function revivalActiveFillOpacity() {
+        return 0.98;
+      }
+
+      function revivalDimFillOpacity() {
+        return 0.22;
       }
 
       function colorWithOpacity(color, opacity) {
@@ -602,51 +676,405 @@
         return `${parsed}`;
       }
 
-      function setInlineLabel(label, lines, x, y, anchor, className) {
-        label.attr("class", `inline-label ${className}`);
+      function chartDimensions() {
+        return {
+          chartWidth: Number(svg?.attr("width")) || chartNode.clientWidth || window.innerWidth,
+          chartHeight: Number(svg?.attr("height")) || chartNode.clientHeight || window.innerHeight,
+        };
+      }
 
-        const text = label.select("text").attr("text-anchor", anchor);
-        const tspans = text.selectAll("tspan").data(lines);
+      function renderWrappedLabelText(textSelection, rows, maxWidth = 300, align = "start") {
+        textSelection.attr("text-anchor", align);
+        textSelection.selectAll("tspan").remove();
+        let isFirstRenderedLine = true;
 
-        tspans
-          .join("tspan")
-          .attr("class", (_, index) => (index === 0 ? "song" : index === 1 ? "artist" : index === 2 ? "year" : "peak"))
-          .attr("x", x)
-          .attr("dy", (_, index) => (index === 0 ? 0 : 12))
-          .text((d) => d);
+        rows.forEach((row) => {
+          const words = String(row.text || "").split(/\s+/).filter(Boolean);
+          if (!words.length) {
+            return;
+          }
 
-        label.style("opacity", 1);
+          let currentLine = "";
+          let isFirstLineInRow = true;
 
-        const bbox = text.node().getBBox();
-        const paddingX = 8;
-        const paddingY = 4;
+          const appendLine = (lineText) => {
+            textSelection
+              .append("tspan")
+              .attr("class", row.className)
+              .attr("x", 0)
+              .attr("dy", isFirstRenderedLine ? 0 : isFirstLineInRow ? row.rowGap : row.lineGap)
+              .text(lineText)
+              .style("fill", row.color || null);
+            isFirstRenderedLine = false;
+            isFirstLineInRow = false;
+          };
 
+          words.forEach((word) => {
+            const testLine = currentLine ? `${currentLine} ${word}` : word;
+            const probe = textSelection
+              .append("tspan")
+              .attr("class", row.className)
+              .attr("x", 0)
+              .attr("dy", 0)
+              .text(testLine);
+
+            const exceeds = probe.node().getComputedTextLength() > maxWidth;
+            probe.remove();
+
+            if (exceeds && currentLine) {
+              appendLine(currentLine);
+              currentLine = word;
+            } else {
+              currentLine = testLine;
+            }
+          });
+
+          if (currentLine) {
+            appendLine(currentLine);
+          }
+        });
+      }
+
+      function measureLabelBox(label, align) {
+        const text = label.select("text");
+        text.attr("text-anchor", align);
+        return text.node().getBBox();
+      }
+
+      function applyLabelBox(label, bbox, paddingX = 14, paddingY = 11) {
         label
           .select("rect")
           .attr("x", bbox.x - paddingX)
           .attr("y", bbox.y - paddingY)
           .attr("width", bbox.width + paddingX * 2)
           .attr("height", bbox.height + paddingY * 2);
-
-        label.attr("transform", `translate(0,${y - (bbox.y + bbox.height / 2)})`);
       }
 
-      function showInlineLabels(link, originalItems = [link]) {
-        setInlineLabel(
-          revivalLabel,
-          [link.revivalSong, link.revivalArtist, String(link.revivalChartYear), peakLabel(link.revivalPeak)],
-          link.revivalX - link.revivalR - 12,
-          link.revivalY,
-          "end",
-          "revival"
-        );
+      function variantDirection(variant) {
+        switch (variant) {
+          case "left":
+            return { x: -1, y: 0 };
+          case "right":
+            return { x: 1, y: 0 };
+          case "above":
+            return { x: 0, y: -1 };
+          case "below":
+            return { x: 0, y: 1 };
+          case "above-left":
+            return { x: -0.75, y: -0.65 };
+          case "above-right":
+            return { x: 0.75, y: -0.65 };
+          case "below-left":
+            return { x: -0.75, y: 0.65 };
+          case "below-right":
+            return { x: 0.75, y: 0.65 };
+          default:
+            return { x: 1, y: 0 };
+        }
+      }
 
-        const originalLabels = originalLabelsLayer
-          .selectAll("g.original-inline-label")
-          .data(originalItems, (d) => d.id)
+      function buildLabelPlacement(nodeX, nodeY, nodeClearance, bbox, variant, chartWidth, chartHeight) {
+        const paddingX = 10;
+        const paddingY = 8;
+        const edgePad = 20;
+        const requiredGap = nodeClearance * 2 + 24;
+        const cardGap = requiredGap + 4;
+        const sidePad = cardGap;
+        const diagonalPadX = cardGap + 20;
+        const diagonalPadY = Math.max(cardGap + 8, bbox.height * 0.6 + nodeClearance * 0.6);
+        const isLeft = variant.includes("left");
+        const isRight = variant.includes("right");
+        const isAbove = variant.startsWith("above");
+        const isBelow = variant.startsWith("below");
+        const isVertical = variant === "above" || variant === "below";
+        let x = nodeX;
+        if (isLeft) {
+          x = nodeX - (variant === "left" ? sidePad : diagonalPadX);
+        } else if (isRight) {
+          x = nodeX + (variant === "right" ? sidePad : diagonalPadX);
+        }
+        let y = nodeY - (bbox.y + bbox.height / 2);
+
+        if (isAbove) {
+          y -= diagonalPadY;
+        } else if (isBelow) {
+          y += diagonalPadY;
+        }
+
+        if (isVertical) {
+          const centeredRectLeft = x + bbox.x - paddingX;
+          const centeredRectRight = x + bbox.x + bbox.width + paddingX;
+          if (centeredRectLeft < edgePad) {
+            x += edgePad - centeredRectLeft;
+          }
+          if (centeredRectRight > chartWidth - edgePad) {
+            x -= centeredRectRight - (chartWidth - edgePad);
+          }
+        }
+
+        const unclampedRect = {
+          x0: x + bbox.x - paddingX,
+          y0: y + bbox.y - paddingY,
+          x1: x + bbox.x + bbox.width + paddingX,
+          y1: y + bbox.y + bbox.height + paddingY,
+        };
+
+        let shiftX = 0;
+        let shiftY = 0;
+        if (unclampedRect.x0 < edgePad) {
+          shiftX += edgePad - unclampedRect.x0;
+        }
+        if (unclampedRect.x1 > chartWidth - edgePad) {
+          shiftX -= unclampedRect.x1 - (chartWidth - edgePad);
+        }
+        if (unclampedRect.y0 < edgePad) {
+          shiftY += edgePad - unclampedRect.y0;
+        }
+        if (unclampedRect.y1 > chartHeight - edgePad) {
+          shiftY -= unclampedRect.y1 - (chartHeight - edgePad);
+        }
+
+        let finalX = x + shiftX;
+        let finalY = y + shiftY;
+        let rect = {
+          x0: finalX + bbox.x - paddingX,
+          y0: finalY + bbox.y - paddingY,
+          x1: finalX + bbox.x + bbox.width + paddingX,
+          y1: finalY + bbox.y + bbox.height + paddingY,
+        };
+        const direction = variantDirection(variant);
+        const ownGapDistance = pointToRectDistance(nodeX, nodeY, rect);
+        if (ownGapDistance < requiredGap) {
+          const extra = requiredGap - ownGapDistance;
+          finalX += direction.x * extra;
+          finalY += direction.y * extra;
+          const pushedRect = {
+            x0: finalX + bbox.x - paddingX,
+            y0: finalY + bbox.y - paddingY,
+            x1: finalX + bbox.x + bbox.width + paddingX,
+            y1: finalY + bbox.y + bbox.height + paddingY,
+          };
+          if (pushedRect.x0 < edgePad) {
+            finalX += edgePad - pushedRect.x0;
+          }
+          if (pushedRect.x1 > chartWidth - edgePad) {
+            finalX -= pushedRect.x1 - (chartWidth - edgePad);
+          }
+          if (pushedRect.y0 < edgePad) {
+            finalY += edgePad - pushedRect.y0;
+          }
+          if (pushedRect.y1 > chartHeight - edgePad) {
+            finalY -= pushedRect.y1 - (chartHeight - edgePad);
+          }
+          rect = {
+            x0: finalX + bbox.x - paddingX,
+            y0: finalY + bbox.y - paddingY,
+            x1: finalX + bbox.x + bbox.width + paddingX,
+            y1: finalY + bbox.y + bbox.height + paddingY,
+          };
+        }
+
+        return {
+          variant,
+          side: isLeft ? "left" : "right",
+          x: finalX,
+          y: finalY,
+          bbox,
+          rect,
+          anchorAlign: isLeft ? "end" : "start",
+          displacement: Math.hypot(finalX - x, finalY - y),
+          ownGapDistance: pointToRectDistance(nodeX, nodeY, rect),
+          requiredGap,
+        };
+      }
+
+      function placementOverlapArea(a, b) {
+        const overlapX = Math.max(0, Math.min(a.x1, b.x1) - Math.max(a.x0, b.x0));
+        const overlapY = Math.max(0, Math.min(a.y1, b.y1) - Math.max(a.y0, b.y0));
+        return overlapX * overlapY;
+      }
+
+      function pointToRectDistance(x, y, rect) {
+        const dx = Math.max(rect.x0 - x, 0, x - rect.x1);
+        const dy = Math.max(rect.y0 - y, 0, y - rect.y1);
+        return Math.hypot(dx, dy);
+      }
+
+      function scoreLabelPlacement(candidate, node, placedRects, nearbyNodes, variantOrder) {
+        let score = 0;
+        const variantIndex = variantOrder.indexOf(candidate.variant) === -1 ? variantOrder.length : variantOrder.indexOf(candidate.variant);
+        const extraGap = Math.max(0, candidate.ownGapDistance - candidate.requiredGap);
+        score += variantIndex * 8;
+        score += extraGap * 26;
+        score += candidate.displacement * 6;
+        score += Math.abs(candidate.y - node.y) * 0.12;
+        if (candidate.ownGapDistance < candidate.requiredGap) {
+          score += (candidate.requiredGap - candidate.ownGapDistance) * 600;
+        }
+
+        placedRects.forEach((rect) => {
+          score += placementOverlapArea(candidate.rect, rect.rect) * 4;
+        });
+
+        nearbyNodes.forEach((otherNode) => {
+          if (otherNode.key === node.key) {
+            return;
+          }
+          const distance = pointToRectDistance(otherNode.x, otherNode.y, candidate.rect);
+          if (distance < otherNode.clearance) {
+            score += (otherNode.clearance - distance) * 140;
+          }
+        });
+
+        return score;
+      }
+
+      function candidateOrderForOriginal(node, extent) {
+        const xRatio = extent.xSpan > 0 ? (node.x - extent.minX) / extent.xSpan : 0.5;
+        const yRatio = extent.ySpan > 0 ? (node.y - extent.minY) / extent.ySpan : 0.5;
+
+        if (xRatio < 0.33) {
+          return yRatio < 0.35
+            ? ["left", "below-left", "below", "below-right", "above-left", "right", "above-right", "above"]
+            : ["left", "above-left", "above", "below-left", "right", "above-right", "below-right", "below"];
+        }
+
+        if (xRatio > 0.66) {
+          return yRatio > 0.65
+            ? ["right", "above-right", "above", "above-left", "below-right", "left", "below-left", "below"]
+            : ["right", "below-right", "below", "above-right", "left", "below-left", "above-left", "above"];
+        }
+
+        if (yRatio < 0.4) {
+          return ["below", "below-right", "below-left", "right", "left", "above-right", "above-left", "above"];
+        }
+
+        if (yRatio > 0.6) {
+          return ["above", "above-right", "above-left", "right", "left", "below-right", "below-left", "below"];
+        }
+
+        return ["above-right", "above-left", "below-right", "below-left", "right", "left", "above", "below"];
+      }
+
+      function chooseAdaptivePlacement(label, node, variantOrder, placedRects, nearbyNodes) {
+        const text = label.select("text");
+        const { chartWidth, chartHeight } = chartDimensions();
+        const variants = [...new Set(variantOrder)];
+        const candidates = variants.map((variant) => {
+          const align = variant.includes("left") ? "end" : variant.includes("right") ? "start" : "middle";
+          const bbox = measureLabelBox(label, align);
+          applyLabelBox(label, bbox);
+          const candidate = buildLabelPlacement(node.x, node.y, node.clearance || 10, bbox, variant, chartWidth, chartHeight);
+          candidate.score = scoreLabelPlacement(candidate, node, placedRects, nearbyNodes, variants);
+          return candidate;
+        });
+
+        const validCandidates = candidates.filter((candidate) => candidate.ownGapDistance >= candidate.requiredGap - 1);
+        const best = (validCandidates.length ? validCandidates : candidates).sort((a, b) => {
+          if (validCandidates.length) {
+            return (
+              d3.ascending(Math.max(0, a.ownGapDistance - a.requiredGap), Math.max(0, b.ownGapDistance - b.requiredGap)) ||
+              d3.ascending(a.score, b.score)
+            );
+          }
+          return d3.ascending(a.score, b.score);
+        })[0];
+        text.attr("text-anchor", best.anchorAlign);
+        applyLabelBox(label, best.bbox);
+        label.attr("transform", `translate(${best.x},${best.y})`);
+        return best;
+      }
+
+      function placementOrderForOriginals(originalItems, extent) {
+        return originalItems
+          .slice()
+          .sort((a, b) => {
+            const aXR = extent.xSpan > 0 ? (a.originalX - extent.minX) / extent.xSpan : 0.5;
+            const bXR = extent.xSpan > 0 ? (b.originalX - extent.minX) / extent.xSpan : 0.5;
+            const aExtremity = Math.abs(aXR - 0.5);
+            const bExtremity = Math.abs(bXR - 0.5);
+            return (
+              d3.descending(aExtremity, bExtremity) ||
+              d3.ascending(a.originalY, b.originalY) ||
+              d3.ascending(a.originalX, b.originalX)
+            );
+          });
+      }
+
+      function setInlineLabel(label, lines, nodeX, nodeY, preferredSide, className) {
+        label.attr("class", `inline-label ${className}`);
+
+        const text = label.select("text");
+        renderWrappedLabelText(text, [
+          { className: "song", text: lines[0], rowGap: 13, lineGap: 12 },
+          { className: "artist", text: lines[1], rowGap: 13, lineGap: 12 },
+          { className: "year", text: lines[2], rowGap: 13, lineGap: 12 },
+          { className: "peak", text: lines[3], rowGap: 14, lineGap: 13 },
+        ], 300, "start");
+
+        label.style("opacity", 1);
+        const fallbackOrder =
+          preferredSide === "left"
+            ? ["left", "above-left", "below-left", "above", "below", "right", "above-right", "below-right"]
+            : ["right", "above-right", "below-right", "above", "below", "left", "above-left", "below-left"];
+        const placement = chooseAdaptivePlacement(
+          label,
+          { x: nodeX, y: nodeY, key: `${nodeX}-${nodeY}`, clearance: 10 },
+          fallbackOrder,
+          [],
+          []
+        );
+        label.select("text").attr("text-anchor", placement.anchorAlign);
+        const finalBbox = measureLabelBox(label, placement.anchorAlign);
+        applyLabelBox(label, finalBbox);
+        return placement;
+      }
+
+      function dedupeOriginalItems(originalItems) {
+        return Array.from(
+          d3.group(originalItems, (d) => d.originalKey),
+          ([, items]) =>
+            items
+              .slice()
+              .sort(
+                (a, b) =>
+                  d3.ascending(a.originalY, b.originalY) ||
+                  d3.ascending(a.originalX, b.originalX) ||
+                  d3.ascending(a.id, b.id)
+              )[0]
+        );
+      }
+
+      function showInlineLabels(links, originalItems = Array.isArray(links) ? links : [links]) {
+        const linkList = (Array.isArray(links) ? links : [links]).filter(Boolean);
+        const uniqueRevivalItems = Array.from(
+          d3.group(linkList, (d) => d.revivalKey),
+          ([, items]) => items[0]
+        );
+        const primaryLink = uniqueRevivalItems[0];
+        const uniqueOriginalItems = dedupeOriginalItems(originalItems);
+        const nearbyNodes = uniqueOriginalItems.map((item) => ({
+          key: item.originalKey,
+          x: item.originalX,
+          y: item.originalY,
+          clearance: item.originalR + 14,
+        }));
+        const sourceExtent = {
+          minX: d3.min(uniqueOriginalItems, (d) => d.originalX) ?? primaryLink.originalX,
+          maxX: d3.max(uniqueOriginalItems, (d) => d.originalX) ?? primaryLink.originalX,
+          minY: d3.min(uniqueOriginalItems, (d) => d.originalY) ?? primaryLink.originalY,
+          maxY: d3.max(uniqueOriginalItems, (d) => d.originalY) ?? primaryLink.originalY,
+        };
+        sourceExtent.xSpan = Math.max(1, sourceExtent.maxX - sourceExtent.minX);
+        sourceExtent.ySpan = Math.max(1, sourceExtent.maxY - sourceExtent.minY);
+
+        const revivalLabels = labelLayer
+          .selectAll("g.revival-inline-label")
+          .data(uniqueRevivalItems, (d) => d.revivalKey)
           .join(
             (enter) => {
-              const group = enter.append("g");
+              const group = enter.append("g").attr("class", "revival-inline-label");
+              group.append("line").attr("class", "label-leader");
               group.append("rect").attr("rx", 4).attr("ry", 4);
               group.append("text");
               return group;
@@ -655,21 +1083,130 @@
             (exit) => exit.remove()
           );
 
-        originalLabels.each(function (item) {
-          setInlineLabel(
-            d3.select(this),
-            [item.originalSong, item.originalArtist, String(item.originalReleaseYear), peakLabel(item.originalPeakDisplay)],
-            item.originalX + item.originalR + 12,
-            item.originalY,
-            "start",
-            "original original-inline-label"
+        const placedRects = [];
+        revivalLabels.each(function (revivalLink) {
+          const group = d3.select(this);
+          group.attr("class", "inline-label revival revival-inline-label").style("opacity", 1);
+          renderWrappedLabelText(group.select("text"), [
+            { className: "song", text: revivalLink.revivalSong, rowGap: 18, lineGap: 17, color: revivalLink.revivalColor },
+            { className: "artist", text: revivalLink.revivalArtist, rowGap: 18, lineGap: 17 },
+            { className: "year", text: String(revivalLink.revivalChartYear), rowGap: 18, lineGap: 17 },
+            { className: "peak", text: peakLabel(revivalLink.revivalPeak), rowGap: 19, lineGap: 18, color: revivalLink.revivalColor },
+          ], 300, "start");
+
+          const placement = chooseAdaptivePlacement(
+            group,
+            { x: revivalLink.revivalX, y: revivalLink.revivalY, key: revivalLink.revivalKey, clearance: revivalLink.revivalR },
+            ["left", "above-left", "below-left", "above", "below", "above-right", "below-right", "right"],
+            placedRects,
+            nearbyNodes
           );
+          group.select("text").attr("text-anchor", placement.anchorAlign);
+          const finalBbox = measureLabelBox(group, placement.anchorAlign);
+          applyLabelBox(group, finalBbox);
+
+          const localNodeX = revivalLink.revivalX - placement.x;
+          const localNodeY = revivalLink.revivalY - placement.y;
+          const rect = {
+            x0: finalBbox.x - 10,
+            y0: finalBbox.y - 8,
+            x1: finalBbox.x + finalBbox.width + 10,
+            y1: finalBbox.y + finalBbox.height + 8,
+          };
+          const anchorX = clamp(localNodeX, rect.x0, rect.x1);
+          const anchorY = clamp(localNodeY, rect.y0, rect.y1);
+          const leaderDistance = Math.hypot(localNodeX - anchorX, localNodeY - anchorY);
+
+          group
+            .select("line.label-leader")
+            .attr("x1", localNodeX)
+            .attr("y1", localNodeY)
+            .attr("x2", anchorX)
+            .attr("y2", anchorY)
+            .style("opacity", leaderDistance > 18 ? 1 : 0);
+
+          placedRects.push({ rect: placement.rect });
+        });
+
+        const originalLabels = originalLabelsLayer
+          .selectAll("g.original-inline-label")
+          .data(uniqueOriginalItems, (d) => d.originalKey)
+          .join(
+            (enter) => {
+              const group = enter.append("g");
+              group.append("line").attr("class", "label-leader");
+              group.append("rect").attr("rx", 4).attr("ry", 4);
+              group.append("text");
+              return group;
+            },
+            (update) => update,
+            (exit) => exit.remove()
+          );
+
+        const labelGroupByKey = new Map();
+        originalLabels.each(function (item) {
+          labelGroupByKey.set(item.originalKey, d3.select(this));
+        });
+
+        placementOrderForOriginals(uniqueOriginalItems, sourceExtent).forEach((item) => {
+          const group = labelGroupByKey.get(item.originalKey);
+          group.attr("class", "inline-label original original-inline-label").style("opacity", 1);
+          const lines = [item.originalSong, item.originalArtist, String(item.originalReleaseYear), peakLabel(item.originalPeakDisplay)];
+          const preferredVariants = candidateOrderForOriginal({ x: item.originalX, y: item.originalY }, sourceExtent);
+          renderWrappedLabelText(group.select("text"), [
+            { className: "song", text: lines[0], rowGap: 18, lineGap: 17, color: item.originalColor },
+            { className: "artist", text: lines[1], rowGap: 18, lineGap: 17 },
+            { className: "year", text: lines[2], rowGap: 18, lineGap: 17 },
+            { className: "peak", text: lines[3], rowGap: 19, lineGap: 18, color: item.originalColor },
+          ], 300, "start");
+
+          const placement = chooseAdaptivePlacement(
+            group,
+            { x: item.originalX, y: item.originalY, key: item.originalKey, clearance: item.originalR },
+            preferredVariants,
+            placedRects,
+            [
+              ...nearbyNodes,
+              ...uniqueRevivalItems.map((revivalLink) => ({
+                key: revivalLink.revivalKey,
+                x: revivalLink.revivalX,
+                y: revivalLink.revivalY,
+                clearance: revivalLink.revivalR + 18,
+              })),
+            ]
+          );
+          group.select("text").attr("text-anchor", placement.anchorAlign);
+          const finalBbox = measureLabelBox(group, placement.anchorAlign);
+          applyLabelBox(group, finalBbox);
+
+          const localNodeX = item.originalX - placement.x;
+          const localNodeY = item.originalY - placement.y;
+          const rect = {
+            x0: finalBbox.x - 10,
+            y0: finalBbox.y - 8,
+            x1: finalBbox.x + finalBbox.width + 10,
+            y1: finalBbox.y + finalBbox.height + 8,
+          };
+          const anchorX = clamp(localNodeX, rect.x0, rect.x1);
+          const anchorY = clamp(localNodeY, rect.y0, rect.y1);
+          const leaderDistance = Math.hypot(localNodeX - anchorX, localNodeY - anchorY);
+
+          group
+            .select("line.label-leader")
+            .attr("x1", localNodeX)
+            .attr("y1", localNodeY)
+            .attr("x2", anchorX)
+            .attr("y2", anchorY)
+            .style("opacity", leaderDistance > 18 ? 1 : 0);
+
+          placedRects.push({ rect: placement.rect });
         });
       }
 
       function hideInlineLabels() {
+        labelLayer.selectAll("g.revival-inline-label").remove();
         revivalLabel.style("opacity", 0);
-        originalLabelsLayer.selectAll("g.original-inline-label").remove();
+        originalLabelsLayer.selectAll("*").remove();
       }
 
       function setChartEmptyState(isVisible) {
@@ -790,9 +1327,10 @@
       }
 
       function filteredRows() {
-        return activeYear === "ALL"
+        const rows = activeYear === "ALL"
           ? allRows.slice()
           : allRows.filter((row) => row.revivalChartYear === activeYear);
+        return rows.filter((row) => row.revivalPeak <= 50);
       }
 
       function buildRevivalColorMap(rows) {
@@ -816,55 +1354,309 @@
             return;
           }
 
-          const interpolator =
-            relationshipType === "interpolates"
-              ? d3.interpolateRgb("#3D8B8B", "#5B7FA6")
-              : d3.interpolateRgb("#E07A5F", "#C45C8A");
-
-          sortedEntries.forEach(([key], index) => {
-            const t = sortedEntries.length === 1 ? 0.5 : index / (sortedEntries.length - 1);
-            colorMap.set(key, interpolator(t));
+          sortedEntries.forEach(([key]) => {
+            colorMap.set(key, RELATIONSHIP_COLOR[relationshipType]);
           });
+        });
+
+        const revivalTypeCount = new Map();
+        rows.forEach((row) => {
+          const key = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+          if (!revivalTypeCount.has(key)) revivalTypeCount.set(key, new Set());
+          revivalTypeCount.get(key).add(row.relationshipType);
+        });
+        revivalTypeCount.forEach((types, key) => {
+          if (types.size > 1) {
+            colorMap.set(key, "#B07A9E");
+          }
         });
 
         return colorMap;
       }
 
-      function computeStoryLayout(rows, width, height) {
-        const centerY = height / 2;
-        const revivalX = Math.min(width - 220, width * 0.72);
-        const revivalY = centerY;
-        const revivalR = 26;
-        const originalX = Math.max(150, width * 0.2);
-        const sortedRows = rows
+      function getZoneGeometry(height) {
+        const topMargin = 36;
+        const bottomMargin = height - 40;
+        const zoneOrder = ["number1", "top10", "top40", "charted", "never-charted"];
+        const totalHeight = bottomMargin - topMargin;
+        const zoneHeights = new Map([
+          ["number1", totalHeight * 0.10],
+          ["top10", totalHeight * 0.13],
+          ["top40", totalHeight * 0.35],
+          ["charted", totalHeight * 0.20],
+          ["never-charted", totalHeight * 0.10],
+        ]);
+        const allocatedHeight = d3.sum([...zoneHeights.values()]);
+        const zonePadding = Math.max(0, (totalHeight - allocatedHeight) / (zoneOrder.length + 1));
+        let runningY = topMargin + zonePadding;
+        const zoneBounds = new Map();
+
+        zoneOrder.forEach((zoneKey) => {
+          const zoneHeight = zoneHeights.get(zoneKey) || 0;
+          zoneBounds.set(zoneKey, {
+            y0: runningY,
+            y1: runningY + zoneHeight,
+          });
+          runningY += zoneHeight + zonePadding;
+        });
+
+        const getPeakBucket = (peak, everCharted = true) => {
+          if (!everCharted || !Number.isFinite(peak)) {
+            return "never-charted";
+          }
+          if (peak === 1) {
+            return "number1";
+          }
+          if (peak >= 2 && peak <= 10) {
+            return "top10";
+          }
+          if (peak >= 11 && peak <= 40) {
+            return "top40";
+          }
+          return "charted";
+        };
+
+        return {
+          topMargin,
+          bottomMargin,
+          zoneOrder,
+          zoneBounds,
+          getPeakBucket,
+        };
+      }
+
+      function projectYearsBetween(yearsBetween) {
+        const normalized = clamp(yearsBetween / 65, 0, 1);
+        if (normalized <= 0.65) {
+          return (normalized / 0.65) * 0.78;
+        }
+        return 0.78 + ((normalized - 0.65) / 0.35) * 0.22;
+      }
+
+      function buildArcPath(originalX, originalY, originalR, revivalX, revivalY, revivalR) {
+        const startX = originalX + originalR;
+        const endX = revivalX - revivalR;
+        const cp1x = originalX + (revivalX - originalX) * 0.3;
+        const cp2x = originalX + (revivalX - originalX) * 0.7;
+        return `M${startX},${originalY} C${cp1x},${originalY} ${cp2x},${revivalY} ${endX},${revivalY}`;
+      }
+
+      function computeLayout(rows, width, height) {
+        const revivalXBase = width - 480;
+        const leftMargin = 80;
+        const { topMargin, bottomMargin, zoneOrder, zoneBounds, getPeakBucket } = getZoneGeometry(height);
+        const uniqueRevivals = new Map();
+        rows.forEach((row) => {
+          const key = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+          if (!uniqueRevivals.has(key)) {
+            uniqueRevivals.set(key, row);
+          }
+        });
+
+        const makeZonePositionMap = (items, keyFn, bucketFn, sortFn, radiusFn, includeXOffset = false, peakFn = null) => {
+          const uniqueItems = new Map();
+
+          items.forEach((item) => {
+            const key = keyFn(item);
+            const existing = uniqueItems.get(key);
+            if (!existing) {
+              uniqueItems.set(key, item);
+              return;
+            }
+
+            const existingPeak = peakFn ? peakFn(existing) : null;
+            const nextPeak = peakFn ? peakFn(item) : null;
+            if (Number.isFinite(nextPeak) && (!Number.isFinite(existingPeak) || nextPeak < existingPeak)) {
+              uniqueItems.set(key, item);
+            }
+          });
+
+          const sortedItems = [...uniqueItems.values()].sort(sortFn);
+          const bucketGroups = d3.group(sortedItems, (item) => bucketFn(item));
+          const positionedItems = [];
+
+          zoneOrder.forEach((zoneKey) => {
+            const zoneItems = (bucketGroups.get(zoneKey) || []).slice().sort(sortFn);
+            if (!zoneItems.length) {
+              return;
+            }
+
+            const zone = zoneBounds.get(zoneKey);
+            const peakGroups = d3.group(zoneItems, (item) => {
+              const peakValue = peakFn ? peakFn(item) : null;
+              return Number.isFinite(peakValue) ? peakValue : zoneKey;
+            });
+            const sortedPeakValues = [...peakGroups.keys()].sort((a, b) => {
+              if (typeof a === "number" && typeof b === "number") {
+                return d3.ascending(a, b);
+              }
+              return d3.ascending(String(a), String(b));
+            });
+
+            sortedPeakValues.forEach((peakValue, peakIndex) => {
+              const peakItems = peakGroups.get(peakValue) || [];
+              const laneCenter =
+                zone.y0 + ((peakIndex + 0.5) / Math.max(sortedPeakValues.length, 1)) * (zone.y1 - zone.y0);
+
+              if (zoneKey === "number1") {
+                peakItems.sort((a, b) => radiusFn(b) - radiusFn(a));
+                const fullWidth = (width - 60) - (revivalXBase + 30);
+                const step = peakItems.length > 1 ? fullWidth / (peakItems.length - 1) : 0;
+                peakItems.forEach((item, i) => {
+                  positionedItems.push({
+                    key: keyFn(item),
+                    y: laneCenter,
+                    xOffset: i * step,
+                  });
+                });
+                return;
+              }
+
+              peakItems.forEach((item, index) => {
+                const radius = radiusFn(item);
+                const offsetStep = 6;
+                const offsetCap = 9;
+                const rawOffset = (index - (peakItems.length - 1) / 2) * offsetStep;
+                const y = clamp(
+                  laneCenter + clamp(rawOffset, -offsetCap, offsetCap),
+                  zone.y0 + radius + 2,
+                  zone.y1 - radius - 2
+                );
+                let xOffset = 0;
+
+                if (includeXOffset && peakFn) {
+                  const radii = peakItems.map((entry) => radiusFn(entry));
+                  const gap = 6;
+                  const rawClusterWidth =
+                    radii.reduce((sum, r) => sum + r * 2, 0) + gap * Math.max(radii.length - 1, 0);
+                  const clusterWidth = Math.min(rawClusterWidth, 60);
+                  const scale = clusterWidth / Math.max(rawClusterWidth, 1);
+                  let cursor = -clusterWidth / 2;
+                  const clusterOffset = radii
+                    .map((entryRadius) => {
+                      const center = cursor + entryRadius * scale;
+                      cursor += entryRadius * 2 * scale + gap;
+                      return center;
+                    })[index];
+                  const totalPeaks = sortedPeakValues.length;
+                  const availableWidth = (width - 60) - (revivalXBase + 30);
+                  const peakBandWidth = totalPeaks > 1 ? availableWidth : 0;
+                  const peakOffset = totalPeaks > 1
+                    ? (peakIndex / (totalPeaks - 1)) * peakBandWidth
+                    : 0;
+
+                  xOffset = clusterOffset + peakOffset;
+                }
+
+                positionedItems.push({
+                  key: keyFn(item),
+                  y,
+                  xOffset,
+                });
+              });
+            });
+          });
+
+          return new Map(
+            positionedItems.map((item) => [
+              item.key,
+              {
+                y: item.y,
+                xOffset: item.xOffset,
+              },
+            ])
+          );
+        };
+
+        const revivalPositionMap = makeZonePositionMap(
+          rows,
+          (row) => `${row.revivalSong}__${row.revivalArtist}`.toLowerCase(),
+          (row) => getPeakBucket(row.revivalPeak, true),
+          (a, b) =>
+            d3.ascending(a.revivalPeak, b.revivalPeak) ||
+            d3.descending(a.revivalWeeksOnChart, b.revivalWeeksOnChart) ||
+            d3.descending(a.revivalSpotifyPopularity, b.revivalSpotifyPopularity) ||
+            d3.ascending(a.revivalSong, b.revivalSong) ||
+            d3.ascending(a.revivalArtist, b.revivalArtist),
+          (row) => weeksRadius(row.revivalWeeksOnChart),
+          true,
+          (row) => row.revivalPeak
+        );
+        const originalYMap = makeZonePositionMap(
+          rows,
+          (row) => `${row.originalSong}__${row.originalArtist}`.toLowerCase(),
+          (row) => getPeakBucket(row.originalPeak, row.everCharted),
+          (a, b) =>
+            d3.ascending(
+              Number.isFinite(a.originalPeak) ? a.originalPeak : Number.POSITIVE_INFINITY,
+              Number.isFinite(b.originalPeak) ? b.originalPeak : Number.POSITIVE_INFINITY
+            ) ||
+            d3.descending(a.originalWeeksOnChart, b.originalWeeksOnChart) ||
+            d3.ascending(a.originalSong, b.originalSong) ||
+            d3.ascending(a.originalArtist, b.originalArtist),
+          (row) => originalRadius(row),
+          false,
+          (row) => row.originalPeak
+        );
+        const revivalColorMap = buildRevivalColorMap(rows);
+        const positionedRows = rows
           .slice()
           .sort(
             (a, b) =>
-              d3.ascending(a.originalReleaseYear, b.originalReleaseYear) ||
-              d3.ascending(a.originalSong, b.originalSong) ||
-              d3.ascending(a.originalArtist, b.originalArtist)
-          );
-        const spacing =
-          sortedRows.length <= 1
-            ? 0
-            : Math.min(96, Math.max(68, (height * 0.5) / (sortedRows.length - 1)));
-        const revivalColorMap = buildRevivalColorMap(rows);
+              d3.ascending(a.revivalPeak, b.revivalPeak) ||
+              d3.ascending(a.revivalSong, b.revivalSong) ||
+              d3.ascending(a.originalSong, b.originalSong)
+          )
+          .map((row) => {
+            const revivalKey = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+            const originalKey = `${row.originalSong}__${row.originalArtist}`.toLowerCase();
+            const revivalPosition = revivalPositionMap.get(revivalKey) || { y: topMargin, xOffset: 0 };
+            const revivalY = revivalPosition.y;
+            const revivalR = weeksRadius(row.revivalWeeksOnChart);
+            const revivalX = Math.min(
+              Math.max(revivalXBase + 30 + revivalPosition.xOffset, revivalXBase),
+              width - 50
+            );
+            const originalR = originalRadius(row);
+            const revivalColor = revivalColorMap.get(revivalKey) || RELATIONSHIP_COLOR[row.relationshipType];
+            const originalColor = revivalColor;
+            if (!originalColor) {
+              console.log("original bubble missing color", {
+                originalSong: row.originalSong,
+                originalArtist: row.originalArtist,
+                revivalSong: row.revivalSong,
+                revivalArtist: row.revivalArtist,
+                relationshipType: row.relationshipType,
+              });
+            }
+            const originalX = clamp(
+              (revivalXBase - 10) - projectYearsBetween(row.yearsBetween) * (width * 0.85),
+              leftMargin + 40,
+              revivalXBase - 60
+            );
+            const unchartedZone = zoneBounds.get("never-charted");
+            const originalY = originalYMap.get(originalKey)?.y ?? (unchartedZone.y0 + unchartedZone.y1) / 2;
 
-        return sortedRows.map((row, index) => {
-          const revivalKey = getRevivalKey(row);
-          const originalKey = getOriginalKey(row);
-          const originalR = row.everCharted ? 16 : 14;
-          const originalY = clamp(
-            centerY + (index - (sortedRows.length - 1) / 2) * spacing,
-            110,
-            height - 110
-          );
-          const revivalColor = revivalColorMap.get(revivalKey) || RELATIONSHIP_COLOR[row.relationshipType];
-          const originalColor = revivalColor;
-          const startX = originalX + originalR;
-          const endX = revivalX - revivalR;
-          const cp1x = originalX + (revivalX - originalX) * 0.42;
-          const cp2x = originalX + (revivalX - originalX) * 0.78;
+            return {
+              ...row,
+              revivalKey,
+              originalKey,
+              revivalX,
+              revivalY,
+              revivalR,
+              originalX,
+              originalY,
+              originalR,
+              revivalColor,
+              originalColor,
+              stroke: RELATIONSHIP_COLOR[row.relationshipType] || revivalColor,
+              strokeWidth: 0.5 + (row.yearsBetween / 90) * 3,
+              revivalSongLabel: truncate(row.revivalSong, 28),
+              revivalArtistLabel: truncate(row.revivalArtist, 28),
+              revivalPeakLabel: peakLabel(row.revivalPeak),
+              path: buildArcPath(originalX, originalY, originalR, revivalX, revivalY, revivalR)
+            };
+          });
 
           return {
             ...row,
@@ -885,8 +1677,8 @@
         });
       }
 
-      function pulseOriginal(id) {
-        const target = originalSelection.filter((d) => d.id === id);
+      function pulseOriginalByKey(originalKey) {
+        const target = originalSelection.filter((d) => d.originalKey === originalKey);
 
         target
           .interrupt()
@@ -909,44 +1701,94 @@
         arcSelection.transition(t).style("opacity", 0.8);
         revivalSelection.transition(t).style("opacity", 1);
         originalSelection.transition(t).style("opacity", 1);
+        revivalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", revivalBaseFillOpacity())
+          .attr("stroke-width", 1);
+        updateOriginalMarkFill(originalSelection, t, (d) => originalBaseFillOpacity(d));
         hideInlineLabels();
       }
 
-      function applyFocus(link, pulse = false) {
+      function applyFocus(link, pulse = false, mode = "link") {
+        const firstDegreeLinks = mode === "original" ? arcSelection.data().filter((d) => d.originalKey === link.originalKey) : [link];
+        const relatedRevivalKeys = new Set(firstDegreeLinks.map((d) => d.revivalKey));
+        const relatedLinks = mode === "original"
+          ? arcSelection.data().filter((d) => relatedRevivalKeys.has(d.revivalKey))
+          : [link];
+        const relatedIds = new Set(relatedLinks.map((d) => d.id));
+        const relatedOriginalKeys = new Set(relatedLinks.map((d) => d.originalKey));
         const t = d3.transition().duration(200);
         arcSelection
           .transition(t)
-          .style("opacity", (d) => (d.id === link.id ? 1 : 0.18));
+          .style("opacity", (d) => (relatedIds.has(d.id) ? 0.92 : 0.02));
 
         arcSelection
-          .filter((d) => d.id === link.id)
+          .filter((d) => relatedIds.has(d.id))
           .raise();
 
         revivalSelection
           .transition(t)
+          .style("opacity", (d) => (relatedRevivalKeys.has(d.revivalKey) ? 1 : 0.08));
+
+        revivalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", (d) => (relatedRevivalKeys.has(d.revivalKey) ? revivalActiveFillOpacity() : revivalDimFillOpacity()))
+          .attr("stroke-width", (d) => (relatedRevivalKeys.has(d.revivalKey) ? 2 : 1));
+
+        revivalSelection
+          .filter((d) => relatedRevivalKeys.has(d.revivalKey))
+          .raise();
+
+        const activeOriginals = originalSelection.filter((d) => relatedOriginalKeys.has(d.originalKey));
+        const inactiveOriginals = originalSelection.filter((d) => !relatedOriginalKeys.has(d.originalKey));
+
+        activeOriginals
+          .interrupt()
           .style("opacity", 1);
 
-        revivalSelection
-          .filter((d) => d.revivalKey === link.revivalKey)
-          .raise();
+        activeOriginals.select("circle.original-fill")
+          .attr("fill-opacity", (d) => (d.splitColors ? 0 : originalActiveFillOpacity(d)));
 
-        originalSelection
+        activeOriginals.select("path.original-top-half")
+          .attr("fill-opacity", (d) => (d.splitColors ? originalActiveFillOpacity(d) : 0));
+
+        activeOriginals.select("path.original-bottom-half")
+          .attr("fill-opacity", (d) => (d.splitColors ? originalActiveFillOpacity(d) : 0));
+
+        activeOriginals.select("circle.original-outline")
+          .attr("stroke-width", 2);
+
+        inactiveOriginals
+          .interrupt()
           .transition(t)
-          .style("opacity", (d) => (d.id === link.id ? 1 : 0.25));
+          .style("opacity", 0.08);
+
+        updateOriginalMarkFill(inactiveOriginals, t, () => originalDimFillOpacity());
 
         originalSelection
-          .filter((d) => d.id === link.id)
+          .filter((d) => relatedOriginalKeys.has(d.originalKey))
           .raise();
 
         if (pulse) {
-          pulseOriginal(link.id);
+          pulseOriginalByKey(link.originalKey);
         }
 
-        showInlineLabels(link);
+        const anchorRevival = mode === "original"
+          ? revivalSelection.data().find((d) => relatedRevivalKeys.has(d.revivalKey))
+          : null;
+        if (anchorRevival) {
+          showInlineLabels(anchorRevival.originals[0], anchorRevival.originals);
+          return;
+        }
+
+        showInlineLabels(relatedLinks[0] || link, relatedLinks);
       }
 
       function applyRevivalFocus(revival, pulse = false) {
         const relatedIds = new Set(revival.originals.map((item) => item.id));
+        const relatedOriginalKeys = new Set(revival.originals.map((item) => item.originalKey));
         const t = d3.transition().duration(200);
 
         arcSelection
@@ -962,20 +1804,48 @@
           .style("opacity", 1);
 
         revivalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", (d) => (d.revivalKey === revival.revivalKey ? revivalActiveFillOpacity() : revivalDimFillOpacity()))
+          .attr("stroke-width", (d) => (d.revivalKey === revival.revivalKey ? 2 : 1));
+
+        revivalSelection
           .filter((d) => d.revivalKey === revival.revivalKey)
           .raise();
 
-        originalSelection
+        const activeOriginals = originalSelection.filter((d) => relatedOriginalKeys.has(d.originalKey));
+        const inactiveOriginals = originalSelection.filter((d) => !relatedOriginalKeys.has(d.originalKey));
+
+        activeOriginals
+          .interrupt()
+          .style("opacity", 1);
+
+        activeOriginals.select("circle.original-fill")
+          .attr("fill-opacity", (d) => (d.splitColors ? 0 : originalActiveFillOpacity(d)));
+
+        activeOriginals.select("path.original-top-half")
+          .attr("fill-opacity", (d) => (d.splitColors ? originalActiveFillOpacity(d) : 0));
+
+        activeOriginals.select("path.original-bottom-half")
+          .attr("fill-opacity", (d) => (d.splitColors ? originalActiveFillOpacity(d) : 0));
+
+        activeOriginals.select("circle.original-outline")
+          .attr("stroke-width", 2);
+
+        inactiveOriginals
+          .interrupt()
           .transition(t)
-          .style("opacity", (d) => (relatedIds.has(d.id) ? 1 : 0.25));
+          .style("opacity", 0.08);
+
+        updateOriginalMarkFill(inactiveOriginals, t, () => originalDimFillOpacity());
 
         originalSelection
-          .filter((d) => relatedIds.has(d.id))
+          .filter((d) => relatedOriginalKeys.has(d.originalKey))
           .raise();
 
         if (pulse) {
-          revival.originals.forEach((item) => {
-            pulseOriginal(item.id);
+          [...relatedOriginalKeys].forEach((originalKey) => {
+            pulseOriginalByKey(originalKey);
           });
         }
 
@@ -983,7 +1853,7 @@
         showInlineLabels(revival.originals[0], revival.originals);
       }
 
-      function bindInteraction(selection) {
+      function bindInteraction(selection, mode = "link") {
         selection
           .on("mouseenter", function (event, link) {
             if (lockedId && lockedId !== link.id) {
@@ -991,7 +1861,7 @@
             }
 
             d3.select(this).raise();
-            applyFocus(link, !lockedId);
+            applyFocus(link, !lockedId, mode);
           })
           .on("mouseleave", function () {
             if (!lockedId) {
@@ -1002,7 +1872,7 @@
             event.stopPropagation();
             lockedId = link.id;
             d3.select(this).raise();
-            applyFocus(link, false);
+            applyFocus(link, false, mode);
           });
       }
 
@@ -1043,12 +1913,18 @@
       }
 
       function render(animate) {
-        const browserRows = filteredRows();
-        const browserData = buildBrowserData(browserRows);
-        const selectionExists = selectedRevivalKey && browserData.some((revival) => revival.revivalKey === selectedRevivalKey);
-        if (!selectionExists) {
-          selectedRevivalKey = null;
-        }
+        const width = window.innerWidth;
+        const rows = filteredRows();
+        const uniqueRevivals = new Map();
+        rows.forEach((row) => {
+          const key = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+          if (!uniqueRevivals.has(key)) {
+            uniqueRevivals.set(key, row);
+          }
+        });
+        const viewportHeight = window.innerHeight - 140;
+        const height = viewportHeight;
+        const { zoneBounds } = getZoneGeometry(height);
 
         const rows = selectedRevivalKey
           ? browserRows.filter((row) => getRevivalKey(row) === selectedRevivalKey)
@@ -1093,6 +1969,70 @@
         const laidOut = computeStoryLayout(rows, width, height);
         const transition = d3.transition().duration(animate ? 320 : 0);
 
+        const originalEntities = Array.from(d3.group(laidOut, (d) => d.originalKey), ([originalKey, links]) => {
+          const first = links.reduce((best, d) => {
+            const bestPeak = Number.isFinite(best.originalPeak) ? best.originalPeak : Number.POSITIVE_INFINITY;
+            const currentPeak = Number.isFinite(d.originalPeak) ? d.originalPeak : Number.POSITIVE_INFINITY;
+            return currentPeak < bestPeak ? d : best;
+          });
+          const sortedConnectedLinks = links
+            .slice()
+            .sort(
+              (a, b) =>
+                d3.ascending(a.revivalPeak, b.revivalPeak) ||
+                d3.ascending(a.revivalSong, b.revivalSong) ||
+                d3.ascending(a.revivalArtist, b.revivalArtist)
+            );
+          const rankedDistinctTypes = Array.from(
+            d3.group(sortedConnectedLinks, (d) => d.relationshipType),
+            ([, typeLinks]) => typeLinks[0]
+          );
+          const originalX = d3.mean(links, (d) => d.originalX) ?? first.originalX;
+          const originalY = first.originalY;
+          const originalR = d3.max(links, (d) => d.originalR) ?? first.originalR;
+          const primaryRelationshipType = rankedDistinctTypes[0]?.relationshipType;
+          const originalColor = RELATIONSHIP_COLOR[primaryRelationshipType] || first.originalColor;
+          const splitColors =
+            rankedDistinctTypes.length > 1
+              ? {
+                  top: rankedDistinctTypes[0].revivalColor,
+                  bottom: rankedDistinctTypes[Math.min(1, rankedDistinctTypes.length - 1)].revivalColor,
+                }
+              : null;
+
+          links.forEach((link) => {
+            link.originalX = originalX;
+            link.originalY = originalY;
+            link.originalR = originalR;
+            link.originalColor = originalColor;
+            link.path = buildArcPath(link.originalX, link.originalY, link.originalR, link.revivalX, link.revivalY, link.revivalR);
+          });
+
+          return {
+            id: `original:${originalKey}`,
+            originalKey,
+            originalSong: first.originalSong,
+            originalArtist: first.originalArtist,
+            originalReleaseYear: first.originalReleaseYear,
+            originalPeak: first.originalPeak,
+            originalPeakDisplay: first.originalPeakDisplay,
+            originalWeeksOnChart: first.originalWeeksOnChart,
+            originalX,
+            originalY,
+            originalR,
+            originalColor,
+            splitColors,
+            everCharted: first.everCharted,
+            connectedLinks: links,
+            connectedRevivalKeys: [...new Set(links.map((d) => d.revivalKey))],
+          };
+        }).sort(
+          (a, b) =>
+            d3.ascending(a.originalY, b.originalY) ||
+            d3.ascending(a.originalX, b.originalX) ||
+            d3.ascending(a.originalSong, b.originalSong)
+        );
+
         const groupedRevivals = Array.from(d3.group(laidOut, (d) => d.revivalKey), ([revivalKey, originals]) => {
           const first = originals[0];
           return {
@@ -1108,6 +2048,159 @@
             originals
           };
         });
+
+        const zoneBands = [
+          { label: "#1 hits", color: "#E07A5F", opacity: 0.18, y0: zoneBounds.get("number1").y0, y1: zoneBounds.get("number1").y1 },
+          { label: "Top 10", color: "#E8A838", opacity: 0.14, y0: zoneBounds.get("top10").y0, y1: zoneBounds.get("top10").y1 },
+          { label: "Top 40", color: "#A8DADC", opacity: 0.18, y0: zoneBounds.get("top40").y0, y1: zoneBounds.get("top40").y1 },
+          { label: "Top 50", color: "#B8D4C8", opacity: 0.15, y0: zoneBounds.get("charted").y0, y1: zoneBounds.get("charted").y1 },
+          { label: "Never charted", color: "#C9B99A", opacity: 0.15, y0: zoneBounds.get("never-charted").y0, y1: zoneBounds.get("never-charted").y1 }
+        ];
+
+        const bandGroups = bandLayer.selectAll("g.zone-band").data(zoneBands, (d) => d.label);
+        const bandEnter = bandGroups.join((enter) => {
+          const group = enter.append("g").attr("class", "zone-band");
+          group.append("rect");
+          group.append("text");
+          return group;
+        });
+        const mergedBands = bandLayer.selectAll("g.zone-band");
+
+        mergedBands.select("rect")
+          .attr("x", 0)
+          .attr("y", (d) => d.y0)
+          .attr("width", width)
+          .attr("height", (d) => Math.max(0, d.y1 - d.y0 + 1))
+          .attr("fill", (d) => d.color)
+          .attr("fill-opacity", (d) => d.opacity);
+
+        mergedBands.select("text")
+          .attr("x", 8)
+          .attr("y", (d) => d.y0 + Math.max(9, (d.y1 - d.y0) / 2))
+          .attr("fill", (d) => (
+            d.label === "#1 hits"
+              ? "#A85A45"
+              : d.label === "Top 10"
+                ? "#A8771F"
+                : d.label === "Top 40"
+                  ? "#6F8790"
+                  : d.label === "Top 50"
+                    ? "#5F7B6F"
+                    : d.label === "Never charted"
+                      ? "#6E5F48"
+                      : d.color
+          ))
+          .attr("fill-opacity", 0.85)
+          .attr("font-size", 13)
+          .attr("font-weight", 700)
+          .text((d) => d.label);
+
+        const leftMargin = 80;
+        const timelineY = height - 30;
+        const timelineTicks = [1960, 1970, 1980, 1990, 2000, 2010];
+        const revivalAnchorX = width - 520;
+        const revivalGuideTop = (zoneBounds.get("number1")?.y0 ?? 80) - 8;
+        const revivalGuideBottom = timelineY - 4;
+        const currentYear =
+          activeYear === "ALL" ? d3.max(rows, (row) => row.revivalChartYear) || DEFAULT_YEAR : activeYear;
+        const timelineAnchorX = width - 280;
+        const timelineXForYear = (year) =>
+          clamp(timelineAnchorX - projectYearsBetween(currentYear - year) * (width * 0.85), leftMargin, timelineAnchorX);
+
+        const revivalGuide = timelineLayer.selectAll("g.revival-guide").data([null]).join("g").attr("class", "revival-guide");
+        revivalGuide
+          .selectAll("line.guide-left")
+          .data([null])
+          .join("line")
+          .attr("class", "guide-left")
+          .attr("x1", revivalAnchorX - 4)
+          .attr("x2", revivalAnchorX - 4)
+          .attr("y1", revivalGuideTop)
+          .attr("y2", revivalGuideBottom)
+          .attr("stroke", "#9f948a")
+          .attr("stroke-opacity", 0.5)
+          .attr("stroke-width", 1.5)
+          .attr("stroke-dasharray", "6,4");
+
+        revivalGuide
+          .selectAll("text.guide-label")
+          .data([null])
+          .join("text")
+          .attr("class", "guide-label")
+          .attr("x", revivalAnchorX + (width - revivalAnchorX) / 2)
+          .attr("y", revivalGuideTop - 6)
+          .attr("fill", "#666")
+          .attr("fill-opacity", 1)
+          .attr("font-size", 14)
+          .attr("font-style", "normal")
+          .attr("font-weight", "600")
+          .text(`${currentYear} Top 50`);
+
+        revivalGuide
+          .selectAll("text.current-year-label")
+          .data([null])
+          .join("text")
+          .attr("class", "current-year-label")
+          .attr("x", width - 200)
+          .attr("y", height - 18)
+          .attr("fill", "#9f948a")
+          .attr("fill-opacity", 0.9)
+          .attr("font-size", 12)
+          .attr("font-weight", "600")
+          .attr("text-anchor", "middle")
+          .text(currentYear);
+
+        const timelineGroup = timelineLayer.selectAll("g.reference-timeline").data([null]).join("g").attr("class", "reference-timeline");
+        timelineGroup
+          .selectAll("line.timeline-axis")
+          .data([null])
+          .join("line")
+          .attr("class", "timeline-axis")
+          .attr("x1", leftMargin)
+          .attr("x2", width)
+          .attr("y1", timelineY)
+          .attr("y2", timelineY)
+          .attr("stroke", "#888")
+          .attr("stroke-width", 1.5);
+
+        const tickGroups = timelineGroup.selectAll("g.timeline-tick").data(timelineTicks, (d) => d);
+        const mergedTicks = tickGroups.join((enter) => {
+          const g = enter.append("g").attr("class", "timeline-tick");
+          g.append("line");
+          g.append("text");
+          return g;
+        });
+
+        mergedTicks.select("line")
+          .attr("x1", (d) => timelineXForYear(d))
+          .attr("x2", (d) => timelineXForYear(d))
+          .attr("y1", timelineY - 3)
+          .attr("y2", timelineY + 3)
+          .attr("stroke", "#ccc");
+
+        mergedTicks.select("text")
+          .attr("x", (d) => timelineXForYear(d))
+          .attr("y", height - 18)
+          .attr("fill", "#555")
+          .attr("font-size", 13)
+          .attr("text-anchor", "middle")
+          .text((d) => d);
+
+        const revivalWithMostOriginals = groupedRevivals.reduce(
+          (best, revival) => (!best || revival.originals.length > best.originals.length ? revival : best),
+          null
+        );
+        if (revivalWithMostOriginals) {
+          console.log("revival with most originals", {
+            revival_song: revivalWithMostOriginals.revivalSong,
+            revival_artist: revivalWithMostOriginals.revivalArtist,
+            original_count: revivalWithMostOriginals.originals.length,
+            originals: revivalWithMostOriginals.originals.map((item) => ({
+              original_song: item.originalSong,
+              original_artist: item.originalArtist,
+            })),
+          });
+        }
 
         const arcData = groupedRevivals.flatMap((revival) => revival.originals);
 
@@ -1138,7 +2231,7 @@
 
         arcSelection = arcLayer.selectAll("path.arc");
 
-        originalSelection = originalLayer.selectAll("g.original-mark").data(laidOut, (d) => d.id);
+        originalSelection = originalLayer.selectAll("g.original-mark").data(originalEntities, (d) => d.id);
 
         originalSelection
           .join(
@@ -1151,16 +2244,33 @@
 
               group
                 .append("circle")
+                .attr("class", "original-fill")
                 .attr("r", (d) => d.originalR)
                 .attr("fill", (d) => d.originalColor)
-                .attr("fill-opacity", 0.78)
-                .attr("stroke", (d) => colorWithOpacity(d.originalColor, 0.45))
-                .attr("stroke-width", 1.5);
+                .attr("fill-opacity", (d) => (d.splitColors ? 0 : d.everCharted ? 0.7 : 0.7))
+                .attr("stroke", "none");
 
-              const text = group.append("text").attr("class", "story-text").attr("text-anchor", "end");
-              text.append("tspan").attr("class", "song");
-              text.append("tspan").attr("class", "meta");
-              text.append("tspan").attr("class", "peak");
+              group
+                .append("path")
+                .attr("class", "original-top-half")
+                .attr("d", (d) => `M ${-d.originalR},0 A ${d.originalR},${d.originalR} 0 0,1 ${d.originalR},0 Z`)
+                .attr("fill", (d) => (d.splitColors ? d.splitColors.top : d.originalColor))
+                .attr("fill-opacity", (d) => (d.splitColors ? (d.everCharted ? 0.7 : 0.7) : 0));
+
+              group
+                .append("path")
+                .attr("class", "original-bottom-half")
+                .attr("d", (d) => `M ${-d.originalR},0 A ${d.originalR},${d.originalR} 0 0,0 ${d.originalR},0 Z`)
+                .attr("fill", (d) => (d.splitColors ? d.splitColors.bottom : d.originalColor))
+                .attr("fill-opacity", (d) => (d.splitColors ? (d.everCharted ? 0.7 : 0.7) : 0));
+
+              group
+                .append("circle")
+                .attr("class", "original-outline")
+                .attr("r", (d) => d.originalR)
+                .attr("fill", "none")
+                .attr("stroke", (d) => colorWithOpacity(d.originalColor, 0.35))
+                .attr("stroke-width", 1);
 
               group.call((enterSelection) => enterSelection.transition(transition).style("opacity", 1));
               return group;
@@ -1175,37 +2285,31 @@
             (exit) => exit.call((exitSelection) => exitSelection.transition(transition).style("opacity", 0).remove())
           );
 
-        originalSelection = originalLayer.selectAll("g.original-mark");
         originalSelection
-          .select("circle")
+          .select("circle.original-fill")
           .transition(transition)
           .attr("r", (d) => d.originalR)
           .attr("fill", (d) => d.originalColor)
-          .attr("fill-opacity", 0.78)
-          .attr("stroke", (d) => colorWithOpacity(d.originalColor, 0.45));
-
+          .attr("fill-opacity", (d) => (d.splitColors ? 0 : d.everCharted ? 0.7 : 0.7));
         originalSelection
-          .select("text.story-text")
-          .attr("x", (d) => -(d.originalR + 18))
-          .attr("y", -20)
-          .each(function (d) {
-            const tspans = d3.select(this).selectAll("tspan");
-            tspans
-              .filter(".song")
-              .attr("x", -(d.originalR + 18))
-              .attr("fill", d.originalColor)
-              .text(d.originalSong);
-            tspans
-              .filter(".meta")
-              .attr("x", -(d.originalR + 18))
-              .attr("dy", 18)
-              .text(`${d.originalArtist} — ${d.originalReleaseYear}`);
-            tspans
-              .filter(".peak")
-              .attr("x", -(d.originalR + 18))
-              .attr("dy", 18)
-              .text(peakLabel(d.originalPeakDisplay));
-          });
+          .select("path.original-top-half")
+          .transition(transition)
+          .attr("d", (d) => `M ${-d.originalR},0 A ${d.originalR},${d.originalR} 0 0,1 ${d.originalR},0 Z`)
+          .attr("fill", (d) => (d.splitColors ? d.splitColors.top : d.originalColor))
+          .attr("fill-opacity", (d) => (d.splitColors ? (d.everCharted ? 0.7 : 0.7) : 0));
+        originalSelection
+          .select("path.original-bottom-half")
+          .transition(transition)
+          .attr("d", (d) => `M ${-d.originalR},0 A ${d.originalR},${d.originalR} 0 0,0 ${d.originalR},0 Z`)
+          .attr("fill", (d) => (d.splitColors ? d.splitColors.bottom : d.originalColor))
+          .attr("fill-opacity", (d) => (d.splitColors ? (d.everCharted ? 0.7 : 0.7) : 0));
+        originalSelection
+          .select("circle.original-outline")
+          .transition(transition)
+          .attr("r", (d) => d.originalR)
+          .attr("stroke", (d) => colorWithOpacity(d.originalColor, 0.35))
+          .attr("stroke-width", 1);
+        originalSelection = originalLayer.selectAll("g.original-mark");
 
         revivalSelection = revivalLayer.selectAll("g.revival-mark").data(groupedRevivals, (d) => d.id);
 
@@ -1252,31 +2356,8 @@
           .attr("fill", (d) => d.revivalColor)
           .attr("stroke", (d) => d.revivalColor);
 
-        revivalSelection
-          .select("text.story-text")
-          .attr("x", (d) => d.revivalR + 18)
-          .attr("y", -22)
-          .each(function (d) {
-            const tspans = d3.select(this).selectAll("tspan");
-            tspans
-              .filter(".song")
-              .attr("x", d.revivalR + 18)
-              .attr("fill", d.revivalColor)
-              .text(d.revivalSong);
-            tspans
-              .filter(".meta")
-              .attr("x", d.revivalR + 18)
-              .attr("dy", 18)
-              .text(`${d.revivalArtist} — ${d.revivalChartYear}`);
-            tspans
-              .filter(".peak")
-              .attr("x", d.revivalR + 18)
-              .attr("dy", 18)
-              .text(peakLabel(d.revivalPeak));
-          });
-
-        bindInteraction(arcSelection);
-        bindInteraction(originalSelection);
+        bindInteraction(arcSelection, "original");
+        bindInteraction(originalSelection, "original");
 
         revivalSelection
           .on("mouseenter", function (event, revival) {
@@ -1304,12 +2385,17 @@
           if (lockedRevival) {
             applyRevivalFocus(lockedRevival, false);
           } else {
-            const lockedLink = arcData.find((row) => row.id === lockedId);
-            if (lockedLink) {
-              applyFocus(lockedLink, false);
+            const lockedOriginal = originalEntities.find((original) => original.id === lockedId);
+            if (lockedOriginal) {
+              applyFocus(lockedOriginal, false, "original");
             } else {
-              lockedId = null;
-              resetFocus();
+              const lockedLink = arcData.find((row) => row.id === lockedId);
+              if (lockedLink) {
+                applyFocus(lockedLink, false, "link");
+              } else {
+                lockedId = null;
+                resetFocus();
+              }
             }
           }
         } else {
@@ -1321,6 +2407,7 @@
         const revivalPeak = Number(row.revival_peak);
         const revivalChartYear = Number(row.revival_chart_year);
         const originalPeak = Number(row.original_peak);
+        const normalizedOriginalPeak = Number.isFinite(originalPeak) && originalPeak > 0 ? originalPeak : null;
         const yearsBetween = Number(row.years_between);
         const originalReleaseYear = Number(row.original_release_year);
         const revivalSpotifyPopularity = Number(row.revival_spotify_popularity);
@@ -1349,8 +2436,8 @@
           revivalWeeksOnChart: Number.isFinite(revivalWeeksOnChart) ? revivalWeeksOnChart : 1,
           originalSong: row.original_song,
           originalArtist: row.original_artist,
-          originalPeak: Number.isFinite(originalPeak) ? originalPeak : null,
-          originalPeakDisplay: Number.isFinite(originalPeak) ? originalPeak : null,
+          originalPeak: normalizedOriginalPeak,
+          originalPeakDisplay: normalizedOriginalPeak,
           originalWeeksOnChart: Number.isFinite(originalWeeksOnChart) ? originalWeeksOnChart : 1,
           originalReleaseYear,
           everCharted,
