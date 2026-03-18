@@ -1255,6 +1255,14 @@
               const peakItems = peakGroups.get(peakValue) || [];
               const laneCenter =
                 zone.y0 + ((peakIndex + 0.5) / Math.max(sortedPeakValues.length, 1)) * (zone.y1 - zone.y0);
+              const previousLaneCenter = peakIndex > 0
+                ? zone.y0 + (((peakIndex - 1) + 0.5) / Math.max(sortedPeakValues.length, 1)) * (zone.y1 - zone.y0)
+                : null;
+              const nextLaneCenter = peakIndex < sortedPeakValues.length - 1
+                ? zone.y0 + (((peakIndex + 1) + 0.5) / Math.max(sortedPeakValues.length, 1)) * (zone.y1 - zone.y0)
+                : null;
+              const laneTop = previousLaneCenter === null ? zone.y0 : (previousLaneCenter + laneCenter) / 2;
+              const laneBottom = nextLaneCenter === null ? zone.y1 : (laneCenter + nextLaneCenter) / 2;
 
               if (zoneKey === "number1") {
                 peakItems.sort((a, b) => radiusFn(b) - radiusFn(a));
@@ -1265,6 +1273,8 @@
                     key: keyFn(item),
                     y: laneCenter,
                     xOffset: i * step,
+                    laneTop,
+                    laneBottom,
                   });
                 });
                 return;
@@ -1310,6 +1320,8 @@
                   key: keyFn(item),
                   y,
                   xOffset,
+                  laneTop,
+                  laneBottom,
                 });
               });
             });
@@ -1321,6 +1333,8 @@
               {
                 y: item.y,
                 xOffset: item.xOffset,
+                laneTop: item.laneTop,
+                laneBottom: item.laneBottom,
               },
             ])
           );
@@ -1393,7 +1407,8 @@
               revivalXBase - 60
             );
             const unchartedZone = zoneBounds.get("never-charted");
-            const originalY = originalYMap.get(originalKey)?.y ?? (unchartedZone.y0 + unchartedZone.y1) / 2;
+            const originalPosition = originalYMap.get(originalKey);
+            const originalY = originalPosition?.y ?? (unchartedZone.y0 + unchartedZone.y1) / 2;
 
             return {
               ...row,
@@ -1404,6 +1419,8 @@
               revivalR,
               originalX,
               originalY,
+              originalLaneTop: originalPosition?.laneTop ?? unchartedZone.y0,
+              originalLaneBottom: originalPosition?.laneBottom ?? unchartedZone.y1,
               originalR,
               revivalColor,
               originalColor,
@@ -1427,7 +1444,7 @@
         return positionedRows;
       }
 
-      function resolveOriginalEntityCollisions(originalEntities, topMargin, bottomMargin) {
+      function resolveOriginalEntityCollisions(originalEntities) {
         const collisionGroups = d3.group(originalEntities, (entity) => {
           const peakKey = Number.isFinite(entity.originalPeak)
             ? `peak:${entity.originalPeak}`
@@ -1454,9 +1471,11 @@
           const stackHeight =
             orderedGroup.reduce((sum, entity) => sum + entity.originalR * 2, 0) + stackGap * Math.max(orderedGroup.length - 1, 0);
           let cursor = nominalCenter - stackHeight / 2;
+          const laneTop = d3.max(orderedGroup, (entity) => entity.originalLaneTop) ?? orderedGroup[0].originalLaneTop;
+          const laneBottom = d3.min(orderedGroup, (entity) => entity.originalLaneBottom) ?? orderedGroup[0].originalLaneBottom;
 
           orderedGroup.forEach((entity) => {
-            entity.originalY = clamp(cursor + entity.originalR, topMargin + entity.originalR + 2, bottomMargin - entity.originalR - 2);
+            entity.originalY = clamp(cursor + entity.originalR, laneTop + 2, laneBottom - 2);
             cursor += entity.originalR * 2 + stackGap;
           });
         });
@@ -1711,7 +1730,7 @@
         });
         const viewportHeight = window.innerHeight - 140;
         const height = viewportHeight;
-        const { topMargin, bottomMargin, zoneBounds } = getZoneGeometry(height);
+        const { zoneBounds } = getZoneGeometry(height);
 
         chartNode.style.height = `${height}px`;
         counterNode.textContent = `Showing ${rows.length} connections`;
@@ -1799,6 +1818,8 @@
             originalWeeksOnChart: first.originalWeeksOnChart,
             originalX,
             originalY,
+            originalLaneTop: first.originalLaneTop,
+            originalLaneBottom: first.originalLaneBottom,
             originalR,
             originalColor,
             splitColors,
@@ -1813,7 +1834,7 @@
             d3.ascending(a.originalSong, b.originalSong)
         );
 
-        resolveOriginalEntityCollisions(originalEntities, topMargin, bottomMargin);
+        resolveOriginalEntityCollisions(originalEntities);
         originalEntities.forEach((entity) => {
           entity.connectedLinks.forEach((link) => {
             link.originalY = entity.originalY;
