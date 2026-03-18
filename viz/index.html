@@ -409,6 +409,7 @@
       const chartNode = document.getElementById("chart");
       const filtersNode = document.getElementById("filters");
       const counterNode = document.getElementById("counter");
+      const pageNode = document.querySelector(".page");
 
       let allRows = [];
       let activeYear = DEFAULT_YEAR;
@@ -1047,6 +1048,20 @@
         originalLabelsLayer.selectAll("*").remove();
       }
 
+      function setYear(year) {
+        const nextYear = year === "ALL" ? "ALL" : Number(year);
+        if (activeYear === nextYear) {
+          updateButtons();
+          return;
+        }
+
+        activeYear = nextYear;
+        lockedId = null;
+        hideInlineLabels();
+        render(true);
+        updateButtons();
+      }
+
       function buildButtons() {
         filtersNode.innerHTML = "";
 
@@ -1056,16 +1071,7 @@
           button.className = "year-button";
           button.dataset.year = String(year);
           button.textContent = String(year);
-          button.addEventListener("click", () => {
-            if (activeYear === year) {
-              return;
-            }
-
-            activeYear = year;
-            lockedId = null;
-            hideInlineLabels();
-            render(true);
-          });
+          button.addEventListener("click", () => setYear(year));
           filtersNode.appendChild(button);
         });
       }
@@ -1512,6 +1518,70 @@
           .attr("stroke-width", 1);
         updateOriginalMarkFill(originalSelection, t, (d) => originalBaseFillOpacity(d));
         hideInlineLabels();
+      }
+
+      function clearFocus() {
+        lockedId = null;
+        resetFocus();
+      }
+
+      function focusSong(revivalSongName, revivalArtistName) {
+        const songQuery = String(revivalSongName || "").trim().toLowerCase();
+        const artistQuery = String(revivalArtistName || "").trim().toLowerCase();
+        if (!songQuery) {
+          return;
+        }
+
+        const matchedRevival = revivalSelection
+          .data()
+          .find(
+            (revival) =>
+              revival.revivalSong.toLowerCase().includes(songQuery) &&
+              (!artistQuery || revival.revivalArtist.toLowerCase().includes(artistQuery))
+          );
+        if (!matchedRevival) {
+          return;
+        }
+
+        clearFocus();
+        const relatedIds = new Set(matchedRevival.originals.map((item) => item.id));
+        const relatedOriginalKeys = new Set(matchedRevival.originals.map((item) => item.originalKey));
+        const t = d3.transition().duration(200);
+
+        arcSelection
+          .transition(t)
+          .style("opacity", (d) => (relatedIds.has(d.id) ? 1 : 0.15));
+
+        revivalSelection
+          .transition(t)
+          .style("opacity", (d) => (d.revivalKey === matchedRevival.revivalKey ? 1 : 0.15));
+
+        originalSelection
+          .transition(t)
+          .style("opacity", (d) => (relatedOriginalKeys.has(d.originalKey) ? 1 : 0.15));
+
+        arcSelection
+          .filter((d) => relatedIds.has(d.id))
+          .raise();
+        revivalSelection
+          .filter((d) => d.revivalKey === matchedRevival.revivalKey)
+          .raise();
+        originalSelection
+          .filter((d) => relatedOriginalKeys.has(d.originalKey))
+          .raise();
+      }
+
+      function setScrollyMode(active) {
+        pageNode?.classList.toggle("scrolly-active", Boolean(active));
+      }
+
+      function initializeVizAPI() {
+        window.vizAPI = {
+          setYear,
+          focusSong,
+          clearFocus,
+          setScrollyMode,
+        };
       }
 
       function applyFocus(link, pulse = false, mode = "link") {
@@ -2274,6 +2344,7 @@
 
           buildButtons();
           render(false);
+          initializeVizAPI();
 
           document.addEventListener("click", () => {
             if (!lockedId) {
