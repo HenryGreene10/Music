@@ -1,0 +1,2519 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How Modern Music Resurrects the Past</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #fafaf8;
+        --text: #1f1f1b;
+        --muted: #666666;
+        --hairline: rgba(31, 31, 27, 0.1);
+        --warm: #e07a5f;
+        --cool: #4a7fa5;
+        --cool-soft: #a0b8c8;
+        --sample: #e07a5f;
+        --interpolate: #3d8b8b;
+        --cover: #9b72aa;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      body {
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        padding-top: 16px;
+      }
+
+      .page {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        width: 100vw;
+        min-height: 100vh;
+      }
+
+      .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        padding: 4px 28px;
+      }
+
+      .header-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .title-block {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+      }
+
+      h1 {
+        margin: 0 0 6px;
+        font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+        font-size: clamp(26px, 3.1vw, 40px);
+        line-height: 0.98;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+
+      .subtitle {
+        margin: 0 0 8px;
+        color: #707070;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .header-legend {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 16px;
+        color: #999999;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .header-legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .header-legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        flex: 0 0 auto;
+      }
+
+      .header-legend-stroke {
+        width: 14px;
+        height: 0;
+        border-top: 2px solid currentColor;
+        border-radius: 999px;
+        flex: 0 0 auto;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-width: 0;
+      }
+
+      .filters {
+        display: flex;
+        gap: 8px;
+        margin-top: 6px;
+        min-width: 0;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+      }
+
+      .filters::-webkit-scrollbar {
+        display: none;
+      }
+
+      .year-button {
+        flex: 0 0 auto;
+        border: 1px solid rgba(31, 31, 27, 0.15);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        color: #666666;
+        padding: 5px 12px;
+        font: inherit;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          background 180ms ease,
+          color 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .year-button:hover {
+        background: rgba(224, 122, 95, 0.08);
+        border-color: rgba(224, 122, 95, 0.35);
+      }
+
+      .year-button.is-active {
+        background: #1f1f1b;
+        border-color: #1f1f1b;
+        color: #ffffff;
+      }
+
+      .counter {
+        flex: 0 0 auto;
+        color: #7a7a7a;
+        font-size: 11px;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+
+      .chart-shell {
+        position: relative;
+        width: 100vw;
+        height: auto;
+        min-height: calc(100vh - 100px);
+      }
+
+      #chart,
+      svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        background: var(--bg);
+        overflow: visible;
+      }
+
+      .arc {
+        fill: none;
+        opacity: 0.06;
+        stroke-linecap: round;
+        pointer-events: stroke;
+      }
+
+      .revival-mark,
+      .original-mark {
+        cursor: pointer;
+      }
+
+      .revival-mark text {
+        font-size: 9px;
+        pointer-events: none;
+      }
+
+      .revival-mark .song-label {
+        fill: #333333;
+        font-weight: 600;
+      }
+
+      .revival-mark .artist-label {
+        fill: #999999;
+      }
+
+      .revival-mark .peak-label {
+        fill: #e07a5f;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .legend {
+        position: absolute;
+        left: 24px;
+        bottom: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 14px 16px;
+        border: 1px solid rgba(31, 31, 27, 0.08);
+        border-radius: 16px;
+        background: rgba(250, 250, 248, 0.9);
+        backdrop-filter: blur(8px);
+      }
+
+      .legend-row,
+      .legend-swatches {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #4a4a4a;
+        font-size: 12px;
+      }
+
+      .legend-circle {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        flex: 0 0 auto;
+      }
+
+      .legend-stroke {
+        width: 18px;
+        height: 0;
+        border-top: 3px solid currentColor;
+        border-radius: 999px;
+        flex: 0 0 auto;
+      }
+
+      .legend-note {
+        color: #747474;
+        font-size: 11px;
+      }
+
+      .inline-label {
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .inline-label text {
+        line-height: 1.7;
+      }
+
+      .inline-label rect {
+        fill: rgba(255, 255, 255, 0.96);
+        rx: 4px;
+        ry: 4px;
+        filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12));
+      }
+
+      .inline-label line.label-leader {
+        stroke: rgba(74, 74, 74, 0.18);
+        stroke-width: 1;
+      }
+
+      .inline-label .song {
+        font-size: 16.5px;
+        font-weight: 700;
+      }
+
+      .inline-label .artist {
+        font-size: 16px;
+        font-weight: 400;
+        fill: #555;
+      }
+
+      .inline-label .year {
+        font-size: 16px;
+        font-weight: 400;
+        fill: #555;
+      }
+
+      .inline-label .peak {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .inline-label.original .song,
+      .inline-label.original .artist {
+      }
+
+      .empty-state {
+        display: grid;
+        place-items: center;
+        height: 100%;
+        color: #9a9a9a;
+        font-size: 14px;
+      }
+
+      @media (max-width: 720px) {
+        .header {
+          padding: 4px 16px;
+        }
+
+        .header-top {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .counter {
+          font-size: 10px;
+        }
+
+        .year-button {
+          padding: 5px 10px;
+        }
+
+        .legend {
+          left: 16px;
+          right: 16px;
+          bottom: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <div class="header-top">
+          <div class="title-block">
+            <h1>How Modern Music Resurrects the Past</h1>
+            <p class="subtitle">Each arc connects a chart hit to the older song it revives.</p>
+          </div>
+          <div class="header-legend" aria-label="Legend">
+            <span class="header-legend-item" style="color: #555;">
+              Larger bubble = more weeks charted
+            </span>
+            <span class="header-legend-item" style="color: #e07a5f">
+              <span class="header-legend-dot" style="background: #e07a5f"></span>
+              <span class="header-legend-stroke"></span>
+              <span>Sample</span>
+            </span>
+            <span class="header-legend-item" style="color: #3d8b8b">
+              <span class="header-legend-dot" style="background: #3d8b8b"></span>
+              <span class="header-legend-stroke"></span>
+              <span>Interpolation</span>
+            </span>
+            <span class="header-legend-item" style="color: #9b72aa">
+              <span class="header-legend-dot" style="background: #9b72aa"></span>
+              <span class="header-legend-stroke"></span>
+              <span>Sample &amp; Interpolation</span>
+            </span>
+          </div>
+        </div>
+        <div class="controls">
+          <div id="filters" class="filters" aria-label="Year filters"></div>
+          <div id="counter" class="counter"></div>
+        </div>
+      </header>
+
+      <section class="chart-shell">
+        <div id="chart" aria-label="Music sample connections chart"></div>
+      </section>
+    </div>
+
+    <script>
+      const YEAR_OPTIONS = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+      const DEFAULT_YEAR = 2025;
+      const RELATIONSHIP_COLOR = {
+        samples: "#E07A5F",
+        interpolates: "#3D8B8B",
+        cover: "#9B72AA"
+      };
+
+      const chartNode = document.getElementById("chart");
+      const filtersNode = document.getElementById("filters");
+      const counterNode = document.getElementById("counter");
+      const pageNode = document.querySelector(".page");
+
+      let allRows = [];
+      let activeYear = DEFAULT_YEAR;
+      let lockedId = null;
+      let svg;
+      let rootLayer;
+      let bandLayer;
+      let timelineLayer;
+      let arcLayer;
+      let originalLayer;
+      let revivalLayer;
+      let labelLayer;
+      let revivalLabel;
+      let originalLabelsLayer;
+      let arcSelection = d3.select(null);
+      let originalSelection = d3.select(null);
+      let revivalSelection = d3.select(null);
+      let resizeTimer;
+      let maxWeeksOnChart = 1;
+      let forcedFocusConnection = null;
+
+      function truncate(text, maxLength = 25) {
+        return text.length > maxLength ? `${text.slice(0, maxLength - 1).trimEnd()}…` : text;
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function weeksRadius(weeks) {
+        if (!Number.isFinite(weeks) || weeks <= 0) {
+          return 7.5;
+        }
+
+        return clamp(7.5 + (weeks / 112) * 42, 7.5, 49.5);
+      }
+
+      function originalRadius(row) {
+        return row.everCharted ? weeksRadius(row.originalWeeksOnChart) : 9;
+      }
+
+      function peakLabel(peak) {
+        return Number.isFinite(peak) && peak > 0 ? `#${Math.round(peak)}` : "Uncharted";
+      }
+
+      function originalBaseFillOpacity(d) {
+        return d.everCharted ? 0.7 : 0.7;
+      }
+
+      function originalActiveFillOpacity(d) {
+        return d.everCharted ? 0.92 : 0.9;
+      }
+
+      function originalDimFillOpacity() {
+        return 0.18;
+      }
+
+      function updateOriginalMarkFill(selection, transition, opacityAccessor) {
+        const solidFill = selection.select("circle.original-fill");
+        const topHalf = selection.select("path.original-top-half");
+        const bottomHalf = selection.select("path.original-bottom-half");
+        const outline = selection.select("circle.original-outline");
+
+        solidFill
+          .interrupt()
+          .transition(transition)
+          .attr("fill-opacity", (d) => (d.splitColors ? 0 : opacityAccessor(d)));
+
+        topHalf
+          .interrupt()
+          .transition(transition)
+          .attr("fill-opacity", (d) => (d.splitColors ? opacityAccessor(d) : 0));
+
+        bottomHalf
+          .interrupt()
+          .transition(transition)
+          .attr("fill-opacity", (d) => (d.splitColors ? opacityAccessor(d) : 0));
+
+        outline
+          .interrupt()
+          .transition(transition)
+          .attr("stroke-width", (d) => (opacityAccessor(d) > originalDimFillOpacity() ? 2 : 1));
+      }
+
+      function revivalBaseFillOpacity() {
+        return 0.85;
+      }
+
+      function revivalActiveFillOpacity() {
+        return 0.98;
+      }
+
+      function revivalDimFillOpacity() {
+        return 0.22;
+      }
+
+      function colorWithOpacity(color, opacity) {
+        const parsed = d3.color(color);
+        if (!parsed) {
+          return color;
+        }
+
+        parsed.opacity = opacity;
+        return `${parsed}`;
+      }
+
+      function chartDimensions() {
+        return {
+          chartWidth: Number(svg?.attr("width")) || chartNode.clientWidth || window.innerWidth,
+          chartHeight: Number(svg?.attr("height")) || chartNode.clientHeight || window.innerHeight,
+        };
+      }
+
+      function renderWrappedLabelText(textSelection, rows, maxWidth = 300, align = "start") {
+        textSelection.attr("text-anchor", align);
+        textSelection.selectAll("tspan").remove();
+        let isFirstRenderedLine = true;
+
+        rows.forEach((row) => {
+          const words = String(row.text || "").split(/\s+/).filter(Boolean);
+          if (!words.length) {
+            return;
+          }
+
+          let currentLine = "";
+          let isFirstLineInRow = true;
+
+          const appendLine = (lineText) => {
+            textSelection
+              .append("tspan")
+              .attr("class", row.className)
+              .attr("x", 0)
+              .attr("dy", isFirstRenderedLine ? 0 : isFirstLineInRow ? row.rowGap : row.lineGap)
+              .text(lineText)
+              .style("fill", row.color || null);
+            isFirstRenderedLine = false;
+            isFirstLineInRow = false;
+          };
+
+          words.forEach((word) => {
+            const testLine = currentLine ? `${currentLine} ${word}` : word;
+            const probe = textSelection
+              .append("tspan")
+              .attr("class", row.className)
+              .attr("x", 0)
+              .attr("dy", 0)
+              .text(testLine);
+
+            const exceeds = probe.node().getComputedTextLength() > maxWidth;
+            probe.remove();
+
+            if (exceeds && currentLine) {
+              appendLine(currentLine);
+              currentLine = word;
+            } else {
+              currentLine = testLine;
+            }
+          });
+
+          if (currentLine) {
+            appendLine(currentLine);
+          }
+        });
+      }
+
+      function measureLabelBox(label, align) {
+        const text = label.select("text");
+        text.attr("text-anchor", align);
+        return text.node().getBBox();
+      }
+
+      function applyLabelBox(label, bbox, paddingX = 14, paddingY = 11) {
+        label
+          .select("rect")
+          .attr("x", bbox.x - paddingX)
+          .attr("y", bbox.y - paddingY)
+          .attr("width", bbox.width + paddingX * 2)
+          .attr("height", bbox.height + paddingY * 2);
+      }
+
+      function variantDirection(variant) {
+        switch (variant) {
+          case "left":
+            return { x: -1, y: 0 };
+          case "right":
+            return { x: 1, y: 0 };
+          case "above":
+            return { x: 0, y: -1 };
+          case "below":
+            return { x: 0, y: 1 };
+          case "above-left":
+            return { x: -0.75, y: -0.65 };
+          case "above-right":
+            return { x: 0.75, y: -0.65 };
+          case "below-left":
+            return { x: -0.75, y: 0.65 };
+          case "below-right":
+            return { x: 0.75, y: 0.65 };
+          default:
+            return { x: 1, y: 0 };
+        }
+      }
+
+      function buildLabelPlacement(nodeX, nodeY, nodeClearance, bbox, variant, chartWidth, chartHeight) {
+        const paddingX = 10;
+        const paddingY = 8;
+        const edgePad = 20;
+        const requiredGap = nodeClearance * 2 + 24;
+        const cardGap = requiredGap + 4;
+        const sidePad = cardGap;
+        const diagonalPadX = cardGap + 20;
+        const diagonalPadY = Math.max(cardGap + 8, bbox.height * 0.6 + nodeClearance * 0.6);
+        const isLeft = variant.includes("left");
+        const isRight = variant.includes("right");
+        const isAbove = variant.startsWith("above");
+        const isBelow = variant.startsWith("below");
+        const isVertical = variant === "above" || variant === "below";
+        let x = nodeX;
+        if (isLeft) {
+          x = nodeX - (variant === "left" ? sidePad : diagonalPadX);
+        } else if (isRight) {
+          x = nodeX + (variant === "right" ? sidePad : diagonalPadX);
+        }
+        let y = nodeY - (bbox.y + bbox.height / 2);
+
+        if (isAbove) {
+          y -= diagonalPadY;
+        } else if (isBelow) {
+          y += diagonalPadY;
+        }
+
+        if (isVertical) {
+          const centeredRectLeft = x + bbox.x - paddingX;
+          const centeredRectRight = x + bbox.x + bbox.width + paddingX;
+          if (centeredRectLeft < edgePad) {
+            x += edgePad - centeredRectLeft;
+          }
+          if (centeredRectRight > chartWidth - edgePad) {
+            x -= centeredRectRight - (chartWidth - edgePad);
+          }
+        }
+
+        const unclampedRect = {
+          x0: x + bbox.x - paddingX,
+          y0: y + bbox.y - paddingY,
+          x1: x + bbox.x + bbox.width + paddingX,
+          y1: y + bbox.y + bbox.height + paddingY,
+        };
+
+        let shiftX = 0;
+        let shiftY = 0;
+        if (unclampedRect.x0 < edgePad) {
+          shiftX += edgePad - unclampedRect.x0;
+        }
+        if (unclampedRect.x1 > chartWidth - edgePad) {
+          shiftX -= unclampedRect.x1 - (chartWidth - edgePad);
+        }
+        if (unclampedRect.y0 < edgePad) {
+          shiftY += edgePad - unclampedRect.y0;
+        }
+        if (unclampedRect.y1 > chartHeight - edgePad) {
+          shiftY -= unclampedRect.y1 - (chartHeight - edgePad);
+        }
+
+        let finalX = x + shiftX;
+        let finalY = y + shiftY;
+        let rect = {
+          x0: finalX + bbox.x - paddingX,
+          y0: finalY + bbox.y - paddingY,
+          x1: finalX + bbox.x + bbox.width + paddingX,
+          y1: finalY + bbox.y + bbox.height + paddingY,
+        };
+        const direction = variantDirection(variant);
+        const ownGapDistance = pointToRectDistance(nodeX, nodeY, rect);
+        if (ownGapDistance < requiredGap) {
+          const extra = requiredGap - ownGapDistance;
+          finalX += direction.x * extra;
+          finalY += direction.y * extra;
+          const pushedRect = {
+            x0: finalX + bbox.x - paddingX,
+            y0: finalY + bbox.y - paddingY,
+            x1: finalX + bbox.x + bbox.width + paddingX,
+            y1: finalY + bbox.y + bbox.height + paddingY,
+          };
+          if (pushedRect.x0 < edgePad) {
+            finalX += edgePad - pushedRect.x0;
+          }
+          if (pushedRect.x1 > chartWidth - edgePad) {
+            finalX -= pushedRect.x1 - (chartWidth - edgePad);
+          }
+          if (pushedRect.y0 < edgePad) {
+            finalY += edgePad - pushedRect.y0;
+          }
+          if (pushedRect.y1 > chartHeight - edgePad) {
+            finalY -= pushedRect.y1 - (chartHeight - edgePad);
+          }
+          rect = {
+            x0: finalX + bbox.x - paddingX,
+            y0: finalY + bbox.y - paddingY,
+            x1: finalX + bbox.x + bbox.width + paddingX,
+            y1: finalY + bbox.y + bbox.height + paddingY,
+          };
+        }
+
+        return {
+          variant,
+          side: isLeft ? "left" : "right",
+          x: finalX,
+          y: finalY,
+          bbox,
+          rect,
+          anchorAlign: isLeft ? "end" : "start",
+          displacement: Math.hypot(finalX - x, finalY - y),
+          ownGapDistance: pointToRectDistance(nodeX, nodeY, rect),
+          requiredGap,
+        };
+      }
+
+      function placementOverlapArea(a, b) {
+        const overlapX = Math.max(0, Math.min(a.x1, b.x1) - Math.max(a.x0, b.x0));
+        const overlapY = Math.max(0, Math.min(a.y1, b.y1) - Math.max(a.y0, b.y0));
+        return overlapX * overlapY;
+      }
+
+      function pointToRectDistance(x, y, rect) {
+        const dx = Math.max(rect.x0 - x, 0, x - rect.x1);
+        const dy = Math.max(rect.y0 - y, 0, y - rect.y1);
+        return Math.hypot(dx, dy);
+      }
+
+      function scoreLabelPlacement(candidate, node, placedRects, nearbyNodes, variantOrder) {
+        let score = 0;
+        const variantIndex = variantOrder.indexOf(candidate.variant) === -1 ? variantOrder.length : variantOrder.indexOf(candidate.variant);
+        const extraGap = Math.max(0, candidate.ownGapDistance - candidate.requiredGap);
+        score += variantIndex * 8;
+        score += extraGap * 26;
+        score += candidate.displacement * 6;
+        score += Math.abs(candidate.y - node.y) * 0.12;
+        if (candidate.ownGapDistance < candidate.requiredGap) {
+          score += (candidate.requiredGap - candidate.ownGapDistance) * 600;
+        }
+
+        placedRects.forEach((rect) => {
+          score += placementOverlapArea(candidate.rect, rect.rect) * 4;
+        });
+
+        nearbyNodes.forEach((otherNode) => {
+          if (otherNode.key === node.key) {
+            return;
+          }
+          const distance = pointToRectDistance(otherNode.x, otherNode.y, candidate.rect);
+          if (distance < otherNode.clearance) {
+            score += (otherNode.clearance - distance) * 140;
+          }
+        });
+
+        return score;
+      }
+
+      function candidateOrderForOriginal(node, extent) {
+        const xRatio = extent.xSpan > 0 ? (node.x - extent.minX) / extent.xSpan : 0.5;
+        const yRatio = extent.ySpan > 0 ? (node.y - extent.minY) / extent.ySpan : 0.5;
+
+        if (xRatio < 0.33) {
+          return yRatio < 0.35
+            ? ["left", "below-left", "below", "below-right", "above-left", "right", "above-right", "above"]
+            : ["left", "above-left", "above", "below-left", "right", "above-right", "below-right", "below"];
+        }
+
+        if (xRatio > 0.66) {
+          return yRatio > 0.65
+            ? ["right", "above-right", "above", "above-left", "below-right", "left", "below-left", "below"]
+            : ["right", "below-right", "below", "above-right", "left", "below-left", "above-left", "above"];
+        }
+
+        if (yRatio < 0.4) {
+          return ["below", "below-right", "below-left", "right", "left", "above-right", "above-left", "above"];
+        }
+
+        if (yRatio > 0.6) {
+          return ["above", "above-right", "above-left", "right", "left", "below-right", "below-left", "below"];
+        }
+
+        return ["above-right", "above-left", "below-right", "below-left", "right", "left", "above", "below"];
+      }
+
+      function chooseAdaptivePlacement(label, node, variantOrder, placedRects, nearbyNodes) {
+        const text = label.select("text");
+        const { chartWidth, chartHeight } = chartDimensions();
+        const variants = [...new Set(variantOrder)];
+        const candidates = variants.map((variant) => {
+          const align = variant.includes("left") ? "end" : variant.includes("right") ? "start" : "middle";
+          const bbox = measureLabelBox(label, align);
+          applyLabelBox(label, bbox);
+          const candidate = buildLabelPlacement(node.x, node.y, node.clearance || 10, bbox, variant, chartWidth, chartHeight);
+          candidate.score = scoreLabelPlacement(candidate, node, placedRects, nearbyNodes, variants);
+          return candidate;
+        });
+
+        const validCandidates = candidates.filter((candidate) => candidate.ownGapDistance >= candidate.requiredGap - 1);
+        const best = (validCandidates.length ? validCandidates : candidates).sort((a, b) => {
+          if (validCandidates.length) {
+            return (
+              d3.ascending(Math.max(0, a.ownGapDistance - a.requiredGap), Math.max(0, b.ownGapDistance - b.requiredGap)) ||
+              d3.ascending(a.score, b.score)
+            );
+          }
+          return d3.ascending(a.score, b.score);
+        })[0];
+        text.attr("text-anchor", best.anchorAlign);
+        applyLabelBox(label, best.bbox);
+        label.attr("transform", `translate(${best.x},${best.y})`);
+        return best;
+      }
+
+      function placementOrderForOriginals(originalItems, extent) {
+        return originalItems
+          .slice()
+          .sort((a, b) => {
+            const aXR = extent.xSpan > 0 ? (a.originalX - extent.minX) / extent.xSpan : 0.5;
+            const bXR = extent.xSpan > 0 ? (b.originalX - extent.minX) / extent.xSpan : 0.5;
+            const aExtremity = Math.abs(aXR - 0.5);
+            const bExtremity = Math.abs(bXR - 0.5);
+            return (
+              d3.descending(aExtremity, bExtremity) ||
+              d3.ascending(a.originalY, b.originalY) ||
+              d3.ascending(a.originalX, b.originalX)
+            );
+          });
+      }
+
+      function setInlineLabel(label, lines, nodeX, nodeY, preferredSide, className) {
+        label.attr("class", `inline-label ${className}`);
+
+        const text = label.select("text");
+        renderWrappedLabelText(text, [
+          { className: "song", text: lines[0], rowGap: 13, lineGap: 12 },
+          { className: "artist", text: lines[1], rowGap: 13, lineGap: 12 },
+          { className: "year", text: lines[2], rowGap: 13, lineGap: 12 },
+          { className: "peak", text: lines[3], rowGap: 14, lineGap: 13 },
+        ], 300, "start");
+
+        label.style("opacity", 1);
+        const fallbackOrder =
+          preferredSide === "left"
+            ? ["left", "above-left", "below-left", "above", "below", "right", "above-right", "below-right"]
+            : ["right", "above-right", "below-right", "above", "below", "left", "above-left", "below-left"];
+        const placement = chooseAdaptivePlacement(
+          label,
+          { x: nodeX, y: nodeY, key: `${nodeX}-${nodeY}`, clearance: 10 },
+          fallbackOrder,
+          [],
+          []
+        );
+        label.select("text").attr("text-anchor", placement.anchorAlign);
+        const finalBbox = measureLabelBox(label, placement.anchorAlign);
+        applyLabelBox(label, finalBbox);
+        return placement;
+      }
+
+      function dedupeOriginalItems(originalItems) {
+        return Array.from(
+          d3.group(originalItems, (d) => d.originalKey),
+          ([, items]) =>
+            items
+              .slice()
+              .sort(
+                (a, b) =>
+                  d3.ascending(a.originalY, b.originalY) ||
+                  d3.ascending(a.originalX, b.originalX) ||
+                  d3.ascending(a.id, b.id)
+              )[0]
+        );
+      }
+
+      function showInlineLabels(links, originalItems = Array.isArray(links) ? links : [links]) {
+        const linkList = (Array.isArray(links) ? links : [links]).filter(Boolean);
+        const uniqueRevivalItems = Array.from(
+          d3.group(linkList, (d) => d.revivalKey),
+          ([, items]) => items[0]
+        );
+        const primaryLink = uniqueRevivalItems[0];
+        const uniqueOriginalItems = dedupeOriginalItems(originalItems);
+        const nearbyNodes = uniqueOriginalItems.map((item) => ({
+          key: item.originalKey,
+          x: item.originalX,
+          y: item.originalY,
+          clearance: item.originalR + 14,
+        }));
+        const sourceExtent = {
+          minX: d3.min(uniqueOriginalItems, (d) => d.originalX) ?? primaryLink.originalX,
+          maxX: d3.max(uniqueOriginalItems, (d) => d.originalX) ?? primaryLink.originalX,
+          minY: d3.min(uniqueOriginalItems, (d) => d.originalY) ?? primaryLink.originalY,
+          maxY: d3.max(uniqueOriginalItems, (d) => d.originalY) ?? primaryLink.originalY,
+        };
+        sourceExtent.xSpan = Math.max(1, sourceExtent.maxX - sourceExtent.minX);
+        sourceExtent.ySpan = Math.max(1, sourceExtent.maxY - sourceExtent.minY);
+
+        const revivalLabels = labelLayer
+          .selectAll("g.revival-inline-label")
+          .data(uniqueRevivalItems, (d) => d.revivalKey)
+          .join(
+            (enter) => {
+              const group = enter.append("g").attr("class", "revival-inline-label");
+              group.append("line").attr("class", "label-leader");
+              group.append("rect").attr("rx", 4).attr("ry", 4);
+              group.append("text");
+              return group;
+            },
+            (update) => update,
+            (exit) => exit.remove()
+          );
+
+        const placedRects = [];
+        revivalLabels.each(function (revivalLink) {
+          const group = d3.select(this);
+          group.attr("class", "inline-label revival revival-inline-label").style("opacity", 1);
+          renderWrappedLabelText(group.select("text"), [
+            { className: "song", text: revivalLink.revivalSong, rowGap: 18, lineGap: 17, color: revivalLink.revivalColor },
+            { className: "artist", text: revivalLink.revivalArtist, rowGap: 18, lineGap: 17 },
+            { className: "year", text: String(revivalLink.revivalChartYear), rowGap: 18, lineGap: 17 },
+            { className: "peak", text: peakLabel(revivalLink.revivalPeak), rowGap: 19, lineGap: 18, color: revivalLink.revivalColor },
+          ], 300, "start");
+
+          const placement = chooseAdaptivePlacement(
+            group,
+            { x: revivalLink.revivalX, y: revivalLink.revivalY, key: revivalLink.revivalKey, clearance: revivalLink.revivalR },
+            ["left", "above-left", "below-left", "above", "below", "above-right", "below-right", "right"],
+            placedRects,
+            nearbyNodes
+          );
+          group.select("text").attr("text-anchor", placement.anchorAlign);
+          const finalBbox = measureLabelBox(group, placement.anchorAlign);
+          applyLabelBox(group, finalBbox);
+
+          const localNodeX = revivalLink.revivalX - placement.x;
+          const localNodeY = revivalLink.revivalY - placement.y;
+          const rect = {
+            x0: finalBbox.x - 10,
+            y0: finalBbox.y - 8,
+            x1: finalBbox.x + finalBbox.width + 10,
+            y1: finalBbox.y + finalBbox.height + 8,
+          };
+          const anchorX = clamp(localNodeX, rect.x0, rect.x1);
+          const anchorY = clamp(localNodeY, rect.y0, rect.y1);
+          const leaderDistance = Math.hypot(localNodeX - anchorX, localNodeY - anchorY);
+
+          group
+            .select("line.label-leader")
+            .attr("x1", localNodeX)
+            .attr("y1", localNodeY)
+            .attr("x2", anchorX)
+            .attr("y2", anchorY)
+            .style("opacity", leaderDistance > 18 ? 1 : 0);
+
+          placedRects.push({ rect: placement.rect });
+        });
+
+        const originalLabels = originalLabelsLayer
+          .selectAll("g.original-inline-label")
+          .data(uniqueOriginalItems, (d) => d.originalKey)
+          .join(
+            (enter) => {
+              const group = enter.append("g");
+              group.append("line").attr("class", "label-leader");
+              group.append("rect").attr("rx", 4).attr("ry", 4);
+              group.append("text");
+              return group;
+            },
+            (update) => update,
+            (exit) => exit.remove()
+          );
+
+        const labelGroupByKey = new Map();
+        originalLabels.each(function (item) {
+          labelGroupByKey.set(item.originalKey, d3.select(this));
+        });
+
+        placementOrderForOriginals(uniqueOriginalItems, sourceExtent).forEach((item) => {
+          const group = labelGroupByKey.get(item.originalKey);
+          group.attr("class", "inline-label original original-inline-label").style("opacity", 1);
+          const lines = [item.originalSong, item.originalArtist, String(item.originalReleaseYear), peakLabel(item.originalPeakDisplay)];
+          const preferredVariants = candidateOrderForOriginal({ x: item.originalX, y: item.originalY }, sourceExtent);
+          renderWrappedLabelText(group.select("text"), [
+            { className: "song", text: lines[0], rowGap: 18, lineGap: 17, color: item.originalColor },
+            { className: "artist", text: lines[1], rowGap: 18, lineGap: 17 },
+            { className: "year", text: lines[2], rowGap: 18, lineGap: 17 },
+            { className: "peak", text: lines[3], rowGap: 19, lineGap: 18, color: item.originalColor },
+          ], 300, "start");
+
+          const placement = chooseAdaptivePlacement(
+            group,
+            { x: item.originalX, y: item.originalY, key: item.originalKey, clearance: item.originalR },
+            preferredVariants,
+            placedRects,
+            [
+              ...nearbyNodes,
+              ...uniqueRevivalItems.map((revivalLink) => ({
+                key: revivalLink.revivalKey,
+                x: revivalLink.revivalX,
+                y: revivalLink.revivalY,
+                clearance: revivalLink.revivalR + 18,
+              })),
+            ]
+          );
+          group.select("text").attr("text-anchor", placement.anchorAlign);
+          const finalBbox = measureLabelBox(group, placement.anchorAlign);
+          applyLabelBox(group, finalBbox);
+
+          const localNodeX = item.originalX - placement.x;
+          const localNodeY = item.originalY - placement.y;
+          const rect = {
+            x0: finalBbox.x - 10,
+            y0: finalBbox.y - 8,
+            x1: finalBbox.x + finalBbox.width + 10,
+            y1: finalBbox.y + finalBbox.height + 8,
+          };
+          const anchorX = clamp(localNodeX, rect.x0, rect.x1);
+          const anchorY = clamp(localNodeY, rect.y0, rect.y1);
+          const leaderDistance = Math.hypot(localNodeX - anchorX, localNodeY - anchorY);
+
+          group
+            .select("line.label-leader")
+            .attr("x1", localNodeX)
+            .attr("y1", localNodeY)
+            .attr("x2", anchorX)
+            .attr("y2", anchorY)
+            .style("opacity", leaderDistance > 18 ? 1 : 0);
+
+          placedRects.push({ rect: placement.rect });
+        });
+      }
+
+      function hideInlineLabels() {
+        labelLayer.selectAll("g.revival-inline-label").remove();
+        revivalLabel.style("opacity", 0);
+        originalLabelsLayer.selectAll("*").remove();
+      }
+
+      function setYear(year) {
+        const nextYear = year === "ALL" ? "ALL" : Number(year);
+        forcedFocusConnection = null;
+        if (activeYear === nextYear) {
+          updateButtons();
+          return;
+        }
+
+        activeYear = nextYear;
+        lockedId = null;
+        hideInlineLabels();
+        render(true);
+        updateButtons();
+      }
+
+      function buildButtons() {
+        filtersNode.innerHTML = "";
+
+        YEAR_OPTIONS.forEach((year) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "year-button";
+          button.dataset.year = String(year);
+          button.textContent = String(year);
+          button.addEventListener("click", () => setYear(year));
+          filtersNode.appendChild(button);
+        });
+      }
+
+      function updateButtons() {
+        filtersNode.querySelectorAll(".year-button").forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.year === String(activeYear));
+        });
+      }
+
+      function filteredRows() {
+        const rows = activeYear === "ALL"
+          ? allRows.slice()
+          : allRows.filter((row) => row.revivalChartYear === activeYear);
+        return rows.filter(
+          (row) =>
+            row.revivalPeak <= 50 ||
+            (
+              forcedFocusConnection &&
+              row.revivalChartYear === forcedFocusConnection.year &&
+              row.revivalSong.toLowerCase() === forcedFocusConnection.revivalSong &&
+              row.originalSong.toLowerCase() === forcedFocusConnection.originalSong
+            )
+        );
+      }
+
+      function buildRevivalColorMap(rows) {
+        const uniqueRevivals = new Map();
+
+        rows.forEach((row) => {
+          const key = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+          if (!uniqueRevivals.has(key)) {
+            uniqueRevivals.set(key, row);
+          }
+        });
+
+        const colorMap = new Map();
+        const grouped = d3.group([...uniqueRevivals.entries()], ([, row]) => row.relationshipType);
+
+        grouped.forEach((entries, relationshipType) => {
+          const sortedEntries = entries.slice().sort(([, a], [, b]) => {
+            return (
+              d3.ascending(a.revivalPeak, b.revivalPeak) ||
+              d3.descending(a.revivalWeeksOnChart, b.revivalWeeksOnChart) ||
+              d3.descending(a.revivalSpotifyPopularity, b.revivalSpotifyPopularity) ||
+              d3.ascending(a.revivalSong, b.revivalSong) ||
+              d3.ascending(a.revivalArtist, b.revivalArtist)
+            );
+          });
+
+          if (relationshipType === "cover") {
+            sortedEntries.forEach(([key]) => colorMap.set(key, "#9B72AA"));
+            return;
+          }
+
+          sortedEntries.forEach(([key]) => {
+            colorMap.set(key, RELATIONSHIP_COLOR[relationshipType]);
+          });
+        });
+
+        const revivalTypeCount = new Map();
+        rows.forEach((row) => {
+          const key = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+          if (!revivalTypeCount.has(key)) revivalTypeCount.set(key, new Set());
+          revivalTypeCount.get(key).add(row.relationshipType);
+        });
+        revivalTypeCount.forEach((types, key) => {
+          if (types.size > 1) {
+            colorMap.set(key, "#B07A9E");
+          }
+        });
+
+        return colorMap;
+      }
+
+      function getZoneGeometry(height) {
+        const topMargin = 36;
+        const bottomMargin = height - 40;
+        const zoneOrder = ["number1", "top10", "top40", "charted", "never-charted"];
+        const totalHeight = bottomMargin - topMargin;
+        const zoneHeights = new Map([
+          ["number1", totalHeight * 0.10],
+          ["top10", totalHeight * 0.13],
+          ["top40", totalHeight * 0.35],
+          ["charted", totalHeight * 0.20],
+          ["never-charted", totalHeight * 0.10],
+        ]);
+        const allocatedHeight = d3.sum([...zoneHeights.values()]);
+        const zonePadding = Math.max(0, (totalHeight - allocatedHeight) / (zoneOrder.length + 1));
+        let runningY = topMargin + zonePadding;
+        const zoneBounds = new Map();
+
+        zoneOrder.forEach((zoneKey) => {
+          const zoneHeight = zoneHeights.get(zoneKey) || 0;
+          zoneBounds.set(zoneKey, {
+            y0: runningY,
+            y1: runningY + zoneHeight,
+          });
+          runningY += zoneHeight + zonePadding;
+        });
+
+        const getPeakBucket = (peak, everCharted = true) => {
+          if (!everCharted || !Number.isFinite(peak)) {
+            return "never-charted";
+          }
+          if (peak === 1) {
+            return "number1";
+          }
+          if (peak >= 2 && peak <= 10) {
+            return "top10";
+          }
+          if (peak >= 11 && peak <= 40) {
+            return "top40";
+          }
+          return "charted";
+        };
+
+        return {
+          topMargin,
+          bottomMargin,
+          zoneOrder,
+          zoneBounds,
+          getPeakBucket,
+        };
+      }
+
+      function projectYearsBetween(yearsBetween) {
+        const normalized = clamp(yearsBetween / 65, 0, 1);
+        if (normalized <= 0.65) {
+          return (normalized / 0.65) * 0.78;
+        }
+        return 0.78 + ((normalized - 0.65) / 0.35) * 0.22;
+      }
+
+      function buildArcPath(originalX, originalY, originalR, revivalX, revivalY, revivalR) {
+        const startX = originalX + originalR;
+        const endX = revivalX - revivalR;
+        const cp1x = originalX + (revivalX - originalX) * 0.3;
+        const cp2x = originalX + (revivalX - originalX) * 0.7;
+        return `M${startX},${originalY} C${cp1x},${originalY} ${cp2x},${revivalY} ${endX},${revivalY}`;
+      }
+
+      function computeLayout(rows, width, height) {
+        const revivalXBase = width - 480;
+        const leftMargin = 80;
+        const { topMargin, bottomMargin, zoneOrder, zoneBounds, getPeakBucket } = getZoneGeometry(height);
+        const uniqueRevivals = new Map();
+        rows.forEach((row) => {
+          const key = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+          if (!uniqueRevivals.has(key)) {
+            uniqueRevivals.set(key, row);
+          }
+        });
+
+        const makeZonePositionMap = (items, keyFn, bucketFn, sortFn, radiusFn, includeXOffset = false, peakFn = null) => {
+          const uniqueItems = new Map();
+
+          items.forEach((item) => {
+            const key = keyFn(item);
+            const existing = uniqueItems.get(key);
+            if (!existing) {
+              uniqueItems.set(key, item);
+              return;
+            }
+
+            const existingPeak = peakFn ? peakFn(existing) : null;
+            const nextPeak = peakFn ? peakFn(item) : null;
+            if (Number.isFinite(nextPeak) && (!Number.isFinite(existingPeak) || nextPeak < existingPeak)) {
+              uniqueItems.set(key, item);
+            }
+          });
+
+          const sortedItems = [...uniqueItems.values()].sort(sortFn);
+          const bucketGroups = d3.group(sortedItems, (item) => bucketFn(item));
+          const positionedItems = [];
+
+          zoneOrder.forEach((zoneKey) => {
+            const zoneItems = (bucketGroups.get(zoneKey) || []).slice().sort(sortFn);
+            if (!zoneItems.length) {
+              return;
+            }
+
+            const zone = zoneBounds.get(zoneKey);
+            const peakGroups = d3.group(zoneItems, (item) => {
+              const peakValue = peakFn ? peakFn(item) : null;
+              return Number.isFinite(peakValue) ? peakValue : zoneKey;
+            });
+            const sortedPeakValues = [...peakGroups.keys()].sort((a, b) => {
+              if (typeof a === "number" && typeof b === "number") {
+                return d3.ascending(a, b);
+              }
+              return d3.ascending(String(a), String(b));
+            });
+
+            sortedPeakValues.forEach((peakValue, peakIndex) => {
+              const peakItems = peakGroups.get(peakValue) || [];
+              const laneCenter =
+                zone.y0 + ((peakIndex + 0.5) / Math.max(sortedPeakValues.length, 1)) * (zone.y1 - zone.y0);
+              const previousLaneCenter = peakIndex > 0
+                ? zone.y0 + (((peakIndex - 1) + 0.5) / Math.max(sortedPeakValues.length, 1)) * (zone.y1 - zone.y0)
+                : null;
+              const nextLaneCenter = peakIndex < sortedPeakValues.length - 1
+                ? zone.y0 + (((peakIndex + 1) + 0.5) / Math.max(sortedPeakValues.length, 1)) * (zone.y1 - zone.y0)
+                : null;
+              const laneTop = previousLaneCenter === null ? zone.y0 : (previousLaneCenter + laneCenter) / 2;
+              const laneBottom = nextLaneCenter === null ? zone.y1 : (laneCenter + nextLaneCenter) / 2;
+
+              if (zoneKey === "number1") {
+                peakItems.sort((a, b) => radiusFn(b) - radiusFn(a));
+                const fullWidth = (width - 60) - (revivalXBase + 30);
+                const step = peakItems.length > 1 ? fullWidth / (peakItems.length - 1) : 0;
+                peakItems.forEach((item, i) => {
+                  positionedItems.push({
+                    key: keyFn(item),
+                    y: laneCenter,
+                    xOffset: i * step,
+                    laneTop,
+                    laneBottom,
+                  });
+                });
+                return;
+              }
+
+              peakItems.forEach((item, index) => {
+                const radius = radiusFn(item);
+                const offsetStep = 6;
+                const offsetCap = 9;
+                const rawOffset = (index - (peakItems.length - 1) / 2) * offsetStep;
+                const y = clamp(
+                  laneCenter + clamp(rawOffset, -offsetCap, offsetCap),
+                  zone.y0 + radius + 2,
+                  zone.y1 - radius - 2
+                );
+                let xOffset = 0;
+
+                if (includeXOffset && peakFn) {
+                  const radii = peakItems.map((entry) => radiusFn(entry));
+                  const gap = 6;
+                  const rawClusterWidth =
+                    radii.reduce((sum, r) => sum + r * 2, 0) + gap * Math.max(radii.length - 1, 0);
+                  const clusterWidth = Math.min(rawClusterWidth, 60);
+                  const scale = clusterWidth / Math.max(rawClusterWidth, 1);
+                  let cursor = -clusterWidth / 2;
+                  const clusterOffset = radii
+                    .map((entryRadius) => {
+                      const center = cursor + entryRadius * scale;
+                      cursor += entryRadius * 2 * scale + gap;
+                      return center;
+                    })[index];
+                  const totalPeaks = sortedPeakValues.length;
+                  const availableWidth = (width - 60) - (revivalXBase + 30);
+                  const peakBandWidth = totalPeaks > 1 ? availableWidth : 0;
+                  const peakOffset = totalPeaks > 1
+                    ? (peakIndex / (totalPeaks - 1)) * peakBandWidth
+                    : 0;
+
+                  xOffset = clusterOffset + peakOffset;
+                }
+
+                positionedItems.push({
+                  key: keyFn(item),
+                  y,
+                  xOffset,
+                  laneTop,
+                  laneBottom,
+                });
+              });
+            });
+          });
+
+          return new Map(
+            positionedItems.map((item) => [
+              item.key,
+              {
+                y: item.y,
+                xOffset: item.xOffset,
+                laneTop: item.laneTop,
+                laneBottom: item.laneBottom,
+              },
+            ])
+          );
+        };
+
+        const revivalPositionMap = makeZonePositionMap(
+          rows,
+          (row) => `${row.revivalSong}__${row.revivalArtist}`.toLowerCase(),
+          (row) => getPeakBucket(row.revivalPeak, true),
+          (a, b) =>
+            d3.ascending(a.revivalPeak, b.revivalPeak) ||
+            d3.descending(a.revivalWeeksOnChart, b.revivalWeeksOnChart) ||
+            d3.descending(a.revivalSpotifyPopularity, b.revivalSpotifyPopularity) ||
+            d3.ascending(a.revivalSong, b.revivalSong) ||
+            d3.ascending(a.revivalArtist, b.revivalArtist),
+          (row) => weeksRadius(row.revivalWeeksOnChart),
+          true,
+          (row) => row.revivalPeak
+        );
+        const originalYMap = makeZonePositionMap(
+          rows,
+          (row) => `${row.originalSong}__${row.originalArtist}`.toLowerCase(),
+          (row) => getPeakBucket(row.originalPeak, row.everCharted),
+          (a, b) =>
+            d3.ascending(
+              Number.isFinite(a.originalPeak) ? a.originalPeak : Number.POSITIVE_INFINITY,
+              Number.isFinite(b.originalPeak) ? b.originalPeak : Number.POSITIVE_INFINITY
+            ) ||
+            d3.descending(a.originalWeeksOnChart, b.originalWeeksOnChart) ||
+            d3.ascending(a.originalSong, b.originalSong) ||
+            d3.ascending(a.originalArtist, b.originalArtist),
+          (row) => originalRadius(row),
+          false,
+          (row) => row.originalPeak
+        );
+        const revivalColorMap = buildRevivalColorMap(rows);
+        const positionedRows = rows
+          .slice()
+          .sort(
+            (a, b) =>
+              d3.ascending(a.revivalPeak, b.revivalPeak) ||
+              d3.ascending(a.revivalSong, b.revivalSong) ||
+              d3.ascending(a.originalSong, b.originalSong)
+          )
+          .map((row) => {
+            const revivalKey = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+            const originalKey = `${row.originalSong}__${row.originalArtist}`.toLowerCase();
+            const revivalPosition = revivalPositionMap.get(revivalKey) || { y: topMargin, xOffset: 0 };
+            const revivalY = revivalPosition.y;
+            const revivalR = weeksRadius(row.revivalWeeksOnChart);
+            const revivalX = Math.min(
+              Math.max(revivalXBase + 30 + revivalPosition.xOffset, revivalXBase),
+              width - 50
+            );
+            const originalR = originalRadius(row);
+            const revivalColor = revivalColorMap.get(revivalKey) || RELATIONSHIP_COLOR[row.relationshipType];
+            const originalColor = revivalColor;
+            if (!originalColor) {
+              console.log("original bubble missing color", {
+                originalSong: row.originalSong,
+                originalArtist: row.originalArtist,
+                revivalSong: row.revivalSong,
+                revivalArtist: row.revivalArtist,
+                relationshipType: row.relationshipType,
+              });
+            }
+            const originalX = clamp(
+              (revivalXBase - 10) - projectYearsBetween(row.yearsBetween) * (width * 0.85),
+              leftMargin + 40,
+              revivalXBase - 60
+            );
+            const unchartedZone = zoneBounds.get("never-charted");
+            const originalPosition = originalYMap.get(originalKey);
+            const originalY = originalPosition?.y ?? (unchartedZone.y0 + unchartedZone.y1) / 2;
+
+            return {
+              ...row,
+              revivalKey,
+              originalKey,
+              revivalX,
+              revivalY,
+              revivalR,
+              originalX,
+              originalY,
+              originalLaneTop: originalPosition?.laneTop ?? unchartedZone.y0,
+              originalLaneBottom: originalPosition?.laneBottom ?? unchartedZone.y1,
+              originalR,
+              revivalColor,
+              originalColor,
+              stroke: RELATIONSHIP_COLOR[row.relationshipType] || revivalColor,
+              strokeWidth: 0.5 + (row.yearsBetween / 90) * 3,
+              revivalSongLabel: truncate(row.revivalSong, 28),
+              revivalArtistLabel: truncate(row.revivalArtist, 28),
+              revivalPeakLabel: peakLabel(row.revivalPeak),
+              path: buildArcPath(originalX, originalY, originalR, revivalX, revivalY, revivalR)
+            };
+          });
+
+        const bubbleYValues = positionedRows.flatMap((row) => [row.revivalY, row.originalY]);
+        console.log("bubble y bounds", {
+          minY: d3.min(bubbleYValues),
+          maxY: d3.max(bubbleYValues),
+          topMargin,
+          bottomMargin,
+        });
+
+        return positionedRows;
+      }
+
+      function resolveOriginalEntityCollisions(originalEntities) {
+        const collisionGroups = d3.group(originalEntities, (entity) => {
+          const peakKey = Number.isFinite(entity.originalPeak)
+            ? `peak:${entity.originalPeak}`
+            : `bucket:${entity.everCharted ? "charted" : "never-charted"}`;
+          return `${entity.originalReleaseYear}__x:${Math.round(entity.originalX)}__${peakKey}`;
+        });
+
+        collisionGroups.forEach((group) => {
+          if (group.length < 2) {
+            return;
+          }
+
+          const orderedGroup = group
+            .slice()
+            .sort(
+              (a, b) =>
+                d3.ascending(a.originalY, b.originalY) ||
+                d3.descending(a.originalR, b.originalR) ||
+                d3.ascending(a.originalSong, b.originalSong) ||
+                d3.ascending(a.originalArtist, b.originalArtist)
+            );
+          const stackGap = 8;
+          const nominalCenter = d3.mean(orderedGroup, (entity) => entity.originalY) ?? orderedGroup[0].originalY;
+          const stackHeight =
+            orderedGroup.reduce((sum, entity) => sum + entity.originalR * 2, 0) + stackGap * Math.max(orderedGroup.length - 1, 0);
+          let cursor = nominalCenter - stackHeight / 2;
+          const laneTop = d3.max(orderedGroup, (entity) => entity.originalLaneTop) ?? orderedGroup[0].originalLaneTop;
+          const laneBottom = d3.min(orderedGroup, (entity) => entity.originalLaneBottom) ?? orderedGroup[0].originalLaneBottom;
+
+          orderedGroup.forEach((entity) => {
+            entity.originalY = clamp(cursor + entity.originalR, laneTop + 2, laneBottom - 2);
+            cursor += entity.originalR * 2 + stackGap;
+          });
+        });
+      }
+
+      function pulseOriginalByKey(originalKey) {
+        const target = originalSelection.filter((d) => d.originalKey === originalKey);
+
+        target
+          .interrupt()
+          .transition()
+          .duration(180)
+          .attrTween("transform", (d) => {
+            const interpolate = d3.interpolateNumber(1, 1.5);
+            return (t) => `translate(${d.originalX},${d.originalY}) scale(${interpolate(t)})`;
+          })
+          .transition()
+          .duration(220)
+          .attrTween("transform", (d) => {
+            const interpolate = d3.interpolateNumber(1.5, 1);
+            return (t) => `translate(${d.originalX},${d.originalY}) scale(${interpolate(t)})`;
+          });
+      }
+
+      function resetFocus() {
+        bandLayer?.selectAll("*").style("opacity", null);
+        timelineLayer?.selectAll("*").style("opacity", null);
+        labelLayer?.selectAll("g.revival-inline-label, g.revival-inline-label *, g.original-inline-label, g.original-inline-label *").style("opacity", null);
+        const t = d3.transition().duration(200);
+        arcSelection.transition(t).style("opacity", 0.06);
+        revivalSelection.transition(t).style("opacity", 1);
+        originalSelection.transition(t).style("opacity", 1);
+        revivalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", revivalBaseFillOpacity())
+          .attr("stroke-width", 1);
+        updateOriginalMarkFill(originalSelection, t, (d) => originalBaseFillOpacity(d));
+        hideInlineLabels();
+      }
+
+      function clearFocus() {
+        lockedId = null;
+        forcedFocusConnection = null;
+        resetFocus();
+      }
+
+      function applyScrollyIsolation(arcIds, revivalKeys, originalKeys) {
+        if (!window.SCROLLY_MODE) {
+          return;
+        }
+
+        const dimOpacity = 0.04;
+        bandLayer?.selectAll("*").style("opacity", dimOpacity);
+        timelineLayer?.selectAll("*").style("opacity", dimOpacity);
+
+        arcSelection
+          .interrupt()
+          .style("opacity", (d) => (arcIds.has(d.id) ? 1 : dimOpacity));
+
+        revivalSelection
+          .interrupt()
+          .style("opacity", (d) => (revivalKeys.has(d.revivalKey) ? 1 : dimOpacity));
+
+        originalSelection
+          .interrupt()
+          .style("opacity", (d) => (originalKeys.has(d.originalKey) ? 1 : dimOpacity));
+
+        labelLayer
+          ?.selectAll("g.revival-inline-label, g.revival-inline-label *, g.original-inline-label, g.original-inline-label *")
+          .style("opacity", 1);
+      }
+
+      function focusSong(revivalSongName, revivalArtistName) {
+        const songQuery = String(revivalSongName || "").trim().toLowerCase();
+        const artistQuery = String(revivalArtistName || "").trim().toLowerCase();
+        if (!songQuery) {
+          return;
+        }
+
+        const revivalData = revivalSelection.data();
+        const matchesArtist = (revival) => !artistQuery || revival.revivalArtist.toLowerCase().includes(artistQuery);
+        const matchedRevival =
+          revivalData.find(
+            (revival) =>
+              revival.revivalSong.toLowerCase() === songQuery &&
+              matchesArtist(revival)
+          ) ||
+          revivalData.find(
+            (revival) =>
+              revival.revivalSong.toLowerCase().includes(songQuery) &&
+              matchesArtist(revival)
+          );
+        if (!matchedRevival) {
+          return;
+        }
+
+        lockedId = matchedRevival.id;
+        applyRevivalFocus(matchedRevival, false);
+      }
+
+      function focusConnection(revivalSongName, originalSongName) {
+        const revivalQuery = String(revivalSongName || "").trim().toLowerCase();
+        const originalQuery = String(originalSongName || "").trim().toLowerCase();
+        if (!revivalQuery || !originalQuery) {
+          return;
+        }
+
+        console.log("SCROLLY_MODE at focus time:", window.SCROLLY_MODE);
+        const availableLinks = arcSelection.data();
+        console.log(
+          "focusConnection available revival songs",
+          Array.from(new Set(availableLinks.map((link) => link.revivalSong))).sort()
+        );
+
+        let matchedLink = availableLinks.find(
+          (link) =>
+            link.revivalSong.toLowerCase() === revivalQuery &&
+            link.originalSong.toLowerCase() === originalQuery
+        );
+
+        if (!matchedLink) {
+          const fallbackRow = allRows.find(
+            (row) =>
+              row.revivalChartYear === activeYear &&
+              row.revivalSong.toLowerCase() === revivalQuery &&
+              row.originalSong.toLowerCase() === originalQuery
+          );
+
+          if (fallbackRow) {
+            forcedFocusConnection = {
+              year: fallbackRow.revivalChartYear,
+              revivalSong: revivalQuery,
+              originalSong: originalQuery,
+            };
+            render(true);
+            matchedLink = arcSelection
+              .data()
+              .find(
+                (link) =>
+                  link.revivalSong.toLowerCase() === revivalQuery &&
+                  link.originalSong.toLowerCase() === originalQuery
+              );
+          }
+        }
+
+        console.log("focusConnection lookup", {
+          year: activeYear,
+          revivalSongName,
+          originalSongName,
+          matched: Boolean(matchedLink),
+          matchedLink: matchedLink
+            ? {
+                revival_song: matchedLink.revivalSong,
+                revival_artist: matchedLink.revivalArtist,
+                original_song: matchedLink.originalSong,
+                original_artist: matchedLink.originalArtist,
+                revival_chart_year: matchedLink.revivalChartYear,
+              }
+            : null,
+          candidates: availableLinks
+            .filter((link) => link.revivalSong.toLowerCase() === revivalQuery)
+            .map((link) => ({
+              revival_song: link.revivalSong,
+              revival_artist: link.revivalArtist,
+              original_song: link.originalSong,
+              original_artist: link.originalArtist,
+              revival_chart_year: link.revivalChartYear,
+            })),
+        });
+        if (!matchedLink) {
+          return;
+        }
+
+        const applyConnectionIsolation = () => {
+          hideInlineLabels();
+          showInlineLabels(matchedLink, [matchedLink]);
+
+          if (window.SCROLLY_MODE) {
+            const dimOpacity = 0.06;
+            arcSelection
+              .interrupt()
+              .style("opacity", (d) => (d.id === matchedLink.id ? 1 : dimOpacity));
+
+            revivalSelection
+              .interrupt()
+              .style("opacity", (d) => (d.revivalKey === matchedLink.revivalKey ? 1 : dimOpacity));
+
+            originalSelection
+              .interrupt()
+              .style("opacity", (d) => (d.originalSong.toLowerCase() === originalQuery ? 1 : dimOpacity));
+          }
+        };
+
+        lockedId = matchedLink.id;
+        applyFocus(matchedLink, false, "link");
+        applyConnectionIsolation();
+
+        window.setTimeout(() => {
+          if (window.SCROLLY_MODE && lockedId === matchedLink.id) {
+            applyConnectionIsolation();
+          }
+        }, 360);
+      }
+
+      function setScrollyMode(active) {
+        pageNode?.classList.toggle("scrolly-active", Boolean(active));
+      }
+
+      function initializeVizAPI() {
+        window.vizAPI = {
+          setYear,
+          focusSong,
+          focusConnection,
+          clearFocus,
+          setScrollyMode,
+        };
+      }
+
+      function applyFocus(link, pulse = false, mode = "link") {
+        const firstDegreeLinks = mode === "original" ? arcSelection.data().filter((d) => d.originalKey === link.originalKey) : [link];
+        const isolateSplitOriginal = mode === "original" && Boolean(link.splitColors);
+        const relatedRevivalKeys = new Set(firstDegreeLinks.map((d) => d.revivalKey));
+        const relatedLinks = isolateSplitOriginal
+          ? firstDegreeLinks
+          : mode === "original"
+          ? arcSelection.data().filter((d) => relatedRevivalKeys.has(d.revivalKey))
+          : [link];
+        const relatedIds = new Set(relatedLinks.map((d) => d.id));
+        const relatedOriginalKeys = isolateSplitOriginal
+          ? new Set([link.originalKey])
+          : new Set(relatedLinks.map((d) => d.originalKey));
+        const t = d3.transition().duration(200);
+        arcSelection
+          .transition(t)
+          .style("opacity", (d) => (relatedIds.has(d.id) ? 0.92 : 0.02));
+
+        arcSelection
+          .filter((d) => relatedIds.has(d.id))
+          .raise();
+
+        revivalSelection
+          .transition(t)
+          .style("opacity", (d) => (relatedRevivalKeys.has(d.revivalKey) ? 1 : 0.08));
+
+        revivalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", (d) => (relatedRevivalKeys.has(d.revivalKey) ? revivalActiveFillOpacity() : revivalDimFillOpacity()))
+          .attr("stroke-width", (d) => (relatedRevivalKeys.has(d.revivalKey) ? 2 : 1));
+
+        revivalSelection
+          .filter((d) => relatedRevivalKeys.has(d.revivalKey))
+          .raise();
+
+        const activeOriginals = originalSelection.filter((d) => relatedOriginalKeys.has(d.originalKey));
+        const inactiveOriginals = originalSelection.filter((d) => !relatedOriginalKeys.has(d.originalKey));
+
+        activeOriginals
+          .interrupt()
+          .style("opacity", 1);
+
+        activeOriginals.select("circle.original-fill")
+          .attr("fill-opacity", (d) => (d.splitColors ? 0 : originalActiveFillOpacity(d)));
+
+        activeOriginals.select("path.original-top-half")
+          .attr("fill-opacity", (d) => (d.splitColors ? originalActiveFillOpacity(d) : 0));
+
+        activeOriginals.select("path.original-bottom-half")
+          .attr("fill-opacity", (d) => (d.splitColors ? originalActiveFillOpacity(d) : 0));
+
+        activeOriginals.select("circle.original-outline")
+          .attr("stroke-width", 2);
+
+        inactiveOriginals
+          .interrupt()
+          .transition(t)
+          .style("opacity", 0.08);
+
+        updateOriginalMarkFill(inactiveOriginals, t, () => originalDimFillOpacity());
+
+        originalSelection
+          .filter((d) => relatedOriginalKeys.has(d.originalKey))
+          .raise();
+
+        if (pulse) {
+          pulseOriginalByKey(link.originalKey);
+        }
+
+        if (mode === "original") {
+          if (isolateSplitOriginal) {
+            showInlineLabels(firstDegreeLinks);
+            applyScrollyIsolation(relatedIds, relatedRevivalKeys, relatedOriginalKeys);
+            return;
+          }
+
+          showInlineLabels(relatedLinks[0] || link, relatedLinks);
+          applyScrollyIsolation(relatedIds, relatedRevivalKeys, relatedOriginalKeys);
+          return;
+        }
+
+        showInlineLabels(relatedLinks[0] || link, relatedLinks);
+        applyScrollyIsolation(relatedIds, relatedRevivalKeys, relatedOriginalKeys);
+      }
+
+      function applyRevivalFocus(revival, pulse = false) {
+        const relatedIds = new Set(revival.originals.map((item) => item.id));
+        const relatedOriginalKeys = new Set(revival.originals.map((item) => item.originalKey));
+        const t = d3.transition().duration(200);
+
+        arcSelection
+          .transition(t)
+          .style("opacity", (d) => (relatedIds.has(d.id) ? 0.92 : 0.02));
+
+        arcSelection
+          .filter((d) => relatedIds.has(d.id))
+          .raise();
+
+        revivalSelection
+          .transition(t)
+          .style("opacity", (d) => (d.revivalKey === revival.revivalKey ? 1 : 0.08));
+
+        revivalSelection
+          .select("circle")
+          .transition(t)
+          .attr("fill-opacity", (d) => (d.revivalKey === revival.revivalKey ? revivalActiveFillOpacity() : revivalDimFillOpacity()))
+          .attr("stroke-width", (d) => (d.revivalKey === revival.revivalKey ? 2 : 1));
+
+        revivalSelection
+          .filter((d) => d.revivalKey === revival.revivalKey)
+          .raise();
+
+        const activeOriginals = originalSelection.filter((d) => relatedOriginalKeys.has(d.originalKey));
+        const inactiveOriginals = originalSelection.filter((d) => !relatedOriginalKeys.has(d.originalKey));
+
+        activeOriginals
+          .interrupt()
+          .style("opacity", 1);
+
+        activeOriginals.select("circle.original-fill")
+          .attr("fill-opacity", (d) => (d.splitColors ? 0 : originalActiveFillOpacity(d)));
+
+        activeOriginals.select("path.original-top-half")
+          .attr("fill-opacity", (d) => (d.splitColors ? originalActiveFillOpacity(d) : 0));
+
+        activeOriginals.select("path.original-bottom-half")
+          .attr("fill-opacity", (d) => (d.splitColors ? originalActiveFillOpacity(d) : 0));
+
+        activeOriginals.select("circle.original-outline")
+          .attr("stroke-width", 2);
+
+        inactiveOriginals
+          .interrupt()
+          .transition(t)
+          .style("opacity", 0.08);
+
+        updateOriginalMarkFill(inactiveOriginals, t, () => originalDimFillOpacity());
+
+        originalSelection
+          .filter((d) => relatedOriginalKeys.has(d.originalKey))
+          .raise();
+
+        if (pulse) {
+          [...relatedOriginalKeys].forEach((originalKey) => {
+            pulseOriginalByKey(originalKey);
+          });
+        }
+
+        console.log("hover originals length", revival.originals.length);
+        showInlineLabels(revival.originals[0], revival.originals);
+        applyScrollyIsolation(relatedIds, new Set([revival.revivalKey]), relatedOriginalKeys);
+      }
+
+      function bindInteraction(selection, mode = "link") {
+        selection
+          .on("mouseenter", function (event, link) {
+            if (lockedId && lockedId !== link.id) {
+              return;
+            }
+
+            d3.select(this).raise();
+            applyFocus(link, !lockedId, mode);
+          })
+          .on("mouseleave", function () {
+            if (!lockedId) {
+              resetFocus();
+            }
+          })
+          .on("click", function (event, link) {
+            event.stopPropagation();
+            lockedId = link.id;
+            d3.select(this).raise();
+            applyFocus(link, false, mode);
+          });
+      }
+
+      function ensureSvg(width, height) {
+        d3.select(chartNode).selectAll(".empty-state").remove();
+
+        if (!svg) {
+          svg = d3.select(chartNode).append("svg");
+          rootLayer = svg.append("g");
+          bandLayer = rootLayer.append("g");
+          timelineLayer = rootLayer.append("g");
+          arcLayer = rootLayer.append("g");
+          originalLayer = rootLayer.append("g");
+          revivalLayer = rootLayer.append("g");
+          labelLayer = rootLayer.append("g");
+
+          revivalLabel = labelLayer.append("g");
+          revivalLabel.append("rect").attr("rx", 4).attr("ry", 4);
+          revivalLabel.append("text");
+
+          originalLabelsLayer = labelLayer.append("g");
+
+          svg.on("click", () => {
+            if (!lockedId) {
+              return;
+            }
+
+            lockedId = null;
+            resetFocus();
+          });
+        }
+
+        svg
+          .attr("width", width)
+          .attr("height", height)
+          .attr("viewBox", `0 0 ${width} ${height}`)
+          .attr("preserveAspectRatio", "xMidYMid meet")
+          .style("width", `${width}px`)
+          .style("height", `${height}px`);
+      }
+
+      function render(animate) {
+        const width = window.innerWidth;
+        const rows = filteredRows();
+        const uniqueRevivals = new Map();
+        rows.forEach((row) => {
+          const key = `${row.revivalSong}__${row.revivalArtist}`.toLowerCase();
+          if (!uniqueRevivals.has(key)) {
+            uniqueRevivals.set(key, row);
+          }
+        });
+        const viewportHeight = window.innerHeight - 140;
+        const height = viewportHeight;
+        const { zoneBounds } = getZoneGeometry(height);
+
+        chartNode.style.height = `${height}px`;
+        counterNode.textContent = `Showing ${rows.length} connections`;
+        updateButtons();
+
+        ensureSvg(width, height);
+
+        svg.selectAll(".arc").remove();
+        svg.selectAll("g.original-mark").remove();
+        svg.selectAll("g.revival-mark").remove();
+        svg.selectAll(".inline-label").remove();
+
+        arcLayer.selectAll("*").remove();
+        originalLayer.selectAll("*").remove();
+        revivalLayer.selectAll("*").remove();
+        labelLayer.selectAll("*").remove();
+
+        revivalLabel = labelLayer.append("g");
+        revivalLabel.append("rect").attr("rx", 4).attr("ry", 4);
+        revivalLabel.append("text");
+        originalLabelsLayer = labelLayer.append("g");
+
+        arcSelection = arcLayer.selectAll("path.arc");
+        originalSelection = originalLayer.selectAll("g.original-mark");
+        revivalSelection = revivalLayer.selectAll("g.revival-mark");
+
+        if (!rows.length) {
+          d3.select(chartNode)
+            .append("div")
+            .attr("class", "empty-state")
+            .text("No connections found for that year.");
+          return;
+        }
+
+        const laidOut = computeLayout(rows, width, height);
+        const transition = d3.transition().duration(animate ? 320 : 0);
+
+        const originalEntities = Array.from(d3.group(laidOut, (d) => d.originalKey), ([originalKey, links]) => {
+          const first = links.reduce((best, d) => {
+            const bestPeak = Number.isFinite(best.originalPeak) ? best.originalPeak : Number.POSITIVE_INFINITY;
+            const currentPeak = Number.isFinite(d.originalPeak) ? d.originalPeak : Number.POSITIVE_INFINITY;
+            return currentPeak < bestPeak ? d : best;
+          });
+          const sortedConnectedLinks = links
+            .slice()
+            .sort(
+              (a, b) =>
+                d3.ascending(a.revivalPeak, b.revivalPeak) ||
+                d3.ascending(a.revivalSong, b.revivalSong) ||
+                d3.ascending(a.revivalArtist, b.revivalArtist)
+            );
+          const rankedDistinctTypes = Array.from(
+            d3.group(sortedConnectedLinks, (d) => d.relationshipType),
+            ([, typeLinks]) => typeLinks[0]
+          );
+          const originalX = d3.mean(links, (d) => d.originalX) ?? first.originalX;
+          const originalY = first.originalY;
+          const originalR = d3.max(links, (d) => d.originalR) ?? first.originalR;
+          const primaryRelationshipType = rankedDistinctTypes[0]?.relationshipType;
+          const originalColor = RELATIONSHIP_COLOR[primaryRelationshipType] || first.originalColor;
+          const splitColors =
+            rankedDistinctTypes.length > 1
+              ? {
+                  top: rankedDistinctTypes[0].revivalColor,
+                  bottom: rankedDistinctTypes[Math.min(1, rankedDistinctTypes.length - 1)].revivalColor,
+                }
+              : null;
+
+          links.forEach((link) => {
+            link.originalX = originalX;
+            link.originalY = originalY;
+            link.originalR = originalR;
+            link.originalColor = originalColor;
+            link.path = buildArcPath(link.originalX, link.originalY, link.originalR, link.revivalX, link.revivalY, link.revivalR);
+          });
+
+          return {
+            id: `original:${originalKey}`,
+            originalKey,
+            originalSong: first.originalSong,
+            originalArtist: first.originalArtist,
+            originalReleaseYear: first.originalReleaseYear,
+            originalPeak: first.originalPeak,
+            originalPeakDisplay: first.originalPeakDisplay,
+            originalWeeksOnChart: first.originalWeeksOnChart,
+            originalX,
+            originalY,
+            originalLaneTop: first.originalLaneTop,
+            originalLaneBottom: first.originalLaneBottom,
+            originalR,
+            originalColor,
+            splitColors,
+            everCharted: first.everCharted,
+            connectedLinks: links,
+            connectedRevivalKeys: [...new Set(links.map((d) => d.revivalKey))],
+          };
+        }).sort(
+          (a, b) =>
+            d3.ascending(a.originalY, b.originalY) ||
+            d3.ascending(a.originalX, b.originalX) ||
+            d3.ascending(a.originalSong, b.originalSong)
+        );
+
+        resolveOriginalEntityCollisions(originalEntities);
+        originalEntities.forEach((entity) => {
+          entity.connectedLinks.forEach((link) => {
+            link.originalY = entity.originalY;
+            link.path = buildArcPath(link.originalX, link.originalY, link.originalR, link.revivalX, link.revivalY, link.revivalR);
+          });
+        });
+        originalEntities.sort(
+          (a, b) =>
+            d3.ascending(a.originalY, b.originalY) ||
+            d3.ascending(a.originalX, b.originalX) ||
+            d3.ascending(a.originalSong, b.originalSong)
+        );
+
+        const groupedRevivals = Array.from(d3.group(laidOut, (d) => d.revivalKey), ([revivalKey, originals]) => {
+          const first = originals[0];
+          return {
+            revivalKey,
+            id: `revival:${revivalKey}`,
+            revivalSong: first.revivalSong,
+            revivalArtist: first.revivalArtist,
+            revivalPeak: first.revivalPeak,
+            revivalX: first.revivalX,
+            revivalY: first.revivalY,
+            revivalR: first.revivalR,
+            revivalColor: first.revivalColor,
+            originals
+          };
+        });
+
+        const zoneBands = [
+          { label: "#1 hits", color: "#E07A5F", opacity: 0.18, y0: zoneBounds.get("number1").y0, y1: zoneBounds.get("number1").y1 },
+          { label: "Top 10", color: "#E8A838", opacity: 0.14, y0: zoneBounds.get("top10").y0, y1: zoneBounds.get("top10").y1 },
+          { label: "Top 40", color: "#A8DADC", opacity: 0.18, y0: zoneBounds.get("top40").y0, y1: zoneBounds.get("top40").y1 },
+          { label: "Top 50", color: "#B8D4C8", opacity: 0.15, y0: zoneBounds.get("charted").y0, y1: zoneBounds.get("charted").y1 },
+          { label: "Never charted", color: "#C9B99A", opacity: 0.15, y0: zoneBounds.get("never-charted").y0, y1: zoneBounds.get("never-charted").y1 }
+        ];
+
+        const bandGroups = bandLayer.selectAll("g.zone-band").data(zoneBands, (d) => d.label);
+        const bandEnter = bandGroups.join((enter) => {
+          const group = enter.append("g").attr("class", "zone-band");
+          group.append("rect");
+          group.append("text");
+          return group;
+        });
+        const mergedBands = bandLayer.selectAll("g.zone-band");
+
+        mergedBands.select("rect")
+          .attr("x", 0)
+          .attr("y", (d) => d.y0)
+          .attr("width", width)
+          .attr("height", (d) => Math.max(0, d.y1 - d.y0 + 1))
+          .attr("fill", (d) => d.color)
+          .attr("fill-opacity", (d) => d.opacity);
+
+        mergedBands.select("text")
+          .attr("x", 8)
+          .attr("y", (d) => d.y0 + Math.max(9, (d.y1 - d.y0) / 2))
+          .attr("fill", (d) => (
+            d.label === "#1 hits"
+              ? "#A85A45"
+              : d.label === "Top 10"
+                ? "#A8771F"
+                : d.label === "Top 40"
+                  ? "#6F8790"
+                  : d.label === "Top 50"
+                    ? "#5F7B6F"
+                    : d.label === "Never charted"
+                      ? "#6E5F48"
+                      : d.color
+          ))
+          .attr("fill-opacity", 0.85)
+          .attr("font-size", 13)
+          .attr("font-weight", 700)
+          .text((d) => d.label);
+
+        const leftMargin = 80;
+        const timelineY = height - 30;
+        const timelineTicks = [1960, 1970, 1980, 1990, 2000, 2010];
+        const revivalAnchorX = width - 520;
+        const revivalGuideTop = (zoneBounds.get("number1")?.y0 ?? 80) - 8;
+        const revivalGuideBottom = timelineY - 4;
+        const currentYear =
+          activeYear === "ALL" ? d3.max(rows, (row) => row.revivalChartYear) || DEFAULT_YEAR : activeYear;
+        const timelineAnchorX = width - 280;
+        const timelineXForYear = (year) =>
+          clamp(timelineAnchorX - projectYearsBetween(currentYear - year) * (width * 0.85), leftMargin, timelineAnchorX);
+
+        const revivalGuide = timelineLayer.selectAll("g.revival-guide").data([null]).join("g").attr("class", "revival-guide");
+        revivalGuide
+          .selectAll("line.guide-left")
+          .data([null])
+          .join("line")
+          .attr("class", "guide-left")
+          .attr("x1", revivalAnchorX - 4)
+          .attr("x2", revivalAnchorX - 4)
+          .attr("y1", revivalGuideTop)
+          .attr("y2", revivalGuideBottom)
+          .attr("stroke", "#9f948a")
+          .attr("stroke-opacity", 0.5)
+          .attr("stroke-width", 1.5)
+          .attr("stroke-dasharray", "6,4");
+
+        revivalGuide
+          .selectAll("text.guide-label")
+          .data([null])
+          .join("text")
+          .attr("class", "guide-label")
+          .attr("x", revivalAnchorX + (width - revivalAnchorX) / 2)
+          .attr("y", revivalGuideTop - 6)
+          .attr("fill", "#666")
+          .attr("fill-opacity", 1)
+          .attr("font-size", 14)
+          .attr("font-style", "normal")
+          .attr("font-weight", "600")
+          .text(`${currentYear} Top 50`);
+
+        revivalGuide
+          .selectAll("text.current-year-label")
+          .data([null])
+          .join("text")
+          .attr("class", "current-year-label")
+          .attr("x", width - 200)
+          .attr("y", height - 18)
+          .attr("fill", "#9f948a")
+          .attr("fill-opacity", 0.9)
+          .attr("font-size", 12)
+          .attr("font-weight", "600")
+          .attr("text-anchor", "middle")
+          .text(currentYear);
+
+        const timelineGroup = timelineLayer.selectAll("g.reference-timeline").data([null]).join("g").attr("class", "reference-timeline");
+        timelineGroup
+          .selectAll("line.timeline-axis")
+          .data([null])
+          .join("line")
+          .attr("class", "timeline-axis")
+          .attr("x1", leftMargin)
+          .attr("x2", width)
+          .attr("y1", timelineY)
+          .attr("y2", timelineY)
+          .attr("stroke", "#888")
+          .attr("stroke-width", 1.5);
+
+        const tickGroups = timelineGroup.selectAll("g.timeline-tick").data(timelineTicks, (d) => d);
+        const mergedTicks = tickGroups.join((enter) => {
+          const g = enter.append("g").attr("class", "timeline-tick");
+          g.append("line");
+          g.append("text");
+          return g;
+        });
+        const hiddenTickYears = new Set();
+        let previousTickYear = null;
+        let previousTickX = null;
+
+        timelineTicks.forEach((year) => {
+          const tickX = timelineXForYear(year);
+          if (previousTickYear !== null && Math.abs(tickX - previousTickX) < 50) {
+            hiddenTickYears.add(previousTickYear);
+          }
+
+          previousTickYear = year;
+          previousTickX = tickX;
+        });
+
+        mergedTicks.select("line")
+          .attr("x1", (d) => timelineXForYear(d))
+          .attr("x2", (d) => timelineXForYear(d))
+          .attr("y1", timelineY - 3)
+          .attr("y2", timelineY + 3)
+          .attr("stroke", "#ccc");
+
+        mergedTicks.select("text")
+          .attr("x", (d) => timelineXForYear(d))
+          .attr("y", height - 18)
+          .attr("fill", "#555")
+          .attr("fill-opacity", (d) => (hiddenTickYears.has(d) ? 0 : 1))
+          .attr("font-size", 13)
+          .attr("text-anchor", "middle")
+          .text((d) => d);
+
+        const revivalWithMostOriginals = groupedRevivals.reduce(
+          (best, revival) => (!best || revival.originals.length > best.originals.length ? revival : best),
+          null
+        );
+        if (revivalWithMostOriginals) {
+          console.log("revival with most originals", {
+            revival_song: revivalWithMostOriginals.revivalSong,
+            revival_artist: revivalWithMostOriginals.revivalArtist,
+            original_count: revivalWithMostOriginals.originals.length,
+            originals: revivalWithMostOriginals.originals.map((item) => ({
+              original_song: item.originalSong,
+              original_artist: item.originalArtist,
+            })),
+          });
+        }
+
+        const arcData = groupedRevivals.flatMap((revival) => revival.originals);
+
+        arcSelection = arcLayer.selectAll("path.arc").data(arcData, (d) => d.id);
+
+        arcSelection
+          .join(
+            (enter) =>
+              enter
+                .append("path")
+                .attr("class", "arc")
+                .attr("d", (d) => d.path)
+                .attr("stroke", (d) => d.stroke)
+                .attr("stroke-width", (d) => d.strokeWidth)
+                .style("opacity", 0)
+                .call((enterSelection) => enterSelection.transition(transition).style("opacity", 0.06)),
+            (update) =>
+              update.call((updateSelection) =>
+                updateSelection
+                  .transition(transition)
+                  .attr("d", (d) => d.path)
+                  .attr("stroke", (d) => d.stroke)
+                  .attr("stroke-width", (d) => d.strokeWidth)
+                  .style("opacity", 0.06)
+              ),
+            (exit) => exit.call((exitSelection) => exitSelection.transition(transition).style("opacity", 0).remove())
+          );
+
+        arcSelection = arcLayer.selectAll("path.arc");
+
+        originalSelection = originalLayer.selectAll("g.original-mark").data(originalEntities, (d) => d.id);
+
+        originalSelection
+          .join(
+            (enter) => {
+              const group = enter
+                .append("g")
+                .attr("class", (d) => `original-mark ${d.everCharted ? "charted" : "uncharted"}`)
+                .attr("transform", (d) => `translate(${d.originalX},${d.originalY}) scale(1)`)
+                .style("opacity", 0);
+
+              group
+                .append("circle")
+                .attr("class", "original-fill")
+                .attr("r", (d) => d.originalR)
+                .attr("fill", (d) => d.originalColor)
+                .attr("fill-opacity", (d) => (d.splitColors ? 0 : d.everCharted ? 0.7 : 0.7))
+                .attr("stroke", "none");
+
+              group
+                .append("path")
+                .attr("class", "original-top-half")
+                .attr("d", (d) => `M ${-d.originalR},0 A ${d.originalR},${d.originalR} 0 0,1 ${d.originalR},0 Z`)
+                .attr("fill", (d) => (d.splitColors ? d.splitColors.top : d.originalColor))
+                .attr("fill-opacity", (d) => (d.splitColors ? (d.everCharted ? 0.7 : 0.7) : 0));
+
+              group
+                .append("path")
+                .attr("class", "original-bottom-half")
+                .attr("d", (d) => `M ${-d.originalR},0 A ${d.originalR},${d.originalR} 0 0,0 ${d.originalR},0 Z`)
+                .attr("fill", (d) => (d.splitColors ? d.splitColors.bottom : d.originalColor))
+                .attr("fill-opacity", (d) => (d.splitColors ? (d.everCharted ? 0.7 : 0.7) : 0));
+
+              group
+                .append("circle")
+                .attr("class", "original-outline")
+                .attr("r", (d) => d.originalR)
+                .attr("fill", "none")
+                .attr("stroke", (d) => colorWithOpacity(d.originalColor, 0.35))
+                .attr("stroke-width", 1);
+
+              group.call((enterSelection) => enterSelection.transition(transition).style("opacity", 1));
+              return group;
+            },
+            (update) =>
+              update.call((updateSelection) =>
+                updateSelection
+                  .transition(transition)
+                  .attr("transform", (d) => `translate(${d.originalX},${d.originalY}) scale(1)`)
+                  .style("opacity", 1)
+              ),
+            (exit) => exit.call((exitSelection) => exitSelection.transition(transition).style("opacity", 0).remove())
+          );
+
+        originalSelection
+          .select("circle.original-fill")
+          .transition(transition)
+          .attr("r", (d) => d.originalR)
+          .attr("fill", (d) => d.originalColor)
+          .attr("fill-opacity", (d) => (d.splitColors ? 0 : d.everCharted ? 0.7 : 0.7));
+        originalSelection
+          .select("path.original-top-half")
+          .transition(transition)
+          .attr("d", (d) => `M ${-d.originalR},0 A ${d.originalR},${d.originalR} 0 0,1 ${d.originalR},0 Z`)
+          .attr("fill", (d) => (d.splitColors ? d.splitColors.top : d.originalColor))
+          .attr("fill-opacity", (d) => (d.splitColors ? (d.everCharted ? 0.7 : 0.7) : 0));
+        originalSelection
+          .select("path.original-bottom-half")
+          .transition(transition)
+          .attr("d", (d) => `M ${-d.originalR},0 A ${d.originalR},${d.originalR} 0 0,0 ${d.originalR},0 Z`)
+          .attr("fill", (d) => (d.splitColors ? d.splitColors.bottom : d.originalColor))
+          .attr("fill-opacity", (d) => (d.splitColors ? (d.everCharted ? 0.7 : 0.7) : 0));
+        originalSelection
+          .select("circle.original-outline")
+          .transition(transition)
+          .attr("r", (d) => d.originalR)
+          .attr("stroke", (d) => colorWithOpacity(d.originalColor, 0.35))
+          .attr("stroke-width", 1);
+        originalSelection = originalLayer.selectAll("g.original-mark");
+
+        revivalSelection = revivalLayer.selectAll("g.revival-mark").data(groupedRevivals, (d) => d.id);
+
+        revivalSelection
+          .join(
+            (enter) => {
+              const group = enter
+                .append("g")
+                .attr("class", "revival-mark")
+                .attr("transform", (d) => `translate(${d.revivalX},${d.revivalY})`)
+                .style("opacity", 0);
+
+              group
+                .append("circle")
+                .attr("r", (d) => d.revivalR)
+                .attr("fill", (d) => d.revivalColor)
+                .attr("fill-opacity", 0.85)
+                .attr("stroke", (d) => d.revivalColor)
+                .attr("stroke-width", 1);
+
+              group.call((enterSelection) => enterSelection.transition(transition).style("opacity", 1));
+              return group;
+            },
+            (update) =>
+              update.call((updateSelection) =>
+                updateSelection
+                  .transition(transition)
+                  .attr("transform", (d) => `translate(${d.revivalX},${d.revivalY})`)
+                  .style("opacity", 1)
+              ),
+            (exit) => exit.call((exitSelection) => exitSelection.transition(transition).style("opacity", 0).remove())
+          );
+
+        revivalSelection = revivalLayer.selectAll("g.revival-mark");
+        revivalSelection
+          .select("circle")
+          .transition(transition)
+          .attr("r", (d) => d.revivalR)
+          .attr("fill", (d) => d.revivalColor)
+          .attr("stroke", (d) => d.revivalColor);
+
+        bindInteraction(arcSelection, "original");
+        bindInteraction(originalSelection, "original");
+
+        revivalSelection
+          .on("mouseenter", function (event, revival) {
+            if (lockedId && lockedId !== revival.id) {
+              return;
+            }
+
+            d3.select(this).raise();
+            applyRevivalFocus(revival, !lockedId);
+          })
+          .on("mouseleave", function () {
+            if (!lockedId) {
+              resetFocus();
+            }
+          })
+          .on("click", function (event, revival) {
+            event.stopPropagation();
+            lockedId = revival.id;
+            d3.select(this).raise();
+            applyRevivalFocus(revival, false);
+          });
+
+        if (lockedId) {
+          const lockedRevival = groupedRevivals.find((revival) => revival.id === lockedId);
+          if (lockedRevival) {
+            applyRevivalFocus(lockedRevival, false);
+          } else {
+            const lockedOriginal = originalEntities.find((original) => original.id === lockedId);
+            if (lockedOriginal) {
+              applyFocus(lockedOriginal, false, "original");
+            } else {
+              const lockedLink = arcData.find((row) => row.id === lockedId);
+              if (lockedLink) {
+                applyFocus(lockedLink, false, "link");
+              } else {
+                lockedId = null;
+                resetFocus();
+              }
+            }
+          }
+        } else {
+          resetFocus();
+        }
+      }
+
+      d3.csv("sample_pairs_clean.csv", (row, index) => {
+        const revivalPeak = Number(row.revival_peak);
+        const revivalChartYear = Number(row.revival_chart_year);
+        const originalPeak = Number(row.original_peak);
+        const normalizedOriginalPeak = Number.isFinite(originalPeak) && originalPeak > 0 ? originalPeak : null;
+        const yearsBetween = Number(row.years_between);
+        const originalReleaseYear = Number(row.original_release_year);
+        const revivalSpotifyPopularity = Number(row.revival_spotify_popularity);
+        const revivalWeeksOnChart = Number(row.revival_weeks_on_chart);
+        const originalWeeksOnChart = Number(row.original_weeks_on_chart);
+        const everCharted = Number(row.ever_charted) === 1;
+        const relationshipType = row.relationship_type;
+
+        if (
+          !Number.isFinite(revivalPeak) ||
+          !Number.isFinite(revivalChartYear) ||
+          !Number.isFinite(yearsBetween) ||
+          !Number.isFinite(originalReleaseYear) ||
+          !RELATIONSHIP_COLOR[relationshipType]
+        ) {
+          return null;
+        }
+
+        return {
+          id: `link-${index}`,
+          revivalSong: row.revival_song,
+          revivalArtist: row.revival_artist,
+          revivalPeak,
+          revivalChartYear,
+          revivalSpotifyPopularity: Number.isFinite(revivalSpotifyPopularity) ? revivalSpotifyPopularity : 0,
+          revivalWeeksOnChart: Number.isFinite(revivalWeeksOnChart) ? revivalWeeksOnChart : 1,
+          originalSong: row.original_song,
+          originalArtist: row.original_artist,
+          originalPeak: normalizedOriginalPeak,
+          originalPeakDisplay: normalizedOriginalPeak,
+          originalWeeksOnChart: Number.isFinite(originalWeeksOnChart) ? originalWeeksOnChart : 1,
+          originalReleaseYear,
+          everCharted,
+          yearsBetween: clamp(yearsBetween, 0, 90),
+          relationshipType
+        };
+      })
+        .then((rows) => {
+          allRows = rows.filter(Boolean);
+          const revivalWeeksExtent = d3.extent(allRows, (row) => row.revivalWeeksOnChart);
+          const originalWeeksExtent = d3.extent(allRows, (row) => row.originalWeeksOnChart);
+          maxWeeksOnChart = Math.max(revivalWeeksExtent[1] || 1, originalWeeksExtent[1] || 1, 1);
+
+          console.log("revival_weeks_on_chart", {
+            min: revivalWeeksExtent[0],
+            max: revivalWeeksExtent[1],
+          });
+          console.log("original_weeks_on_chart", {
+            min: originalWeeksExtent[0],
+            max: originalWeeksExtent[1],
+          });
+
+          buildButtons();
+          render(false);
+          initializeVizAPI();
+
+          document.addEventListener("click", () => {
+            if (!lockedId) {
+              return;
+            }
+
+            lockedId = null;
+            resetFocus();
+          });
+
+          window.addEventListener("resize", () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = window.setTimeout(() => render(false), 100);
+          });
+        })
+        .catch((error) => {
+          chartNode.innerHTML = `<div class="empty-state">Failed to load data: ${error.message}</div>`;
+        });
+    </script>
+  </body>
+</html>
