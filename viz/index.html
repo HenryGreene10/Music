@@ -429,6 +429,7 @@
       let revivalSelection = d3.select(null);
       let resizeTimer;
       let maxWeeksOnChart = 1;
+      let forcedFocusConnection = null;
 
       function truncate(text, maxLength = 25) {
         return text.length > maxLength ? `${text.slice(0, maxLength - 1).trimEnd()}…` : text;
@@ -1050,6 +1051,7 @@
 
       function setYear(year) {
         const nextYear = year === "ALL" ? "ALL" : Number(year);
+        forcedFocusConnection = null;
         if (activeYear === nextYear) {
           updateButtons();
           return;
@@ -1086,7 +1088,16 @@
         const rows = activeYear === "ALL"
           ? allRows.slice()
           : allRows.filter((row) => row.revivalChartYear === activeYear);
-        return rows.filter((row) => row.revivalPeak <= 50);
+        return rows.filter(
+          (row) =>
+            row.revivalPeak <= 50 ||
+            (
+              forcedFocusConnection &&
+              row.revivalChartYear === forcedFocusConnection.year &&
+              row.revivalSong.toLowerCase() === forcedFocusConnection.revivalSong &&
+              row.originalSong.toLowerCase() === forcedFocusConnection.originalSong
+            )
+        );
       }
 
       function buildRevivalColorMap(rows) {
@@ -1507,6 +1518,9 @@
       }
 
       function resetFocus() {
+        bandLayer?.selectAll("*").style("opacity", null);
+        timelineLayer?.selectAll("*").style("opacity", null);
+        labelLayer?.selectAll("g.revival-inline-label, g.revival-inline-label *, g.original-inline-label, g.original-inline-label *").style("opacity", null);
         const t = d3.transition().duration(200);
         arcSelection.transition(t).style("opacity", 0.06);
         revivalSelection.transition(t).style("opacity", 1);
@@ -1522,7 +1536,34 @@
 
       function clearFocus() {
         lockedId = null;
+        forcedFocusConnection = null;
         resetFocus();
+      }
+
+      function applyScrollyIsolation(arcIds, revivalKeys, originalKeys) {
+        if (!window.SCROLLY_MODE) {
+          return;
+        }
+
+        const dimOpacity = 0.04;
+        bandLayer?.selectAll("*").style("opacity", dimOpacity);
+        timelineLayer?.selectAll("*").style("opacity", dimOpacity);
+
+        arcSelection
+          .interrupt()
+          .style("opacity", (d) => (arcIds.has(d.id) ? 1 : dimOpacity));
+
+        revivalSelection
+          .interrupt()
+          .style("opacity", (d) => (revivalKeys.has(d.revivalKey) ? 1 : dimOpacity));
+
+        originalSelection
+          .interrupt()
+          .style("opacity", (d) => (originalKeys.has(d.originalKey) ? 1 : dimOpacity));
+
+        labelLayer
+          ?.selectAll("g.revival-inline-label, g.revival-inline-label *, g.original-inline-label, g.original-inline-label *")
+          .style("opacity", 1);
       }
 
       function focusSong(revivalSongName, revivalArtistName) {
@@ -1549,47 +1590,112 @@
           return;
         }
 
-        clearFocus();
-        const relatedIds = new Set(matchedRevival.originals.map((item) => item.id));
-        const relatedOriginalKeys = new Set(matchedRevival.originals.map((item) => item.originalKey));
-        const t = d3.transition().duration(200);
-
-        arcSelection
-          .transition(t)
-          .style("opacity", (d) => (relatedIds.has(d.id) ? 1 : 0.15));
-
-        revivalSelection
-          .transition(t)
-          .style("opacity", (d) => (d.revivalKey === matchedRevival.revivalKey ? 1 : 0.15));
-
-        originalSelection
-          .transition(t)
-          .style("opacity", (d) => (relatedOriginalKeys.has(d.originalKey) ? 1 : 0.15));
-
-        arcSelection
-          .filter((d) => relatedIds.has(d.id))
-          .raise();
-        revivalSelection
-          .filter((d) => d.revivalKey === matchedRevival.revivalKey)
-          .raise();
-        originalSelection
-          .filter((d) => relatedOriginalKeys.has(d.originalKey))
-          .raise();
-
         lockedId = matchedRevival.id;
         applyRevivalFocus(matchedRevival, false);
+      }
 
-        arcSelection
-          .interrupt()
-          .style("opacity", (d) => (relatedIds.has(d.id) ? 1 : 0.15));
+      function focusConnection(revivalSongName, originalSongName) {
+        const revivalQuery = String(revivalSongName || "").trim().toLowerCase();
+        const originalQuery = String(originalSongName || "").trim().toLowerCase();
+        if (!revivalQuery || !originalQuery) {
+          return;
+        }
 
-        revivalSelection
-          .interrupt()
-          .style("opacity", (d) => (d.revivalKey === matchedRevival.revivalKey ? 1 : 0.15));
+        console.log("SCROLLY_MODE at focus time:", window.SCROLLY_MODE);
+        const availableLinks = arcSelection.data();
+        console.log(
+          "focusConnection available revival songs",
+          Array.from(new Set(availableLinks.map((link) => link.revivalSong))).sort()
+        );
 
-        originalSelection
-          .interrupt()
-          .style("opacity", (d) => (relatedOriginalKeys.has(d.originalKey) ? 1 : 0.15));
+        let matchedLink = availableLinks.find(
+          (link) =>
+            link.revivalSong.toLowerCase() === revivalQuery &&
+            link.originalSong.toLowerCase() === originalQuery
+        );
+
+        if (!matchedLink) {
+          const fallbackRow = allRows.find(
+            (row) =>
+              row.revivalChartYear === activeYear &&
+              row.revivalSong.toLowerCase() === revivalQuery &&
+              row.originalSong.toLowerCase() === originalQuery
+          );
+
+          if (fallbackRow) {
+            forcedFocusConnection = {
+              year: fallbackRow.revivalChartYear,
+              revivalSong: revivalQuery,
+              originalSong: originalQuery,
+            };
+            render(true);
+            matchedLink = arcSelection
+              .data()
+              .find(
+                (link) =>
+                  link.revivalSong.toLowerCase() === revivalQuery &&
+                  link.originalSong.toLowerCase() === originalQuery
+              );
+          }
+        }
+
+        console.log("focusConnection lookup", {
+          year: activeYear,
+          revivalSongName,
+          originalSongName,
+          matched: Boolean(matchedLink),
+          matchedLink: matchedLink
+            ? {
+                revival_song: matchedLink.revivalSong,
+                revival_artist: matchedLink.revivalArtist,
+                original_song: matchedLink.originalSong,
+                original_artist: matchedLink.originalArtist,
+                revival_chart_year: matchedLink.revivalChartYear,
+              }
+            : null,
+          candidates: availableLinks
+            .filter((link) => link.revivalSong.toLowerCase() === revivalQuery)
+            .map((link) => ({
+              revival_song: link.revivalSong,
+              revival_artist: link.revivalArtist,
+              original_song: link.originalSong,
+              original_artist: link.originalArtist,
+              revival_chart_year: link.revivalChartYear,
+            })),
+        });
+        if (!matchedLink) {
+          return;
+        }
+
+        const applyConnectionIsolation = () => {
+          hideInlineLabels();
+          showInlineLabels(matchedLink, [matchedLink]);
+
+          if (window.SCROLLY_MODE) {
+            const dimOpacity = 0.06;
+            arcSelection
+              .interrupt()
+              .style("opacity", (d) => (d.id === matchedLink.id ? 1 : dimOpacity));
+
+            revivalSelection
+              .interrupt()
+              .style("opacity", (d) => (d.revivalKey === matchedLink.revivalKey ? 1 : dimOpacity));
+
+            originalSelection
+              .interrupt()
+              .style("opacity", (d) => (d.originalSong.toLowerCase() === originalQuery ? 1 : dimOpacity));
+          }
+        };
+
+        lockedId = matchedLink.id;
+        applyFocus(matchedLink, false, "link");
+        applyConnectionIsolation();
+
+        window.setTimeout(() => {
+          if (window.SCROLLY_MODE && lockedId === matchedLink.id) {
+            applyConnectionIsolation();
+          }
+        }, 360);
       }
 
       function setScrollyMode(active) {
@@ -1600,6 +1706,7 @@
         window.vizAPI = {
           setYear,
           focusSong,
+          focusConnection,
           clearFocus,
           setScrollyMode,
         };
@@ -1676,11 +1783,19 @@
         }
 
         if (mode === "original") {
-          showInlineLabels(firstDegreeLinks);
+          if (isolateSplitOriginal) {
+            showInlineLabels(firstDegreeLinks);
+            applyScrollyIsolation(relatedIds, relatedRevivalKeys, relatedOriginalKeys);
+            return;
+          }
+
+          showInlineLabels(relatedLinks[0] || link, relatedLinks);
+          applyScrollyIsolation(relatedIds, relatedRevivalKeys, relatedOriginalKeys);
           return;
         }
 
         showInlineLabels(relatedLinks[0] || link, relatedLinks);
+        applyScrollyIsolation(relatedIds, relatedRevivalKeys, relatedOriginalKeys);
       }
 
       function applyRevivalFocus(revival, pulse = false) {
@@ -1748,6 +1863,7 @@
 
         console.log("hover originals length", revival.originals.length);
         showInlineLabels(revival.originals[0], revival.originals);
+        applyScrollyIsolation(relatedIds, new Set([revival.revivalKey]), relatedOriginalKeys);
       }
 
       function bindInteraction(selection, mode = "link") {
@@ -2078,6 +2194,19 @@
           g.append("text");
           return g;
         });
+        const hiddenTickYears = new Set();
+        let previousTickYear = null;
+        let previousTickX = null;
+
+        timelineTicks.forEach((year) => {
+          const tickX = timelineXForYear(year);
+          if (previousTickYear !== null && Math.abs(tickX - previousTickX) < 50) {
+            hiddenTickYears.add(previousTickYear);
+          }
+
+          previousTickYear = year;
+          previousTickX = tickX;
+        });
 
         mergedTicks.select("line")
           .attr("x1", (d) => timelineXForYear(d))
@@ -2090,6 +2219,7 @@
           .attr("x", (d) => timelineXForYear(d))
           .attr("y", height - 18)
           .attr("fill", "#555")
+          .attr("fill-opacity", (d) => (hiddenTickYears.has(d) ? 0 : 1))
           .attr("font-size", 13)
           .attr("text-anchor", "middle")
           .text((d) => d);
